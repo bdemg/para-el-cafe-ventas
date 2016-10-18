@@ -93,7 +93,6 @@ public class OrdersDAO {
     
     
     public void saveSale(
-        int inputFolio,
         String inputPhonenumber,
         String inputProduct,
         int inputQuantity,
@@ -109,7 +108,8 @@ public class OrdersDAO {
             preparedStatement = ( PreparedStatement ) connect
                     .prepareStatement( this.INSERT_ORDER_QUERY );
             
-            preparedStatement.setInt( this.FOLIO_COLUMN, inputFolio );
+            int nextFolio = getLastFolio() + 1;
+            preparedStatement.setInt( this.FOLIO_COLUMN, nextFolio );
             preparedStatement.setString( this.PHONENUMBER_COLUMN, inputPhonenumber );
             preparedStatement.setString( this.PRODUCT_COLUMN, inputProduct );
             preparedStatement.setInt( this.QUANTITY_COLUMN, inputQuantity );

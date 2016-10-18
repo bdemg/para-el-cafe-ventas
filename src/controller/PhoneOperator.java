@@ -5,6 +5,7 @@
  */
 package controller;
 
+import daos.OrdersDAO;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -146,7 +147,45 @@ public final class PhoneOperator extends Controller {
         
         this.calculateSale();
         
-        //guarda la venta por medio del DAO
+        String phoneNumber = this.salesSheet.getClientPhoneNumber().getText();
+        
+        int DueDay = (int) this.salesSheet.getDueDay().getValue();
+        int DueMonth = (int) this.salesSheet.getDueMonth().getValue();
+        int DueYear = (int) this.salesSheet.getDueYear().getValue();
+        int DueHour = (int) this.salesSheet.getDueHour().getValue();
+        int DueMinute = (int) this.salesSheet.getDueMinute().getValue();
+        
+        OrdersTaker currentOrders = this.salesSheet.getOrdersTaker();
+        
+        for( int ordersCount = 0; ordersCount < currentOrders.getRowCount(); ordersCount++ ){
+            
+            ProductsList productList = (ProductsList) currentOrders.getValueAt( ordersCount,
+                OrdersTaker.PRODUCT_NAME );
+            String productName = (String) productList.getSelectedItem();
+            
+            int productQuantity = (int) currentOrders.getValueAt( ordersCount,
+                    OrdersTaker.PRODUCT_QUANTITY );
+            
+            double productPrice = (double) currentOrders.getValueAt(ordersCount,
+                    OrdersTaker.PRODUCT_PRICE);
+            
+            try {
+                
+                OrdersDAO.getOrdersDAO().saveSale(
+                        phoneNumber,
+                        productName,
+                        productQuantity,
+                        productPrice,
+                        DueDay,
+                        DueMonth,
+                        DueYear,
+                        DueHour,
+                        DueMinute);
+                
+            } catch (Exception ex) {
+                Logger.getLogger(PhoneOperator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
         this.cleanSaleSheet();
         this.lockClientPhonenumber(false);
