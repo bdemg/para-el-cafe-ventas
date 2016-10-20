@@ -10,9 +10,9 @@ import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.Calculator;
+import model.SalesCalculator;
 import model.ErrorMessager;
-import model.OrdersTaker;
+import model.OrdersList;
 import model.ProductsList;
 import view.SalesSheet;
 
@@ -113,7 +113,7 @@ public final class PhoneOperator extends Controller {
         
         Object[] newOrder = {null, new ProductsList(),
             this.INITIAL_PRODUCT_QUANTITY, 0.0};
-        OrdersTaker orders = this.salesSheet.getOrdersTaker();
+        OrdersList orders = this.salesSheet.getOrdersList();
         orders.addRow(newOrder);
     }
     
@@ -135,7 +135,7 @@ public final class PhoneOperator extends Controller {
     
     public void removeProduct(int inputProductToRemove) {
         
-        OrdersTaker orders = this.salesSheet.getOrdersTaker();
+        OrdersList orders = this.salesSheet.getOrdersList();
         orders.removeRow((inputProductToRemove - 1));
 
     }
@@ -155,19 +155,19 @@ public final class PhoneOperator extends Controller {
         int DueHour = (int) this.salesSheet.getDueHour().getValue();
         int DueMinute = (int) this.salesSheet.getDueMinute().getValue();
         
-        OrdersTaker currentOrders = this.salesSheet.getOrdersTaker();
+        OrdersList currentOrders = this.salesSheet.getOrdersList();
         
         for( int ordersCount = 0; ordersCount < currentOrders.getRowCount(); ordersCount++ ){
             
-            ProductsList productList = (ProductsList) currentOrders.getValueAt( ordersCount,
-                OrdersTaker.PRODUCT_NAME );
+            ProductsList productList = (ProductsList) currentOrders.getValueAt(ordersCount,
+                OrdersList.PRODUCT_NAME );
             String productName = (String) productList.getSelectedItem();
             
-            int productQuantity = (int) currentOrders.getValueAt( ordersCount,
-                    OrdersTaker.PRODUCT_QUANTITY );
+            int productQuantity = (int) currentOrders.getValueAt(ordersCount,
+                    OrdersList.PRODUCT_QUANTITY );
             
             double productPrice = (double) currentOrders.getValueAt(ordersCount,
-                    OrdersTaker.PRODUCT_PRICE);
+                    OrdersList.PRODUCT_PRICE);
             
             try {
                 
@@ -195,7 +195,7 @@ public final class PhoneOperator extends Controller {
     
     private void cleanSaleSheet() {
         
-        this.salesSheet.cleanOrdersTaker();
+        this.salesSheet.cleanOrdersList();
         this.salesSheet.getClientName().setText( this.EMPTY );
         this.salesSheet.getClientAddress().setText( this.EMPTY );
         this.salesSheet.getClientPhoneNumber().setText( this.EMPTY );
@@ -232,25 +232,27 @@ public final class PhoneOperator extends Controller {
         
         this.salesSheet.saveChangesInOrdersTable();
         
-        Calculator calculator = Calculator.getCalculator();
-        calculator.calculatePartialCosts( this.salesSheet.getOrdersTaker() );
-        double saleTotal = calculator.saleTotal( this.salesSheet.getOrdersTaker() );
+        SalesCalculator salesCalculator = SalesCalculator.getCalculator();
+        salesCalculator.calculatePartialCosts( this.salesSheet.getOrdersList() );
         
+        double saleTotal = salesCalculator.saleTotal( this.salesSheet.getOrdersList() );
         this.salesSheet.getTotalSale().setText( String.valueOf( saleTotal ) );
     }
 
     private int askForProductToRemove(boolean outputIsCanceled) {
         
-        OrdersTaker ordersTaker = this.salesSheet.getOrdersTaker();
-        Object[] productNumbers = new Object[ ordersTaker.getRowCount() ];
+        OrdersList ordersList = this.salesSheet.getOrdersList();
+        Object[] productNumbers = ordersList.getProductNumberList();
         
-        for( int productCount = 0; productCount < ordersTaker.getRowCount(); productCount++ ){
-            productNumbers[ productCount ] = productCount + 1;
-        }
-        
-        Object productToRemove = JOptionPane.showInputDialog(this.salesSheet,
-            this.REMOVE_PRODUCT_QUESTION, null, JOptionPane.QUESTION_MESSAGE,
-            null, productNumbers, 1);
+        Object productToRemove = JOptionPane.showInputDialog(
+            this.salesSheet,
+            this.REMOVE_PRODUCT_QUESTION,
+            null,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            productNumbers,
+            1
+        );
         
         outputIsCanceled = productToRemove == null;
         

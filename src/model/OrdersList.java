@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Jorge A. Cano
  */
-public class OrdersTaker extends DefaultTableModel {
+public class OrdersList extends DefaultTableModel {
     
     public static final int PRODUCT_NUMBER = 0;
     public static final int PRODUCT_NAME = 1;
@@ -25,15 +25,15 @@ public class OrdersTaker extends DefaultTableModel {
     private static final String[] COLUMN_TITLES = { "#", "Producto",
         "Cantidad", "Costo" };
     
-    public OrdersTaker(int inputRowCount) {
+    public OrdersList(int inputRowCount) {
         
-        super(OrdersTaker.COLUMN_TITLES, inputRowCount); 
+        super(OrdersList.COLUMN_TITLES, inputRowCount); 
     }
 
     
-    public OrdersTaker(Object[][] data) {
+    public OrdersList(Object[][] data) {
         
-        super(data, OrdersTaker.COLUMN_TITLES);
+        super(data, OrdersList.COLUMN_TITLES);
     }
 
     @Override
@@ -41,19 +41,19 @@ public class OrdersTaker extends DefaultTableModel {
         Class columnClass = String.class;
         switch ( inputColumnIndex ) {
             
-            case OrdersTaker.PRODUCT_NUMBER:
+            case OrdersList.PRODUCT_NUMBER:
                 columnClass = Integer.class;
                 break;
                 
-            case OrdersTaker.PRODUCT_NAME:
+            case OrdersList.PRODUCT_NAME:
                 columnClass = JComboBox.class;
                 break;
                 
-            case OrdersTaker.PRODUCT_QUANTITY:
+            case OrdersList.PRODUCT_QUANTITY:
                 columnClass = Integer.class;
                 break;
                 
-            case OrdersTaker.PRODUCT_PRICE:
+            case OrdersList.PRODUCT_PRICE:
                 columnClass = Double.class;
                 break;
                 
@@ -73,5 +73,17 @@ public class OrdersTaker extends DefaultTableModel {
             
             return super.getValueAt( inputRow, inputColumn );
         }
+    }
+    
+    
+    public Object[] getProductNumberList(){
+        
+        Object[] productNumbers = new Object[this.getRowCount()];
+        for( int productCount = 0; productCount < this.getRowCount(); productCount++ ){
+            
+            productNumbers[ productCount ] = productCount + 1;
+        }
+        
+        return productNumbers;
     }
 }

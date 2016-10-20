@@ -18,8 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.text.PlainDocument;
-import model.NumberFilter;
-import model.OrdersTaker;
+import view.documentfilters.NumberFilter;
+import model.OrdersList;
 import model.Time;
 import view.editors.JComboBoxTableEditor;
 import view.renders.JComboBoxTableRenderer;
@@ -111,7 +111,7 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
 
         clientSearchButton.setText("Buscar Cliente");
 
-        ordersTable.setModel(new OrdersTaker(0));
+        ordersTable.setModel(new OrdersList(0));
         ordersTable.setEnabled(false);
         jScrollPane1.setViewportView(ordersTable);
 
@@ -336,21 +336,20 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
     private javax.swing.JLabel totalSale;
     // End of variables declaration//GEN-END:variables
 
-    public OrdersTaker getOrdersTaker() {
-        return (OrdersTaker) this.ordersTable.getModel();
+    public OrdersList getOrdersList() {
+        return (OrdersList) this.ordersTable.getModel();
     }
   
     
-    public void setOrdersTaker(OrdersTaker inputOrdersTaker){
+    public void setOrdersList(OrdersList inputOrdersTaker){
         
         this.ordersTable.setModel(inputOrdersTaker);
-        //this.setEditorsAndRenderers();
     }
     
-    public void cleanOrdersTaker(){
+    public void cleanOrdersList(){
         
         ordersTable = new javax.swing.JTable();
-        ordersTable.setModel(new OrdersTaker(0));
+        ordersTable.setModel(new OrdersList(0));
         ordersTable.setEnabled(false);
         jScrollPane1.setViewportView(ordersTable);
         this.setEditorsAndRenderers();
@@ -468,14 +467,14 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
 
     private void setEditorsAndRenderers() {
         
-        this.ordersTable.getColumnModel().getColumn(OrdersTaker.PRODUCT_NAME).
+        this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_NAME).
                 setCellEditor(new JComboBoxTableEditor());
-        this.ordersTable.getColumnModel().getColumn(OrdersTaker.PRODUCT_QUANTITY).
+        this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_QUANTITY).
                 setCellEditor(new SpinnerEditor());
 
-        this.ordersTable.getColumnModel().getColumn(OrdersTaker.PRODUCT_NAME).
+        this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_NAME).
                 setCellRenderer(new JComboBoxTableRenderer());
-        this.ordersTable.getColumnModel().getColumn(OrdersTaker.PRODUCT_QUANTITY).
+        this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_QUANTITY).
                 setCellRenderer(new JSpinnerTableRenderer());
     }
 
@@ -486,7 +485,7 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
 
     @Override
     public void focusLost(FocusEvent e) {
-        //
+        ;
     }
     
     public void saveChangesInOrdersTable(){
