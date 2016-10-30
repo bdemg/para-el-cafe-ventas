@@ -47,10 +47,10 @@ public class ClientsDAO {
     }
     
 
-    public String[] searchClientPhonenumber(String inputPhonenumber, boolean modIsFound) throws Exception {
+    public String[] searchClientPhonenumber(String input_phonenumber, boolean modIsFound) throws Exception {
         try {
             // Result set get the result of the SQL query
-            resultSet = statement.executeQuery(this.PHONE_QUERY + inputPhonenumber);
+            resultSet = statement.executeQuery(this.PHONE_QUERY + input_phonenumber);
             
             modIsFound = resultSet.last();
             String[] queryResults;

@@ -25,9 +25,9 @@ public class OrdersList extends DefaultTableModel {
     private static final String[] COLUMN_TITLES = { "#", "Producto",
         "Cantidad", "Costo" };
     
-    public OrdersList(int inputRowCount) {
+    public OrdersList(int input_rowCount) {
         
-        super(OrdersList.COLUMN_TITLES, inputRowCount); 
+        super(OrdersList.COLUMN_TITLES, input_rowCount); 
     }
 
     
@@ -37,9 +37,9 @@ public class OrdersList extends DefaultTableModel {
     }
 
     @Override
-    public Class<?> getColumnClass(int inputColumnIndex) {
+    public Class<?> getColumnClass(int input_columnIndex) {
         Class columnClass = String.class;
-        switch ( inputColumnIndex ) {
+        switch ( input_columnIndex ) {
             
             case OrdersList.PRODUCT_NUMBER:
                 columnClass = Integer.class;
@@ -65,13 +65,13 @@ public class OrdersList extends DefaultTableModel {
     
     
     @Override
-    public Object getValueAt( int inputRow, int inputColumn ) {
-        if(inputColumn == 0) {
+    public Object getValueAt( int input_row, int input_column ) {
+        if(input_column == 0) {
             
-            return inputRow + 1; 
+            return input_row + 1; 
         } else{
             
-            return super.getValueAt( inputRow, inputColumn );
+            return super.getValueAt( input_row, input_column );
         }
     }
     

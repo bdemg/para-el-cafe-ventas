@@ -24,29 +24,29 @@ public class SalesCalculator {
         return SalesCalculator;
     }
     
-    public void calculatePartialCosts( OrdersList modOrdersList ){
+    public void calculatePartialCosts( OrdersList mod_ordersList ){
         
-        for(int productCount = 0; productCount < modOrdersList.getRowCount(); productCount++){
+        for(int productCount = 0; productCount < mod_ordersList.getRowCount(); productCount++){
         
-            ProductsList productList = (ProductsList) modOrdersList.
+            ProductsList productList = (ProductsList) mod_ordersList.
                 getValueAt( productCount, OrdersList.PRODUCT_NAME );
             String productName = (String) productList.getSelectedItem();
             double unitaryPrice = PricesDAO.getPricesDAO().getPrice( productName );
             
             double adjustedPrice = unitaryPrice * 
-                (double) modOrdersList.getValueAt( productCount, OrdersList.PRODUCT_QUANTITY );
+                (double) mod_ordersList.getValueAt( productCount, OrdersList.PRODUCT_QUANTITY );
             
-            modOrdersList.setValueAt( adjustedPrice, productCount, OrdersList.PRODUCT_PRICE );
+            mod_ordersList.setValueAt( adjustedPrice, productCount, OrdersList.PRODUCT_PRICE );
         }
     }
     
-    public double saleTotal( OrdersList inputOrdersList ){
+    public double saleTotal( OrdersList input_ordersList ){
         
         double totalCost = 0;
-        for(int productCount = 0; productCount < inputOrdersList.getRowCount(); productCount++){
+        for(int productCount = 0; productCount < input_ordersList.getRowCount(); productCount++){
             
             totalCost = totalCost + 
-                    (double) inputOrdersList.getValueAt( productCount, OrdersList.PRODUCT_PRICE );
+                    (double) input_ordersList.getValueAt( productCount, OrdersList.PRODUCT_PRICE );
         }
         
         return totalCost;

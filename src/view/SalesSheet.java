@@ -36,8 +36,6 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
      * Creates new form SalesSheet
      */
     
-    private final int STEP_BY = 1;
-    
     public SalesSheet() {
         initComponents();
         
@@ -46,8 +44,6 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
         PlainDocument format = new PlainDocument();
         format.setDocumentFilter(new NumberFilter());
         this.clientPhoneNumber.setDocument(format);
-        
-        this.resetDueDate();
         
         this.dueDay.addFocusListener(this);
         this.dueHour.addFocusListener(this);
@@ -341,10 +337,11 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
     }
   
     
-    public void setOrdersList(OrdersList inputOrdersTaker){
+    public void setOrdersList(OrdersList input_ordersTaker){
         
-        this.ordersTable.setModel(inputOrdersTaker);
+        this.ordersTable.setModel(input_ordersTaker);
     }
+    
     
     public void cleanOrdersList(){
         
@@ -443,27 +440,7 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
         
         return dueYear;
     }
-
     
-    public void resetDueDate() {
-        
-        Calendar today = Calendar.getInstance();
-        
-        this.dueDay.setModel(new SpinnerNumberModel(today.get( Calendar.DAY_OF_MONTH ),
-                Time.FIRST_DAY, Time.MAX_DAYS_IN_MONTH, this.STEP_BY));
-        
-        this.dueMonth.setModel(new SpinnerNumberModel( (today.get( Calendar.MONTH ) + 1),
-                Time.FIRST_MONTH, Time.MONTHS_IN_YEAR, this.STEP_BY));
-        
-        this.dueYear.setModel(new SpinnerNumberModel( today.get( Calendar.YEAR ),
-                today.get( Calendar.YEAR ), ( today.get(Calendar.YEAR) + 1 ), this.STEP_BY));
-        
-        this.dueHour.setModel(new SpinnerNumberModel( today.get(Calendar.HOUR_OF_DAY),
-                Time.FIRST_HOUR_IN_DAY, Time.LAST_HOUR_IN_DAY, this.STEP_BY));
-        
-        this.dueMinute.setModel(new SpinnerNumberModel( today.get(Calendar.MINUTE),
-                Time.FIRST_MINUTE_IN_HOUR, Time.LAST_MINUTE_IN_HOUR, this.STEP_BY));
-    }
 
     private void setEditorsAndRenderers() {
         
@@ -477,16 +454,19 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_QUANTITY).
                 setCellRenderer(new JSpinnerTableRenderer());
     }
+    
 
     @Override
     public void focusGained(FocusEvent e) {
         this.saveChangesInOrdersTable();
     }
+    
 
     @Override
     public void focusLost(FocusEvent e) {
         ;
     }
+    
     
     public void saveChangesInOrdersTable(){
         if(this.ordersTable.isEditing()){
