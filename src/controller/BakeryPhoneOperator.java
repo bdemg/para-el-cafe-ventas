@@ -35,7 +35,7 @@ public final class BakeryPhoneOperator extends Controller {
     private final int INITIAL_PRODUCT_QUANTITY = 1;
     private final int NAME = 1;
     private final int ADDRESS = 2;
-    private final int CANCEL_ORDER = -1;
+    private final int CANCEL_REMOVAL = -1;
     
     
     
@@ -59,7 +59,7 @@ public final class BakeryPhoneOperator extends Controller {
             this.addProductToOrder();
             
         } else if (this.isRemovingProductFromOrder(eventSource)) {
-            this.removeProductFromOrder();
+            this.removeProduct();
             
         } else if(this.isCalculatingSales(eventSource)){
             this.calculateSale();
@@ -152,27 +152,62 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
-    private void removeProductFromOrder() {
+    //remove a product from the order or cancel the removal if the client wants to 
+    private void removeProduct() {
         
         this.salesSheet.saveChangesInOrdersTable();
        
         int productToRemove = askForProductToRemove();
         
-        boolean isCanceled = productToRemove == this.CANCEL_ORDER;    
+        boolean isCanceled = productToRemove == this.CANCEL_REMOVAL;   
+        
+        //a product is removed only if the removal was not canceled
         if(!isCanceled){
-            this.removeProduct(productToRemove);
+            this.removeProductFromOrder(productToRemove);
         }
     }
     
     
-    private void removeProduct(int input_productToRemove) {
+    //ask and obtain the product that the client wants to remove from the order 
+    private int askForProductToRemove() {
+        
+        OrdersList ordersList = this.salesSheet.getOrdersList();
+        Object[] productNumbers = ordersList.getProductNumberList();
+        
+        Object productToRemove = JOptionPane.showInputDialog(
+            this.salesSheet,
+            this.REMOVE_PRODUCT_QUESTION,
+            null,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            productNumbers,
+            1
+        );
+        
+        boolean IsCanceled = productToRemove == null;
+        
+        //if the removal is not canceled the number of the product to remove is returned
+        if( !IsCanceled ){
+            
+            return (int) productToRemove;
+        
+        //...if the removal was canceled, we notify it's cancelling instead
+        } else{
+            
+            return this.CANCEL_REMOVAL;
+        }
+    }
+    
+    
+    //removes the indicated product from the order
+    private void removeProductFromOrder(int input_productToRemove) {
         
         OrdersList orders = this.salesSheet.getOrdersList();
         orders.removeRow((input_productToRemove - 1));
 
     }
     
-    //cambiarlo para que interactue con SalesManager
+    
     private void storeSale() {
         
         this.salesSheet.saveChangesInOrdersTable();
@@ -255,33 +290,6 @@ public final class BakeryPhoneOperator extends Controller {
         
         double saleTotal = salesCalculator.saleTotal( this.salesSheet.getOrdersList() );
         this.salesSheet.getTotalSale().setText( String.valueOf( saleTotal ) );
-    }
-
-    
-    private int askForProductToRemove() {
-        
-        OrdersList ordersList = this.salesSheet.getOrdersList();
-        Object[] productNumbers = ordersList.getProductNumberList();
-        
-        Object productToRemove = JOptionPane.showInputDialog(
-            this.salesSheet,
-            this.REMOVE_PRODUCT_QUESTION,
-            null,
-            JOptionPane.QUESTION_MESSAGE,
-            null,
-            productNumbers,
-            1
-        );
-        
-        boolean IsCanceled = productToRemove == null;
-        
-        if( IsCanceled ){
-            
-            return (int) productToRemove;
-        } else{
-            
-            return this.CANCEL_ORDER;
-        }
     }
     
     
