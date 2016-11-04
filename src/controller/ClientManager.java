@@ -1,5 +1,13 @@
+/**
+ * File: ClientManager.java
+ * This file represents the ClientManager class who extends from Controller
+ * This class is used to manage and register the client information that the
+ * view ClientForm receives, into the Database using ClientDAO
+ * Methods: validateClientRegistration(), registerClientInformation().
+ */
 package controller;
 
+// (c) Copyright 2016 José A. Soto. All Rights Reserved.
 import java.awt.event.ActionEvent;
 
 import daos.ClientTableDAO;
@@ -45,10 +53,11 @@ public class ClientManager extends Controller{
             
         } else if(this.areTextFieldsEmpty()){
             ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-            errorMessager.showErrorMessage( "Campos en blanco." );
+            errorMessager.showErrorMessage( ErrorMessager.EMPTY_FIELDS );
+            
         } else if(this.isPhoneNumberAlreadyInDataBase()){
             ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-            errorMessager.showErrorMessage( "Error" );
+            errorMessager.showErrorMessage( ErrorMessager.CLIENT_REPETITION );
         }
     }
     
