@@ -8,6 +8,8 @@ package view;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.PlainDocument;
+import view.documentfilters.NumberFilter;
 
 /**
  *
@@ -20,6 +22,10 @@ public class ClientForm extends javax.swing.JFrame {
      */
     public ClientForm() {
         initComponents();
+        
+        PlainDocument format = new PlainDocument();
+        format.setDocumentFilter(new NumberFilter());
+        this.clientPhoneNumber.setDocument(format);
     }
 
     /**

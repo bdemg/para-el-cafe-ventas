@@ -5,22 +5,15 @@
  */
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.util.Calendar;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.text.PlainDocument;
 import view.documentfilters.NumberFilter;
 import model.OrdersList;
-import model.Time;
 import view.editors.JComboBoxTableEditor;
 import view.renders.JComboBoxTableRenderer;
 import view.editors.SpinnerEditor;

@@ -5,15 +5,18 @@
  */
 package controller;
 
-import daos.OrdersDAO;
+
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
+
+import daos.OrdersDAO;
 import model.SalesCalculator;
 import model.ErrorMessager;
+import model.Keywords;
 import model.OrdersList;
 import model.ProductsList;
 import model.SalesManager;
@@ -28,15 +31,13 @@ public final class BakeryPhoneOperator extends Controller {
 
     private final SalesSheet salesSheet;
     
-    private final String EMPTY = "";
+
     private final String REMOVE_PRODUCT_QUESTION = "¿Que parte de la orden desea eliminar?";
     
     private final int STEP_BY = 1;
     private final int INITIAL_PRODUCT_QUANTITY = 1;
     private final int NAME = 1;
-    private final int ADDRESS = 2;
-    private final int CANCEL_REMOVAL = -1;
-    
+    private final int ADDRESS = 2;    
     
     
     public BakeryPhoneOperator() {
@@ -159,7 +160,7 @@ public final class BakeryPhoneOperator extends Controller {
        
         int productToRemove = askForProductToRemove();
         
-        boolean isCanceled = productToRemove == this.CANCEL_REMOVAL;   
+        boolean isCanceled = productToRemove == Keywords.CANCEL_REMOVAL;   
         
         //a product is removed only if the removal was not canceled
         if(!isCanceled){
@@ -194,7 +195,7 @@ public final class BakeryPhoneOperator extends Controller {
         //...if the removal was canceled, we notify it's cancelling instead
         } else{
             
-            return this.CANCEL_REMOVAL;
+            return Keywords.CANCEL_REMOVAL;
         }
     }
     
@@ -243,10 +244,10 @@ public final class BakeryPhoneOperator extends Controller {
     private void cleanSaleSheet() {
         
         this.salesSheet.setOrdersList(new OrdersList(0));
-        this.salesSheet.getClientName().setText( this.EMPTY );
-        this.salesSheet.getClientAddress().setText( this.EMPTY );
-        this.salesSheet.getClientPhoneNumber().setText( this.EMPTY );
-        this.salesSheet.getTotalSale().setText( this.EMPTY );
+        this.salesSheet.getClientName().setText( Keywords.EMPTY );
+        this.salesSheet.getClientAddress().setText( Keywords.EMPTY );
+        this.salesSheet.getClientPhoneNumber().setText( Keywords.EMPTY );
+        this.salesSheet.getTotalSale().setText( Keywords.EMPTY );
     }
     
     
