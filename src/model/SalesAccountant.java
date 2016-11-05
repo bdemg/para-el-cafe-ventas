@@ -4,25 +4,24 @@ import daos.PricesDAO;
 
 /**
  * This class is used to calculate partial and total costs for the products
- * contained in an OrdersList. This class implements the singleton design
- * pattern.
+ * contained in an order list.
  * author: Jorge A. Cano
  */
-public class SalesCalculator {
+public class SalesAccountant {
     
     //this variable contains the only instance of the sales calculator
-    private static final SalesCalculator salesCalculator = new SalesCalculator();
+    private static final SalesAccountant salesAccountant = new SalesAccountant();
     
     
-    private SalesCalculator(){
+    private SalesAccountant(){
         ;
     }
     
     
     //gives the sales calculator
-    public static SalesCalculator getCalculator(){
+    public static SalesAccountant getSalesAccountant(){
         
-        return salesCalculator;
+        return salesAccountant;
     }
     
     
@@ -49,11 +48,11 @@ public class SalesCalculator {
         
         }//end of for
     
-    }//end of calculatePartialCosts
+    }
     
     
     //calculate and return the sale total based on the partial costs
-    public double saleTotal( 
+    public double totalPriceOfSale( 
         OrdersList input_ordersList //list of the current ordered products with partial costs already calculated
     ){
         
@@ -69,7 +68,7 @@ public class SalesCalculator {
         
         return totalCost;
     
-    }//end of saleTotal
+    }
 
 }
 

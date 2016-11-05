@@ -29,6 +29,7 @@ public class SpinnerEditor extends DefaultCellEditor
     	spinner.setBorder( null );
     }
 
+    @Override
     public Component getTableCellEditorComponent(
     	JTable table, Object value, boolean isSelected, int row, int column)
     {
@@ -36,6 +37,7 @@ public class SpinnerEditor extends DefaultCellEditor
     	return spinner;
     }
 
+    @Override
     public Object getCellEditorValue()
     {
     	return spinner.getValue();

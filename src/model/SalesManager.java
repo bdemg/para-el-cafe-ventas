@@ -7,6 +7,8 @@ package model;
 
 import controller.BakeryPhoneOperator;
 import daos.OrdersDAO;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.SalesSheet;
@@ -19,14 +21,14 @@ import view.SalesSheet;
  */
 public class SalesManager {
     
-    private static final SalesManager salesMan = new SalesManager();
+    private static final SalesManager salesManager = new SalesManager();
     
     private SalesManager(){
         ;
     }
     
     public static SalesManager callSalesManager(){
-        return SalesManager.salesMan;
+        return SalesManager.salesManager;
     }
     
     public void storeSale(
@@ -68,6 +70,26 @@ public class SalesManager {
                 Logger.getLogger(BakeryPhoneOperator.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    
+    private Date formatDueDate(
+        int inputDueDay,
+        int inputDueMonth,
+        int inputDueYear,
+        int inputDueHour,
+        int inputDueMinute
+    ) {
+        Calendar date = Calendar.getInstance();
+        date.set(
+            inputDueYear,
+            ( inputDueMonth - 1 ), 
+            inputDueDay, 
+            inputDueDay, 
+            inputDueDay
+        );
+        
+        return new Date( date.getTimeInMillis() );
     }
     
 }

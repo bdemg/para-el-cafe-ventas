@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
 import daos.OrdersDAO;
-import model.SalesCalculator;
+import model.SalesAccountant;
 import model.ErrorMessager;
 import model.Keywords;
 import model.OrdersList;
@@ -47,7 +47,19 @@ public final class BakeryPhoneOperator extends Controller {
 
         this.addActionListeners();
     }
+    
+    
+    @Override
+    protected void addActionListeners() {
 
+        this.salesSheet.getCalculateSaleButton().addActionListener(this);
+        this.salesSheet.getRemoveProductButton().addActionListener(this);
+        this.salesSheet.getAddProductButton().addActionListener(this);
+        this.salesSheet.getStoreOrderButton().addActionListener(this);
+        this.salesSheet.getClientSearchButton().addActionListener(this);
+    }
+
+    
     @Override
     public void actionPerformed(ActionEvent input_event) {
         
@@ -63,10 +75,10 @@ public final class BakeryPhoneOperator extends Controller {
             this.removeProduct();
             
         } else if(this.isCalculatingSales(eventSource)){
-            this.calculateSale();
+            this.writeSalePricesInSaleSheet();
             
         } else if(this.isStoringOrder(eventSource)){
-            this.storeSale();
+            this.tellStoreManegerToStoreSale();
         }
     }
     
@@ -96,16 +108,6 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
-    @Override
-    protected void addActionListeners() {
-
-        this.salesSheet.getCalculateSaleButton().addActionListener(this);
-        this.salesSheet.getRemoveProductButton().addActionListener(this);
-        this.salesSheet.getAddProductButton().addActionListener(this);
-        this.salesSheet.getStoreOrderButton().addActionListener(this);
-        this.salesSheet.getClientSearchButton().addActionListener(this);
-    }
-    
     //Considerar moverlo a algo como ClientManager
     private void searchRegisteredClient() {
         
@@ -117,8 +119,9 @@ public final class BakeryPhoneOperator extends Controller {
             if(true){
                 
                 //this.writeClientInfo(clientInfo);
-                this.lockClientPhonenumber(true);
+                this.rejectChangesInClientPhonenumber(true);
                 this.readyForTakingOrders(true);
+                this.setDefaultDueDate();
             } else{
                 
                 ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
@@ -141,6 +144,12 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
+    private void confirmChangesInOrdersList(){
+        if( this.salesSheet.getOrdersTable().isEditing() ){
+            this.salesSheet.getOrdersTable().getCellEditor().stopCellEditing();
+        }
+    }
+    
     
     private void addProductToOrder() {
        
@@ -160,11 +169,11 @@ public final class BakeryPhoneOperator extends Controller {
        
         int productToRemove = askForProductToRemove();
         
-        boolean isCanceled = productToRemove == Keywords.CANCEL_REMOVAL;   
+        boolean isRemovalCanceled = productToRemove == Keywords.CANCEL_REMOVAL;   
         
         //a product is removed only if the removal was not canceled
-        if(!isCanceled){
-            this.removeProductFromOrder(productToRemove);
+        if( !isRemovalCanceled ){
+            this.removeProductFromOrder( productToRemove );
         }
     }
     
@@ -185,10 +194,10 @@ public final class BakeryPhoneOperator extends Controller {
             1
         );
         
-        boolean IsCanceled = productToRemove == null;
+        boolean IsRemovalCanceled = productToRemove == null;
         
         //if the removal is not canceled the number of the product to remove is returned
-        if( !IsCanceled ){
+        if( !IsRemovalCanceled ){
             
             return (int) productToRemove;
         
@@ -209,7 +218,7 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
-    private void storeSale() {
+    private void tellStoreManegerToStoreSale() {
         
         this.confirmChangesInOrdersList();
         /*
@@ -235,9 +244,26 @@ public final class BakeryPhoneOperator extends Controller {
             DueMinute
         );
         */
+        this.prepareForNextClient();
+    }
+    
+    
+    private void prepareForNextClient(){
         this.cleanSaleSheet();
-        this.lockClientPhonenumber(false);
+        this.rejectChangesInClientPhonenumber(false);
         this.readyForTakingOrders(false);
+        this.setDefaultDueDate();
+    }
+    
+    private void writeSalePricesInSaleSheet() {
+        
+        this.confirmChangesInOrdersList();
+        
+        SalesAccountant salesAccountant = SalesAccountant.getSalesAccountant();
+        salesAccountant.calculatePartialCosts( this.salesSheet.getOrdersList() );
+        
+        double saleTotal = salesAccountant.totalPriceOfSale( this.salesSheet.getOrdersList() );
+        this.salesSheet.getTotalSale().setText( String.valueOf( saleTotal ) );
     }
 
     
@@ -270,31 +296,17 @@ public final class BakeryPhoneOperator extends Controller {
         this.salesSheet.getDueMonth().setEnabled( input_isReady );
         this.salesSheet.getDueYear().setEnabled( input_isReady );
         
-        this.resetDueDate();
-        
     }//End of readyForTakingOrders(boolean isReady)
 
     
-    private void lockClientPhonenumber(boolean input_isLocked) {
+    private void rejectChangesInClientPhonenumber(boolean input_isLocked) {
         
         this.salesSheet.getClientPhoneNumber().setEnabled( !input_isLocked );
         this.salesSheet.getClientSearchButton().setEnabled( !input_isLocked );
     }
     
     
-    private void calculateSale() {
-        
-        this.confirmChangesInOrdersList();
-        
-        SalesCalculator salesCalculator = SalesCalculator.getCalculator();
-        salesCalculator.calculatePartialCosts( this.salesSheet.getOrdersList() );
-        
-        double saleTotal = salesCalculator.saleTotal( this.salesSheet.getOrdersList() );
-        this.salesSheet.getTotalSale().setText( String.valueOf( saleTotal ) );
-    }
-    
-    
-    private void resetDueDate() {
+    private void setDefaultDueDate() {
         
         Calendar today = Calendar.getInstance();
         
@@ -334,11 +346,5 @@ public final class BakeryPhoneOperator extends Controller {
         );
     }
     
-    
-    public void confirmChangesInOrdersList(){
-        if( this.salesSheet.getOrdersTable().isEditing() ){
-            this.salesSheet.getOrdersTable().getCellEditor().stopCellEditing();
-        }
-    }
 
 }
