@@ -51,9 +51,9 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="addressTextField" max="32767" attributes="0"/>
-                          <Component id="nameTextField" max="32767" attributes="0"/>
-                          <Component id="phoneNumberTextField" max="32767" attributes="0"/>
+                          <Component id="clientAddress" max="32767" attributes="0"/>
+                          <Component id="clientName" max="32767" attributes="0"/>
+                          <Component id="clientPhoneNumber" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -67,16 +67,16 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="label_Name" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="clientName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="label_PhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="phoneNumberTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="clientPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="addressTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="clientAddress" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="label_Address" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -97,21 +97,21 @@
         <Property name="text" type="java.lang.String" value="Nombre:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="nameTextField">
+    <Component class="javax.swing.JTextField" name="clientName">
     </Component>
     <Component class="javax.swing.JLabel" name="label_Address">
       <Properties>
         <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="addressTextField">
+    <Component class="javax.swing.JTextField" name="clientAddress">
     </Component>
     <Component class="javax.swing.JLabel" name="label_PhoneNumber">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tel&#xe9;fono:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="phoneNumberTextField">
+    <Component class="javax.swing.JTextField" name="clientPhoneNumber">
     </Component>
     <Component class="javax.swing.JLabel" name="label_References">
       <Properties>
@@ -125,7 +125,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="referencesTextArea">
+        <Component class="javax.swing.JTextArea" name="clientAddressReferences">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>

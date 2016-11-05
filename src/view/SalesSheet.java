@@ -107,7 +107,7 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
 
         clientSearchButton.setText("Buscar Cliente");
 
-        ordersTable.setModel(new OrdersList(0));
+        ordersTable.setModel(new model.OrdersList(0));
         ordersTable.setEnabled(false);
         jScrollPane1.setViewportView(ordersTable);
 
@@ -442,7 +442,7 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
     }
     
 
-    private void setEditorsAndRenderers() {
+    private void setEditorsAndRenderers() { //cambiar a setTableLook
         
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_NAME).
                 setCellEditor(new JComboBoxTableEditor());
@@ -468,7 +468,7 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
     }
     
     
-    public void saveChangesInOrdersTable(){
+    public void saveChangesInOrdersTable(){//confirmChangesInOrdersTable y pasarlo a phone op
         if(this.ordersTable.isEditing()){
             this.ordersTable.getCellEditor().stopCellEditing();
         }

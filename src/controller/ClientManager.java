@@ -48,42 +48,43 @@ public class ClientManager extends Controller{
     
     private void validateClientRegistration(){
         
-        if(!this.areTextFieldsEmpty() && !this.isPhoneNumberAlreadyInDataBase()){
-            this.registerClientInformation();
+        boolean isClientRegistered = this.isClientRegistered();
+        if(!this.areFormFieldsEmpty() && !isClientRegistered){
+            this.storeClientInformation();
             
-        } else if(this.areTextFieldsEmpty()){
+        } else if(this.areFormFieldsEmpty()){
             ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
             errorMessager.showErrorMessage( ErrorMessager.EMPTY_FIELDS );
             
-        } else if(this.isPhoneNumberAlreadyInDataBase()){
+        } else if( isClientRegistered ){
             ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
             errorMessager.showErrorMessage( ErrorMessager.CLIENT_REPETITION );
         }
     }
     
-    private boolean areTextFieldsEmpty(){
-        boolean areTextFieldsEmpty = (this.clientForm.getNameTextField().getText().equals(this.EMPTY)
-                || this.clientForm.getPhoneNumberTextField().getText().equals(this.EMPTY)
-                || this.clientForm.getAddressTextField().getText().equals(this.EMPTY)
-                || this.clientForm.getReferencesTextArea().getText().equals(this.EMPTY)
+    private boolean areFormFieldsEmpty(){
+        boolean areFormFieldsEmpty = (this.clientForm.getClientName().getText().equals(this.EMPTY)
+                || this.clientForm.getClientPhoneNumber().getText().equals(this.EMPTY)
+                || this.clientForm.getClientAddress().getText().equals(this.EMPTY)
+                || this.clientForm.getClientAddressReferences().getText().equals(this.EMPTY)
         );
-        return areTextFieldsEmpty;
+        return areFormFieldsEmpty;
     }
     
-    private boolean isPhoneNumberAlreadyInDataBase(){
+    private boolean isClientRegistered(){
         
-        String phone_number = this.clientForm.getPhoneNumberTextField().getText();
+        String phone_number = this.clientForm.getClientPhoneNumber().getText();
         ClientTableDAO clientTableDAO = ClientTableDAO.getClientTableDAO();
-        boolean isPhoneNumberAlreadyInDataBase = clientTableDAO.searchClientPhoneNumber(phone_number);
-        return isPhoneNumberAlreadyInDataBase;
+        boolean isClientRegistered = clientTableDAO.searchClientPhoneNumber(phone_number);
+        return isClientRegistered;
     }
     
-    private void registerClientInformation(){
+    private void storeClientInformation(){
         
-        String name = this.clientForm.getNameTextField().getText();
-        String phone_number = this.clientForm.getPhoneNumberTextField().getText();
-        String address = this.clientForm.getAddressTextField().getText();
-        String references = this.clientForm.getReferencesTextArea().getText();
+        String name = this.clientForm.getClientName().getText();
+        String phone_number = this.clientForm.getClientPhoneNumber().getText();
+        String address = this.clientForm.getClientAddress().getText();
+        String references = this.clientForm.getClientAddressReferences().getText();
         
         ClientTableDAO clientTableDAO = ClientTableDAO.getClientTableDAO();
         clientTableDAO.insertClientInformation(name, phone_number, address, references);

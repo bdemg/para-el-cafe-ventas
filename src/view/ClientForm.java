@@ -32,14 +32,14 @@ public class ClientForm extends javax.swing.JFrame {
     private void initComponents() {
 
         label_Name = new javax.swing.JLabel();
-        nameTextField = new javax.swing.JTextField();
+        clientName = new javax.swing.JTextField();
         label_Address = new javax.swing.JLabel();
-        addressTextField = new javax.swing.JTextField();
+        clientAddress = new javax.swing.JTextField();
         label_PhoneNumber = new javax.swing.JLabel();
-        phoneNumberTextField = new javax.swing.JTextField();
+        clientPhoneNumber = new javax.swing.JTextField();
         label_References = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        referencesTextArea = new javax.swing.JTextArea();
+        clientAddressReferences = new javax.swing.JTextArea();
         registerButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,9 +52,9 @@ public class ClientForm extends javax.swing.JFrame {
 
         label_References.setText("Referencias:");
 
-        referencesTextArea.setColumns(20);
-        referencesTextArea.setRows(5);
-        jScrollPane1.setViewportView(referencesTextArea);
+        clientAddressReferences.setColumns(20);
+        clientAddressReferences.setRows(5);
+        jScrollPane1.setViewportView(clientAddressReferences);
 
         registerButton.setText("Registrar");
 
@@ -84,9 +84,9 @@ public class ClientForm extends javax.swing.JFrame {
                             .addComponent(label_Address))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addressTextField)
-                            .addComponent(nameTextField)
-                            .addComponent(phoneNumberTextField))))
+                            .addComponent(clientAddress)
+                            .addComponent(clientName)
+                            .addComponent(clientPhoneNumber))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -95,14 +95,14 @@ public class ClientForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_Name)
-                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_PhoneNumber)
-                    .addComponent(phoneNumberTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clientPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clientAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_Address))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,35 +152,35 @@ public class ClientForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField addressTextField;
+    private javax.swing.JTextField clientAddress;
+    private javax.swing.JTextArea clientAddressReferences;
+    private javax.swing.JTextField clientName;
+    private javax.swing.JTextField clientPhoneNumber;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label_Address;
     private javax.swing.JLabel label_Name;
     private javax.swing.JLabel label_PhoneNumber;
     private javax.swing.JLabel label_References;
-    private javax.swing.JTextField nameTextField;
-    private javax.swing.JTextField phoneNumberTextField;
-    private javax.swing.JTextArea referencesTextArea;
     private javax.swing.JButton registerButton;
     // End of variables declaration//GEN-END:variables
 
-    public JTextField getAddressTextField() {
-        return addressTextField;
+    public JTextField getClientAddress() {
+        return clientAddress;
     }
 
     public JButton getRegisterButton() {
         return registerButton;
     }
 
-    public JTextField getNameTextField() {
-        return nameTextField;
+    public JTextField getClientName() {
+        return clientName;
     }
 
-    public JTextField getPhoneNumberTextField() {
-        return phoneNumberTextField;
+    public JTextField getClientPhoneNumber() {
+        return clientPhoneNumber;
     }
 
-    public JTextArea getReferencesTextArea() {
-        return referencesTextArea;
+    public JTextArea getClientAddressReferences() {
+        return clientAddressReferences;
     }
 }
