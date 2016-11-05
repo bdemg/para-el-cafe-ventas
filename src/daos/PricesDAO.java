@@ -53,9 +53,10 @@ public class PricesDAO {
             // Statements allow to issue SQL queries to the database
             statement = ( Statement ) connect.createStatement();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ClientsDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            
         } catch (SQLException ex) {
-            Logger.getLogger(ClientsDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     

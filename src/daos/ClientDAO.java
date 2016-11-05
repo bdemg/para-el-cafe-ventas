@@ -11,9 +11,9 @@ import java.sql.Statement;
  *
  * @author Antonio Soto
  */
-public class ClientTableDAO {
+public class ClientDAO {
 
-    private static final ClientTableDAO clientTableDAO = new ClientTableDAO();
+    private static final ClientDAO clientTableDAO = new ClientDAO();
 
     private final String DRIVER = "com.mysql.jdbc.Driver";
     private final String HOST = "jdbc:mysql://localhost/DBCafe?autoReconnect=true&useSSL=false";
@@ -21,16 +21,24 @@ public class ClientTableDAO {
     private final String PASSWORD = "rootluigi44_44";
 
     private final String QUERY_INSERT = "INSERT INTO client VALUES (?, ?, ?, ?)";
-
-    private final String QUERY_SEARCH = "SELECT * FROM client WHERE phone_number='";
-    private final String QUERY_SEARCH_ENDING = "';";
+    private final String QUERY_SEARCH = "SELECT * FROM client WHERE phone_number=?";
+    
+    private final int NAME_COLUMN = 0;
+    private final int PHONENUMBER_COLUMN = 1;
+    private final int ADDRESS_COLUMN = 2;
+    private final int REFERENCES_COLUMN = 3;
+    
+    private final String NAME_COLUMN_NAME = "phonenumber";
+    private final String PHONENUMBER_COLUMN_NAME = "name";
+    private final String ADDRESS_COLUMN_NAME = "address";
+    private final String REFERENCES_COLUMN_NAME = "references";
 
     private Connection connection = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
-    private ClientTableDAO() {
+    private ClientDAO() {
         
         try {
             Class.forName(this.DRIVER);
@@ -46,7 +54,7 @@ public class ClientTableDAO {
         }
     }
 
-    public static ClientTableDAO getClientTableDAO() {
+    public static ClientDAO getClientTableDAO() {
         
         return clientTableDAO;
     }
@@ -72,30 +80,63 @@ public class ClientTableDAO {
         } finally {
             this.closeResultSet();
             this.closeStatement();
-            this.closeConnection();
         }
     }
 
-    public boolean searchClientPhoneNumber(String input_PhoneNumber) {
+    public boolean searchClientPhoneNumber( String input_PhoneNumber ) {
         
         try {
-            this.resultSet = this.statement.executeQuery(
-                this.QUERY_SEARCH
-                + input_PhoneNumber
-                + this.QUERY_SEARCH_ENDING
-            );
-            if ( this.resultSet.last() ) {
-                return true;
-            }
+            this.preparedStatement = (PreparedStatement) this.connection.prepareStatement( this.QUERY_SEARCH );
+            this.preparedStatement.setString(1, input_PhoneNumber);
+            this.resultSet = this.preparedStatement.executeQuery();
+            
+            return this.resultSet.last();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
 
         } finally {
-            //this.close();
+            this.closeResultSet();
+            this.closeStatement();
         }
-        return false;
+    }
+    
+    public String[] getClientInfo( String input_PhoneNumber ){
+        
+        try {
+            this.preparedStatement = (PreparedStatement) this.connection.prepareStatement( this.QUERY_SEARCH );
+            this.preparedStatement.setString(1, input_PhoneNumber);
+            this.resultSet = this.preparedStatement.executeQuery();
+            
+            boolean isClientFound = this.resultSet.last();
+            String[] clientInformation;
+            if ( isClientFound ) {
+
+                clientInformation = new String[resultSet.getMetaData().getColumnCount()];
+
+                clientInformation[ this.NAME_COLUMN ] = 
+                        resultSet.getString( this.NAME_COLUMN_NAME );
+                clientInformation[ this.PHONENUMBER_COLUMN ] = 
+                        resultSet.getString( this.PHONENUMBER_COLUMN_NAME );
+                clientInformation[ this.ADDRESS_COLUMN ] = 
+                        resultSet.getString( this.ADDRESS_COLUMN_NAME );
+                clientInformation[ this.REFERENCES_COLUMN ] = 
+                        resultSet.getString( this.REFERENCES_COLUMN_NAME );
+                
+            } else{
+                clientInformation = null;
+            }
+            return clientInformation;
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            
+        } finally {
+            this.closeResultSet();
+            this.closeStatement();
+        }
+        return null;
     }
 
     private void closeResultSet() {

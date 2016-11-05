@@ -10,7 +10,7 @@ package controller;
 // (c) Copyright 2016 José A. Soto. All Rights Reserved.
 import java.awt.event.ActionEvent;
 
-import daos.ClientTableDAO;
+import daos.ClientDAO;
 import model.ErrorMessager;
 import view.ClientForm;
 
@@ -37,16 +37,16 @@ public class ClientManager extends Controller{
     }
 
     @Override
-    public void actionPerformed(ActionEvent event) {
+    public void actionPerformed( ActionEvent event ) {
         
         Object eventSource = event.getSource();
         
-        if( this.isRegisteringClients(eventSource) ){
+        if( this.isRegisteringClients( eventSource ) ){
             this.validateClientRegistration();
         }
     }
     
-    private boolean isRegisteringClients(Object input_eventSource){
+    private boolean isRegisteringClients( Object input_eventSource ){
         
         return input_eventSource == this.clientForm.getRegisterButton();
     }
@@ -56,7 +56,7 @@ public class ClientManager extends Controller{
         boolean isClientRegistered = this.isClientRegistered();
         boolean areFormFieldsEmpty = this.areFormFieldsEmpty();
         
-        if( !areFormFieldsEmpty && !isClientRegistered){
+        if( !areFormFieldsEmpty && !isClientRegistered ){
             this.storeClientInformation();
             
         } else if( areFormFieldsEmpty ){
@@ -83,7 +83,7 @@ public class ClientManager extends Controller{
     private boolean isClientRegistered(){
         
         String phone_number = this.clientForm.getClientPhoneNumber().getText();
-        ClientTableDAO clientTableDAO = ClientTableDAO.getClientTableDAO();
+        ClientDAO clientTableDAO = ClientDAO.getClientTableDAO();
         boolean isClientRegistered = clientTableDAO.searchClientPhoneNumber(phone_number);
         return isClientRegistered;
     }
@@ -95,7 +95,7 @@ public class ClientManager extends Controller{
         String address = this.clientForm.getClientAddress().getText();
         String references = this.clientForm.getClientAddressReferences().getText();
         
-        ClientTableDAO clientTableDAO = ClientTableDAO.getClientTableDAO();
+        ClientDAO clientTableDAO = ClientDAO.getClientTableDAO();
         clientTableDAO.insertClientInformation(name, phone_number, address, references);
     }
 }
