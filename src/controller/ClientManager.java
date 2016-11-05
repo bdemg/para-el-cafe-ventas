@@ -16,7 +16,7 @@ import view.ClientForm;
 
 public class ClientManager extends Controller{
     
-    private ClientForm clientForm;
+    private final ClientForm clientForm;
     
     private final String EMPTY = "";
     
@@ -41,18 +41,25 @@ public class ClientManager extends Controller{
         
         Object eventSource = event.getSource();
         
-        if(eventSource == this.clientForm.getRegisterButton()){
+        if( this.isRegisteringClients(eventSource) ){
             this.validateClientRegistration();
         }
+    }
+    
+    private boolean isRegisteringClients(Object input_eventSource){
+        
+        return input_eventSource == this.clientForm.getRegisterButton();
     }
     
     private void validateClientRegistration(){
         
         boolean isClientRegistered = this.isClientRegistered();
-        if(!this.areFormFieldsEmpty() && !isClientRegistered){
+        boolean areFormFieldsEmpty = this.areFormFieldsEmpty();
+        
+        if( !areFormFieldsEmpty && !isClientRegistered){
             this.storeClientInformation();
             
-        } else if(this.areFormFieldsEmpty()){
+        } else if( areFormFieldsEmpty ){
             ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
             errorMessager.showErrorMessage( ErrorMessager.EMPTY_FIELDS );
             
@@ -63,10 +70,12 @@ public class ClientManager extends Controller{
     }
     
     private boolean areFormFieldsEmpty(){
-        boolean areFormFieldsEmpty = (this.clientForm.getClientName().getText().equals(this.EMPTY)
-                || this.clientForm.getClientPhoneNumber().getText().equals(this.EMPTY)
-                || this.clientForm.getClientAddress().getText().equals(this.EMPTY)
-                || this.clientForm.getClientAddressReferences().getText().equals(this.EMPTY)
+        
+        boolean areFormFieldsEmpty = (
+            this.clientForm.getClientName().getText().equals(this.EMPTY)
+            || this.clientForm.getClientPhoneNumber().getText().equals(this.EMPTY)
+            || this.clientForm.getClientAddress().getText().equals(this.EMPTY)
+            || this.clientForm.getClientAddressReferences().getText().equals(this.EMPTY)
         );
         return areFormFieldsEmpty;
     }

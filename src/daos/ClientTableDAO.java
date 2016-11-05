@@ -31,6 +31,7 @@ public class ClientTableDAO {
     private ResultSet resultSet = null;
 
     private ClientTableDAO() {
+        
         try {
             Class.forName(this.DRIVER);
             this.connection = DriverManager.getConnection(this.HOST, this.USER, this.PASSWORD);
@@ -46,6 +47,7 @@ public class ClientTableDAO {
     }
 
     public static ClientTableDAO getClientTableDAO() {
+        
         return clientTableDAO;
     }
 
@@ -55,6 +57,7 @@ public class ClientTableDAO {
         String address,
         String location_references
     ) {
+        
         try {
             this.preparedStatement = (PreparedStatement) this.connection.prepareStatement( this.QUERY_INSERT );
             this.preparedStatement.setString(1, name);
@@ -74,13 +77,14 @@ public class ClientTableDAO {
     }
 
     public boolean searchClientPhoneNumber(String input_PhoneNumber) {
+        
         try {
             this.resultSet = this.statement.executeQuery(
-                    this.QUERY_SEARCH
-                    + input_PhoneNumber
-                    + this.QUERY_SEARCH_ENDING
+                this.QUERY_SEARCH
+                + input_PhoneNumber
+                + this.QUERY_SEARCH_ENDING
             );
-            if (this.resultSet.last()) {
+            if ( this.resultSet.last() ) {
                 return true;
             }
 
@@ -97,9 +101,10 @@ public class ClientTableDAO {
     private void closeResultSet() {
 
         try {
-            if (this.resultSet != null) {
+            if ( this.resultSet != null ) {
                 this.resultSet.close();
             }
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -108,9 +113,10 @@ public class ClientTableDAO {
     private void closeStatement() {
 
         try {
-            if (this.statement != null) {
+            if ( this.statement != null ) {
                 this.statement.close();
             }
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -119,9 +125,10 @@ public class ClientTableDAO {
     private void closeConnection() {
 
         try {
-            if (this.connection != null) {
+            if ( this.connection != null ) {
                 this.connection.close();
             }
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
