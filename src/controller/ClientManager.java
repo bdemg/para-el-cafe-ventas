@@ -12,13 +12,12 @@ import java.awt.event.ActionEvent;
 
 import daos.ClientDAO;
 import model.ErrorMessager;
+import model.Keywords;
 import view.ClientForm;
 
 public class ClientManager extends Controller{
     
     private final ClientForm clientForm;
-    
-    private final String EMPTY = "";
     
     public ClientManager(){
         
@@ -43,6 +42,7 @@ public class ClientManager extends Controller{
         
         if( this.isRegisteringClients( eventSource ) ){
             this.validateClientRegistration();
+            this.cleanClientForm();
         }
     }
     
@@ -72,10 +72,10 @@ public class ClientManager extends Controller{
     private boolean areFormFieldsEmpty(){
         
         boolean areFormFieldsEmpty = (
-            this.clientForm.getClientName().getText().equals(this.EMPTY)
-            || this.clientForm.getClientPhoneNumber().getText().equals(this.EMPTY)
-            || this.clientForm.getClientAddress().getText().equals(this.EMPTY)
-            || this.clientForm.getClientAddressReferences().getText().equals(this.EMPTY)
+            this.clientForm.getClientName().getText().equals( Keywords.EMPTY )
+            || this.clientForm.getClientPhoneNumber().getText().equals( Keywords.EMPTY )
+            || this.clientForm.getClientAddress().getText().equals( Keywords.EMPTY )
+            || this.clientForm.getClientAddressReferences().getText().equals( Keywords.EMPTY )
         );
         return areFormFieldsEmpty;
     }
@@ -97,5 +97,13 @@ public class ClientManager extends Controller{
         
         ClientDAO clientTableDAO = ClientDAO.getClientTableDAO();
         clientTableDAO.insertClientInformation(name, phone_number, address, references);
+    }
+    
+    private void cleanClientForm(){
+        
+        this.clientForm.getClientName().setText( Keywords.EMPTY );
+        this.clientForm.getClientPhoneNumber().setText( Keywords.EMPTY );
+        this.clientForm.getClientAddress().setText( Keywords.EMPTY );
+        this.clientForm.getClientAddressReferences().setText( Keywords.EMPTY );
     }
 }
