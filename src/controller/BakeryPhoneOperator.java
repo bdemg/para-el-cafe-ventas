@@ -143,7 +143,7 @@ public final class BakeryPhoneOperator extends Controller {
     
     private void addProductToOrder() {
        
-        this.salesSheet.saveChangesInOrdersTable();
+        this.confirmChangesInOrdersList();
         
         Object[] newOrder = {null, new ProductsList(),
             this.INITIAL_PRODUCT_QUANTITY, 0.0};
@@ -155,7 +155,7 @@ public final class BakeryPhoneOperator extends Controller {
     //remove a product from the order or cancel the removal if the client wants to 
     private void removeProduct() {
         
-        this.salesSheet.saveChangesInOrdersTable();
+        this.confirmChangesInOrdersList();
        
         int productToRemove = askForProductToRemove();
         
@@ -210,8 +210,8 @@ public final class BakeryPhoneOperator extends Controller {
     
     private void storeSale() {
         
-        this.salesSheet.saveChangesInOrdersTable();
-        
+        this.confirmChangesInOrdersList();
+        /*
         this.calculateSale();
         
         String phoneNumber = this.salesSheet.getClientPhoneNumber().getText();
@@ -233,7 +233,7 @@ public final class BakeryPhoneOperator extends Controller {
             DueHour,
             DueMinute
         );
-        
+        */
         this.cleanSaleSheet();
         this.lockClientPhonenumber(false);
         this.readyForTakingOrders(false);
@@ -242,7 +242,7 @@ public final class BakeryPhoneOperator extends Controller {
     
     private void cleanSaleSheet() {
         
-        this.salesSheet.cleanOrdersList();
+        this.salesSheet.setOrdersList(new OrdersList(0));
         this.salesSheet.getClientName().setText( this.EMPTY );
         this.salesSheet.getClientAddress().setText( this.EMPTY );
         this.salesSheet.getClientPhoneNumber().setText( this.EMPTY );
@@ -251,23 +251,23 @@ public final class BakeryPhoneOperator extends Controller {
     
     
     //Enables or disables all UI components necessary for taking an order
-    private void readyForTakingOrders(boolean input_isReady){
+    private void readyForTakingOrders( boolean input_isReady ){
         
         //Enable or disable the table where individual orders are taken
-        this.salesSheet.getOrdersTable().setEnabled(input_isReady);
+        this.salesSheet.getOrdersTable().setEnabled( input_isReady );
         
         //Enable or disable all the buttons related with taking an order
-        this.salesSheet.getAddProductButton().setEnabled(input_isReady);
-        this.salesSheet.getRemoveProductButton().setEnabled(input_isReady);
-        this.salesSheet.getStoreOrderButton().setEnabled(input_isReady);
-        this.salesSheet.getCalculateSaleButton().setEnabled(input_isReady);
+        this.salesSheet.getAddProductButton().setEnabled( input_isReady );
+        this.salesSheet.getRemoveProductButton().setEnabled( input_isReady );
+        this.salesSheet.getStoreOrderButton().setEnabled( input_isReady );
+        this.salesSheet.getCalculateSaleButton().setEnabled( input_isReady );
         
         //Enable or disable the spinner fields used to enter a due date for an order
-        this.salesSheet.getDueDay().setEnabled(input_isReady);
-        this.salesSheet.getDueHour().setEnabled(input_isReady);
-        this.salesSheet.getDueMinute().setEnabled(input_isReady);
-        this.salesSheet.getDueMonth().setEnabled(input_isReady);
-        this.salesSheet.getDueYear().setEnabled(input_isReady);
+        this.salesSheet.getDueDay().setEnabled( input_isReady );
+        this.salesSheet.getDueHour().setEnabled( input_isReady );
+        this.salesSheet.getDueMinute().setEnabled( input_isReady );
+        this.salesSheet.getDueMonth().setEnabled( input_isReady );
+        this.salesSheet.getDueYear().setEnabled( input_isReady );
         
         this.resetDueDate();
         
@@ -283,7 +283,7 @@ public final class BakeryPhoneOperator extends Controller {
     
     private void calculateSale() {
         
-        this.salesSheet.saveChangesInOrdersTable();
+        this.confirmChangesInOrdersList();
         
         SalesCalculator salesCalculator = SalesCalculator.getCalculator();
         salesCalculator.calculatePartialCosts( this.salesSheet.getOrdersList() );
@@ -333,5 +333,11 @@ public final class BakeryPhoneOperator extends Controller {
         );
     }
     
+    
+    public void confirmChangesInOrdersList(){
+        if( this.salesSheet.getOrdersTable().isEditing() ){
+            this.salesSheet.getOrdersTable().getCellEditor().stopCellEditing();
+        }
+    }
 
 }

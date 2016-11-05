@@ -30,7 +30,7 @@ import view.renders.JSpinnerTableRenderer;
  *
  * @author Jorge A. Cano
  */
-public class SalesSheet extends javax.swing.JFrame implements FocusListener{
+public class SalesSheet extends javax.swing.JFrame{
 
     /**
      * Creates new form SalesSheet
@@ -39,17 +39,12 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
     public SalesSheet() {
         initComponents();
         
-        this.setEditorsAndRenderers();
+        this.setTableLook();
         
         PlainDocument format = new PlainDocument();
         format.setDocumentFilter(new NumberFilter());
         this.clientPhoneNumber.setDocument(format);
         
-        this.dueDay.addFocusListener(this);
-        this.dueHour.addFocusListener(this);
-        this.dueMonth.addFocusListener(this);
-        this.dueMinute.addFocusListener(this);
-        this.dueYear.addFocusListener(this);
     }
 
     /**
@@ -340,17 +335,9 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
     public void setOrdersList(OrdersList input_ordersTaker){
         
         this.ordersTable.setModel(input_ordersTaker);
+        this.setTableLook();
     }
     
-    
-    public void cleanOrdersList(){
-        
-        ordersTable = new javax.swing.JTable();
-        ordersTable.setModel(new OrdersList(0));
-        ordersTable.setEnabled(false);
-        jScrollPane1.setViewportView(ordersTable);
-        this.setEditorsAndRenderers();
-    }
     
     public JLabel getClientAddress() {
         
@@ -442,7 +429,7 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
     }
     
 
-    private void setEditorsAndRenderers() { //cambiar a setTableLook
+    private void setTableLook() { //cambiar a setTableLook
         
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_NAME).
                 setCellEditor(new JComboBoxTableEditor());
@@ -454,26 +441,5 @@ public class SalesSheet extends javax.swing.JFrame implements FocusListener{
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_QUANTITY).
                 setCellRenderer(new JSpinnerTableRenderer());
     }
-    
-
-    @Override
-    public void focusGained(FocusEvent e) {
-        this.saveChangesInOrdersTable();
-    }
-    
-
-    @Override
-    public void focusLost(FocusEvent e) {
-        ;
-    }
-    
-    
-    public void saveChangesInOrdersTable(){//confirmChangesInOrdersTable y pasarlo a phone op
-        if(this.ordersTable.isEditing()){
-            this.ordersTable.getCellEditor().stopCellEditing();
-        }
-    }
-    
-    
     
 }
