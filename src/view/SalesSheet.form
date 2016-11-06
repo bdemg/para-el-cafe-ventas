@@ -43,18 +43,15 @@
                   <Group type="102" attributes="0">
                       <Component id="clientPhoneNumber" min="-2" pref="82" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="clientSearchButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="clientSearch" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="198" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="clientAddress" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="clientAddress" min="-2" pref="68" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="clientName" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="clientName" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
@@ -87,24 +84,28 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
+                              <EmptySpace min="0" pref="164" max="32767" attributes="0"/>
+                              <Component id="calculateSale" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="addProduct" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="removeProduct" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="dueHour" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="dueMinute" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
-                              <Component id="calculateSaleButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="addProductButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="removeProductButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="storeOrderButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="346" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="storeOrder" max="32767" attributes="0"/>
+                          <Component id="cancelOrder" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
@@ -120,9 +121,9 @@
               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="clientAddress" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="clientAddress" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="clientSearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="clientSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="clientPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
@@ -134,7 +135,7 @@
               <Component id="jScrollPane1" min="-2" pref="353" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="dueDay" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="dueMonth" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -146,15 +147,16 @@
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cancelOrder" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="addProductButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="removeProductButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="storeOrderButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="addProduct" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="removeProduct" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="storeOrder" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="totalSale" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="calculateSaleButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="calculateSale" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -173,9 +175,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="clientName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="------------------------------------------------"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -183,11 +182,8 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="clientAddress">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="----------------------------------------------------------------------------"/>
-      </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="clientSearchButton">
+    <Component class="javax.swing.JButton" name="clientSearch">
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar Cliente"/>
       </Properties>
@@ -215,19 +211,19 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="addProductButton">
+    <Component class="javax.swing.JButton" name="addProduct">
       <Properties>
         <Property name="text" type="java.lang.String" value="A&#xf1;adir producto"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="removeProductButton">
+    <Component class="javax.swing.JButton" name="removeProduct">
       <Properties>
         <Property name="text" type="java.lang.String" value="Eliminar producto"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="storeOrderButton">
+    <Component class="javax.swing.JButton" name="storeOrder">
       <Properties>
         <Property name="text" type="java.lang.String" value="Registrar orden"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -243,7 +239,7 @@
         <Property name="text" type="java.lang.String" value="---------"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="calculateSaleButton">
+    <Component class="javax.swing.JButton" name="calculateSale">
       <Properties>
         <Property name="text" type="java.lang.String" value="Calcular costo"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -304,6 +300,12 @@
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
         <Property name="text" type="java.lang.String" value="Minuto"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cancelOrder">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancelar Orden"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -52,11 +52,12 @@ public final class BakeryPhoneOperator extends Controller {
     @Override
     protected void addActionListeners() {
 
-        this.salesSheet.getCalculateSaleButton().addActionListener(this);
-        this.salesSheet.getRemoveProductButton().addActionListener(this);
-        this.salesSheet.getAddProductButton().addActionListener(this);
-        this.salesSheet.getStoreOrderButton().addActionListener(this);
-        this.salesSheet.getClientSearchButton().addActionListener(this);
+        this.salesSheet.getCalculateSale().addActionListener(this);
+        this.salesSheet.getRemoveProduct().addActionListener(this);
+        this.salesSheet.getAddProduct().addActionListener(this);
+        this.salesSheet.getStoreOrder().addActionListener(this);
+        this.salesSheet.getClientSearch().addActionListener(this);
+        this.salesSheet.getCancelOrder().addActionListener(this);
     }
 
     
@@ -79,32 +80,40 @@ public final class BakeryPhoneOperator extends Controller {
             
         } else if(this.isStoringOrder(eventSource)){
             this.tellStoreManegerToStoreSale();
+            
+        } else if(this.isCancelingOrder(eventSource)){
+            this.prepareForNextClient();
         }
     }
     
     
     private boolean isSearchingForClient(Object input_eventSource){
-        return input_eventSource == this.salesSheet.getClientSearchButton();
+        return input_eventSource == this.salesSheet.getClientSearch();
     }
     
     
     private boolean isAddingProductToOrder(Object input_eventSource){
-        return input_eventSource == this.salesSheet.getAddProductButton();
+        return input_eventSource == this.salesSheet.getAddProduct();
     }
     
     
     private boolean isRemovingProductFromOrder(Object input_eventSource){
-        return input_eventSource == this.salesSheet.getRemoveProductButton();
+        return input_eventSource == this.salesSheet.getRemoveProduct();
     }
     
     
     private boolean isCalculatingSales(Object input_eventSource){
-        return input_eventSource == this.salesSheet.getCalculateSaleButton();
+        return input_eventSource == this.salesSheet.getCalculateSale();
     }
     
     
     private boolean isStoringOrder(Object input_eventSource){
-        return input_eventSource ==  this.salesSheet.getStoreOrderButton();
+        return input_eventSource ==  this.salesSheet.getStoreOrder();
+    }
+    
+    
+    private boolean isCancelingOrder(Object input_eventSource){
+        return input_eventSource == this.salesSheet.getCancelOrder();
     }
     
     
@@ -284,10 +293,11 @@ public final class BakeryPhoneOperator extends Controller {
         this.salesSheet.getOrdersTable().setEnabled( input_isReady );
         
         //Enable or disable all the buttons related with taking an order
-        this.salesSheet.getAddProductButton().setEnabled( input_isReady );
-        this.salesSheet.getRemoveProductButton().setEnabled( input_isReady );
-        this.salesSheet.getStoreOrderButton().setEnabled( input_isReady );
-        this.salesSheet.getCalculateSaleButton().setEnabled( input_isReady );
+        this.salesSheet.getAddProduct().setEnabled( input_isReady );
+        this.salesSheet.getRemoveProduct().setEnabled( input_isReady );
+        this.salesSheet.getStoreOrder().setEnabled( input_isReady );
+        this.salesSheet.getCalculateSale().setEnabled( input_isReady );
+        this.salesSheet.getCancelOrder().setEnabled(input_isReady);
         
         //Enable or disable the spinner fields used to enter a due date for an order
         this.salesSheet.getDueDay().setEnabled( input_isReady );
@@ -302,7 +312,7 @@ public final class BakeryPhoneOperator extends Controller {
     private void rejectChangesInClientPhonenumber(boolean input_isLocked) {
         
         this.salesSheet.getClientPhoneNumber().setEnabled( !input_isLocked );
-        this.salesSheet.getClientSearchButton().setEnabled( !input_isLocked );
+        this.salesSheet.getClientSearch().setEnabled( !input_isLocked );
     }
     
     

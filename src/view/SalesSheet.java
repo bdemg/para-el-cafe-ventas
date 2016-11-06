@@ -55,15 +55,15 @@ public class SalesSheet extends javax.swing.JFrame{
         clientName = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         clientAddress = new javax.swing.JLabel();
-        clientSearchButton = new javax.swing.JButton();
+        clientSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ordersTable = new javax.swing.JTable();
-        addProductButton = new javax.swing.JButton();
-        removeProductButton = new javax.swing.JButton();
-        storeOrderButton = new javax.swing.JButton();
+        addProduct = new javax.swing.JButton();
+        removeProduct = new javax.swing.JButton();
+        storeOrder = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         totalSale = new javax.swing.JLabel();
-        calculateSaleButton = new javax.swing.JButton();
+        calculateSale = new javax.swing.JButton();
         clientPhoneNumber = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         dueDay = new javax.swing.JSpinner();
@@ -76,6 +76,7 @@ public class SalesSheet extends javax.swing.JFrame{
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        cancelOrder = new javax.swing.JButton();
 
         jLabel5.setText("jLabel5");
 
@@ -87,33 +88,29 @@ public class SalesSheet extends javax.swing.JFrame{
 
         jLabel2.setText("Nombre:");
 
-        clientName.setText("------------------------------------------------");
-
         jLabel3.setText("Dirección:");
 
-        clientAddress.setText("----------------------------------------------------------------------------");
-
-        clientSearchButton.setText("Buscar Cliente");
+        clientSearch.setText("Buscar Cliente");
 
         ordersTable.setModel(new model.OrdersList(0));
         ordersTable.setEnabled(false);
         jScrollPane1.setViewportView(ordersTable);
 
-        addProductButton.setText("Añadir producto");
-        addProductButton.setEnabled(false);
+        addProduct.setText("Añadir producto");
+        addProduct.setEnabled(false);
 
-        removeProductButton.setText("Eliminar producto");
-        removeProductButton.setEnabled(false);
+        removeProduct.setText("Eliminar producto");
+        removeProduct.setEnabled(false);
 
-        storeOrderButton.setText("Registrar orden");
-        storeOrderButton.setEnabled(false);
+        storeOrder.setText("Registrar orden");
+        storeOrder.setEnabled(false);
 
         jLabel4.setText("Costo Total:");
 
         totalSale.setText("---------");
 
-        calculateSaleButton.setText("Calcular costo");
-        calculateSaleButton.setEnabled(false);
+        calculateSale.setText("Calcular costo");
+        calculateSale.setEnabled(false);
 
         jLabel6.setText("Entrega:");
 
@@ -137,6 +134,9 @@ public class SalesSheet extends javax.swing.JFrame{
 
         jLabel11.setText("Minuto");
 
+        cancelOrder.setText("Cancelar Orden");
+        cancelOrder.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,15 +151,13 @@ public class SalesSheet extends javax.swing.JFrame{
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(clientPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(clientSearchButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(clientSearch)
+                        .addGap(198, 198, 198)
                         .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(clientAddress)
-                        .addGap(100, 100, 100))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(clientName)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(23, 23, 23)
+                        .addComponent(clientAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clientName))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -188,21 +186,24 @@ public class SalesSheet extends javax.swing.JFrame{
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 164, Short.MAX_VALUE)
+                                .addComponent(calculateSale)
+                                .addGap(18, 18, 18)
+                                .addComponent(addProduct)
+                                .addGap(18, 18, 18)
+                                .addComponent(removeProduct)
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(dueHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel11)
                                 .addGap(18, 18, 18)
-                                .addComponent(dueMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 83, Short.MAX_VALUE)
-                                .addComponent(calculateSaleButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(addProductButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(removeProductButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(storeOrderButton)
-                                .addGap(32, 32, 32))))
+                                .addComponent(dueMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(346, 346, 346)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(storeOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cancelOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(32, 32, 32))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(61, 61, 61))))
@@ -213,9 +214,9 @@ public class SalesSheet extends javax.swing.JFrame{
                 .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(clientAddress)
+                    .addComponent(clientAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(clientSearchButton)
+                    .addComponent(clientSearch)
                     .addComponent(clientPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -225,7 +226,7 @@ public class SalesSheet extends javax.swing.JFrame{
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17)
                 .addComponent(jLabel6)
-                .addGap(5, 5, 5)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dueDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dueMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,15 +237,16 @@ public class SalesSheet extends javax.swing.JFrame{
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(cancelOrder))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addProductButton)
-                    .addComponent(removeProductButton)
-                    .addComponent(storeOrderButton)
+                    .addComponent(addProduct)
+                    .addComponent(removeProduct)
+                    .addComponent(storeOrder)
                     .addComponent(jLabel4)
                     .addComponent(totalSale)
-                    .addComponent(calculateSaleButton))
+                    .addComponent(calculateSale))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -291,12 +293,13 @@ public class SalesSheet extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addProductButton;
-    private javax.swing.JButton calculateSaleButton;
+    private javax.swing.JButton addProduct;
+    private javax.swing.JButton calculateSale;
+    private javax.swing.JButton cancelOrder;
     private javax.swing.JLabel clientAddress;
     private javax.swing.JLabel clientName;
     private javax.swing.JTextField clientPhoneNumber;
-    private javax.swing.JButton clientSearchButton;
+    private javax.swing.JButton clientSearch;
     private javax.swing.JSpinner dueDay;
     private javax.swing.JSpinner dueHour;
     private javax.swing.JSpinner dueMinute;
@@ -315,8 +318,8 @@ public class SalesSheet extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable ordersTable;
-    private javax.swing.JButton removeProductButton;
-    private javax.swing.JButton storeOrderButton;
+    private javax.swing.JButton removeProduct;
+    private javax.swing.JButton storeOrder;
     private javax.swing.JLabel totalSale;
     // End of variables declaration//GEN-END:variables
 
@@ -350,21 +353,21 @@ public class SalesSheet extends javax.swing.JFrame{
     }
 
     
-    public JButton getAddProductButton() {
+    public JButton getAddProduct() {
         
-        return addProductButton;
+        return addProduct;
     }
 
     
-    public JButton getCalculateSaleButton() {
+    public JButton getCalculateSale() {
         
-        return calculateSaleButton;
+        return calculateSale;
     }
     
 
-    public JButton getClientSearchButton() {
+    public JButton getClientSearch() {
         
-        return clientSearchButton;
+        return clientSearch;
     }
 
     
@@ -374,15 +377,15 @@ public class SalesSheet extends javax.swing.JFrame{
     }
 
     
-    public JButton getRemoveProductButton() {
+    public JButton getRemoveProduct() {
         
-        return removeProductButton;
+        return removeProduct;
     }
 
     
-    public JButton getStoreOrderButton() {
+    public JButton getStoreOrder() {
         
-        return storeOrderButton;
+        return storeOrder;
     }
 
     
@@ -420,9 +423,14 @@ public class SalesSheet extends javax.swing.JFrame{
         
         return dueYear;
     }
-    
 
-    private void setTableLook() { //cambiar a setTableLook
+    
+    public JButton getCancelOrder() {
+        return cancelOrder;
+    }
+    
+    
+    private void setTableLook() {
         
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_NAME).
                 setCellEditor(new JComboBoxTableEditor());
@@ -434,5 +442,5 @@ public class SalesSheet extends javax.swing.JFrame{
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_QUANTITY).
                 setCellRenderer(new JSpinnerTableRenderer());
     }
-    
+     
 }
