@@ -196,12 +196,12 @@ public final class BakeryPhoneOperator extends Controller {
         
         boolean IsRemovalCanceled = productToRemove == null;
         
-        //if the removal is not canceled the number of the product to remove is returned
+        //if the removal was not canceled, give the number of the product to remove
         if( !IsRemovalCanceled ){
             
             return (int) productToRemove;
         
-        //...if the removal was canceled, we notify it's cancelling instead
+        //...if the removal was canceled, it's cancelling is notified instead
         } else{
             
             return Keywords.CANCEL_REMOVAL;
@@ -209,7 +209,7 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
-    //removes the indicated product from the order
+    //remove the indicated product from the order
     private void removeProductFromOrder(int input_productToRemove) {
         
         OrdersList orders = this.salesSheet.getOrdersList();
