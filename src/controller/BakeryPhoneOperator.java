@@ -20,7 +20,11 @@ import model.Keywords;
 import model.OrdersList;
 import model.ProductsList;
 import model.SalesManager;
-import model.Time;
+import model.duedatemodels.DueDayTemplate;
+import model.duedatemodels.DueHourTemplate;
+import model.duedatemodels.DueMinuteTemplate;
+import model.duedatemodels.DueMonthTemplate;
+import model.duedatemodels.DueYearTemplate;
 import view.SalesSheet;
 
 /**
@@ -318,42 +322,11 @@ public final class BakeryPhoneOperator extends Controller {
     
     private void setDefaultDueDate() {
         
-        Calendar today = Calendar.getInstance();
-        
-        this.salesSheet.getDueDay().setModel(new SpinnerNumberModel(
-                today.get( Calendar.DAY_OF_MONTH ),
-                Time.FIRST_DAY,
-                Time.MAX_DAYS_IN_MONTH,
-                this.STEP_BY)
-        );
-        
-        this.salesSheet.getDueMonth().setModel(new SpinnerNumberModel( 
-                (today.get( Calendar.MONTH ) + 1),
-                Time.FIRST_MONTH,
-                Time.MONTHS_IN_YEAR,
-                this.STEP_BY)
-        );
-        
-        this.salesSheet.getDueYear().setModel(new SpinnerNumberModel( 
-                today.get( Calendar.YEAR ),
-                today.get( Calendar.YEAR ),
-                ( today.get(Calendar.YEAR) + 1 ),
-                this.STEP_BY)
-        );
-        
-        this.salesSheet.getDueHour().setModel(new SpinnerNumberModel( 
-                today.get(Calendar.HOUR_OF_DAY),
-                Time.FIRST_HOUR_IN_DAY,
-                Time.LAST_HOUR_IN_DAY,
-                this.STEP_BY)
-        );
-        
-        this.salesSheet.getDueMinute().setModel(new SpinnerNumberModel( 
-                today.get(Calendar.MINUTE),
-                Time.FIRST_MINUTE_IN_HOUR,
-                Time.LAST_MINUTE_IN_HOUR,
-                this.STEP_BY)
-        );
+        this.salesSheet.getDueDay().setModel( new DueDayTemplate() );
+        this.salesSheet.getDueMonth().setModel( new DueMonthTemplate() );
+        this.salesSheet.getDueYear().setModel( new DueYearTemplate() );
+        this.salesSheet.getDueHour().setModel( new DueHourTemplate() );
+        this.salesSheet.getDueMinute().setModel( new DueMinuteTemplate() );
     }
     
 
