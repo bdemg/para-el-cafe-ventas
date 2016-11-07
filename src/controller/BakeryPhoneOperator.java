@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
-import daos.OrdersDAO;
+import daos.SalesDAO;
 import model.SalesAccountant;
 import model.ErrorMessager;
 import model.Keywords;

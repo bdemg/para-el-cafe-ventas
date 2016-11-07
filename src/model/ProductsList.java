@@ -15,9 +15,12 @@ public class ProductsList extends JComboBox {
 
     private final static String[] PRODUCTS = {
         "Pastel de Naranja",
-        "Pan de Platano",
-        "Concha",
-        "Pastel de limón",
+        "Brownies",
+        "Roles de Canela",
+        "Merengue Italiano",
+        "Bisquet de Queso Paula",
+        "Cupcake perfecto",
+        "Pastel de Fresas"
     };
 
     public ProductsList() {

@@ -6,7 +6,7 @@
 package model;
 
 import controller.BakeryPhoneOperator;
-import daos.OrdersDAO;
+import daos.SalesDAO;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -53,18 +53,23 @@ public class SalesManager {
             double productPrice = (double) input_saleOrders.getValueAt(ordersCount,
                     OrdersList.PRODUCT_PRICE);
             
+            Date dueDate = this.formatDueDate(
+                input_dueDay,
+                input_dueMonth,
+                input_dueYear,
+                input_dueHour,
+                input_dueMinute
+            );
+            
             try {
                 
-                OrdersDAO.getOrdersDAO().saveSale(
-                        input_phoneNumber,
-                        productName,
-                        productQuantity,
-                        productPrice,
-                        input_dueDay,
-                        input_dueMonth,
-                        input_dueYear,
-                        input_dueHour,
-                        input_dueMinute);
+                SalesDAO.getSalesDAO().saveSale(
+                    input_phoneNumber,
+                    productName,
+                    productQuantity,
+                    productPrice,
+                    dueDate    
+                );
                 
             } catch (Exception ex) {
                 Logger.getLogger(BakeryPhoneOperator.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,19 +79,19 @@ public class SalesManager {
     
     
     private Date formatDueDate(
-        int inputDueDay,
-        int inputDueMonth,
-        int inputDueYear,
-        int inputDueHour,
-        int inputDueMinute
+        int input_DueDay,
+        int input_DueMonth,
+        int input_DueYear,
+        int input_DueHour,
+        int input_DueMinute
     ) {
         Calendar date = Calendar.getInstance();
         date.set(
-            inputDueYear,
-            ( inputDueMonth - 1 ), 
-            inputDueDay, 
-            inputDueDay, 
-            inputDueDay
+            input_DueYear,
+            ( input_DueMonth - 1 ), 
+            input_DueDay, 
+            input_DueHour, 
+            input_DueMinute
         );
         
         return new Date( date.getTimeInMillis() );
