@@ -37,7 +37,7 @@ public class SalesAccountant {
             ProductsList productList = (ProductsList) mod_ordersList.
                 getValueAt( productCount, OrdersList.PRODUCT_NAME );
             String productName = (String) productList.getSelectedItem();
-            double unitaryPrice = PricesDAO.getPricesDAO().getPrice( productName );
+            double unitaryPrice = PricesDAO.getPricesDAO().getProductPrice( productName );
             
             //adjust the price based on the product quantity
             double adjustedPrice = unitaryPrice * 

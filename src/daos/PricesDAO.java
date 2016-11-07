@@ -24,15 +24,18 @@ public class PricesDAO {
     private static final PricesDAO pricesDAO = new PricesDAO();
     
     private final String DRIVER = "com.mysql.jdbc.Driver";
-    private final String USER_AND_PASSWORD = "user=sqluser&password=sqluserpw";
-    private final String HOST = "jdbc:mysql://localhost/feedback?";
+    private final String HOST = "jdbc:mysql://localhost/DBCafe?autoReconnect=true&useSSL=false";
+    private final String USER = "root";
+    private final String PASSWORD = "rootluigi44_44";
     
-    private final String PRICE_QUERY = "select * from sales.products where name= ";
+    private final String PRICE_QUERY = "select * from product where name=?";
     
-    private final String FOLIO_COLUMN_NAME = "price";
+    private final int NAME_COLUMN = 1;
     
-    private Connection connect = null;
-    private Statement statement = null;
+    private final String PRICE_COLUMN_NAME = "price";
+    
+    private Connection connection = null;
+    private java.sql.Statement statement = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
     
@@ -44,14 +47,11 @@ public class PricesDAO {
     
     private PricesDAO(){
         try {
-            // This will load the MySQL driver, each DB has its own driver
-            Class.forName( this.DRIVER );
-            // Setup the connection with the DB
-            connect = DriverManager
-                    .getConnection( this.HOST + this.USER_AND_PASSWORD );
+            Class.forName(this.DRIVER);
+            this.connection = DriverManager.getConnection(this.HOST, this.USER, this.PASSWORD);
 
-            // Statements allow to issue SQL queries to the database
-            statement = ( Statement ) connect.createStatement();
+            this.statement = this.connection.createStatement();
+
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
             
@@ -61,38 +61,50 @@ public class PricesDAO {
     }
     
     
-    public double getPrice(String inputProductName){
+    public double getProductPrice(String input_ProductName){
         
         try {
-            resultSet = statement.executeQuery(this.PRICE_QUERY + inputProductName);
-            double productPrice = resultSet.getDouble(this.FOLIO_COLUMN_NAME);
-            this.close();
+            preparedStatement = ( PreparedStatement ) connection
+                .prepareStatement( this.PRICE_QUERY );
+            
+            this.preparedStatement.setString( this.NAME_COLUMN, input_ProductName );
+            
+            resultSet = this.preparedStatement.executeQuery();
+            
+            double productPrice = resultSet.getDouble(this.PRICE_COLUMN_NAME);
             return productPrice;
         } catch (SQLException ex) {
             Logger.getLogger(PricesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            this.closeResultSet();
+            this.closeStatement();
         }
         return -1;
     }
     
-    private void close() {
+    
+    private void closeResultSet() {
+
         try {
+            if ( this.resultSet != null ) {
+                this.resultSet.close();
+            }
             
-            if ( resultSet != null ) {
-                
-                resultSet.close();
-            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
-            if ( statement != null ) {
-                
-                statement.close();
-            }
+    
+    private void closeStatement() {
 
-            if ( connect != null ) {
-                
-                connect.close();
+        try {
+            if ( this.statement != null ) {
+                this.statement.close();
             }
-        } catch (Exception e) {
-
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 
