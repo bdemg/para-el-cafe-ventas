@@ -61,7 +61,7 @@ public class PricesDAO {
     }
     
     
-    public double getProductPrice(String input_ProductName){
+    public double getProductPrice(String input_ProductName) throws SQLException{
         
         try {
             preparedStatement = ( PreparedStatement ) connection
@@ -75,12 +75,11 @@ public class PricesDAO {
             double productPrice = resultSet.getDouble(this.PRICE_COLUMN_NAME);
             return productPrice;
         } catch (SQLException ex) {
-            Logger.getLogger(PricesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         } finally{
             this.closeResultSet();
             this.closeStatement();
         }
-        return -1;
     }
     
     

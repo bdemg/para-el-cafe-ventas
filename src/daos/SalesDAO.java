@@ -75,7 +75,7 @@ public class SalesDAO {
         double input_cost,
         Date input_dueDate
             
-    ) throws Exception{
+    ) throws SQLException{
         try {
             preparedStatement = ( PreparedStatement ) connection
                     .prepareStatement( this.INSERT_ORDER_QUERY );
@@ -89,8 +89,8 @@ public class SalesDAO {
             
             preparedStatement.execute();
             
-        }catch (Exception e) {
-            throw e;
+        }catch (SQLException ex) {
+            throw ex;
         } finally {
             this.closeResultSet();
             this.closeStatement();

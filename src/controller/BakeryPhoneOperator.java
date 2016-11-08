@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
 import daos.SalesDAO;
+import java.sql.SQLException;
 import model.SalesAccountant;
 import model.ErrorMessager;
 import model.Keywords;
@@ -141,8 +142,8 @@ public final class BakeryPhoneOperator extends Controller {
                 ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
                 errorMessager.showErrorMessage(ErrorMessager.CLIENT_NOT_FOUND);
             }
-        } catch (Exception ex) {
-            Logger.getLogger(BakeryPhoneOperator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            //Call ErrorMessager here
         }
     }
     
@@ -234,21 +235,25 @@ public final class BakeryPhoneOperator extends Controller {
     
     private void tellStoreManegerToStoreSale() {
         
-        this.confirmChangesInOrdersList();
-        
-        this.writeSalePricesInSaleSheet();
-        
-        SalesManager.callSalesManager().storeSale(
-            this.salesSheet.getOrdersList(),
-            this.salesSheet.getClientPhoneNumber().getText(),
-            (int) this.salesSheet.getDueDay().getValue(),
-            (int) this.salesSheet.getDueMonth().getValue(),
-            (int) this.salesSheet.getDueYear().getValue(),
-            (int) this.salesSheet.getDueHour().getValue(),
-            (int) this.salesSheet.getDueMinute().getValue()
-        );
-        
-        this.prepareForNextClient();
+        try {
+            this.confirmChangesInOrdersList();
+            
+            this.writeSalePricesInSaleSheet();
+            
+            SalesManager.callSalesManager().storeSale(
+                    this.salesSheet.getOrdersList(),
+                    this.salesSheet.getClientPhoneNumber().getText(),
+                    (int) this.salesSheet.getDueDay().getValue(),
+                    (int) this.salesSheet.getDueMonth().getValue(),
+                    (int) this.salesSheet.getDueYear().getValue(),
+                    (int) this.salesSheet.getDueHour().getValue(),
+                    (int) this.salesSheet.getDueMinute().getValue()
+            );
+            
+            this.prepareForNextClient();
+        } catch (SQLException ex) {
+            //Call ErrorMessager here
+        }
     }
     
     
@@ -261,13 +266,17 @@ public final class BakeryPhoneOperator extends Controller {
     
     private void writeSalePricesInSaleSheet() {
         
-        this.confirmChangesInOrdersList();
-        
-        SalesAccountant salesAccountant = SalesAccountant.getSalesAccountant();
-        salesAccountant.calculatePartialCosts( this.salesSheet.getOrdersList() );
-        
-        double saleTotal = salesAccountant.totalPriceOfSale( this.salesSheet.getOrdersList() );
-        this.salesSheet.getTotalSale().setText( String.valueOf( saleTotal ) );
+        try {
+            this.confirmChangesInOrdersList();
+            
+            SalesAccountant salesAccountant = SalesAccountant.getSalesAccountant();
+            salesAccountant.calculatePartialCosts( this.salesSheet.getOrdersList() );
+            
+            double saleTotal = salesAccountant.totalPriceOfSale( this.salesSheet.getOrdersList() );
+            this.salesSheet.getTotalSale().setText( String.valueOf( saleTotal ) );
+        } catch (SQLException ex) {
+            //Call ErrorMessager here
+        }
     }
 
     

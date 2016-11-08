@@ -102,7 +102,7 @@ public class ClientDAO {
         }
     }
     
-    public String[] getClientInfo( String input_PhoneNumber ){
+    public String[] getClientInfo( String input_PhoneNumber ) throws SQLException{
         
         try {
             this.preparedStatement = (PreparedStatement) this.connection.prepareStatement( this.QUERY_SEARCH );
@@ -130,13 +130,12 @@ public class ClientDAO {
             return clientInformation;
             
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw ex;
             
         } finally {
             this.closeResultSet();
             this.closeStatement();
         }
-        return null;
     }
 
     private void closeResultSet() {
