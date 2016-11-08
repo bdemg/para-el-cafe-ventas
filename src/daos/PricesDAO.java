@@ -30,7 +30,7 @@ public class PricesDAO {
     
     private final String PRICE_QUERY = "select * from product where name=?";
     
-    private final int NAME_COLUMN = 1;
+    private final int PRODUCT_NAME_COLUMN = 1;
     
     private final String PRICE_COLUMN_NAME = "price";
     
@@ -67,10 +67,11 @@ public class PricesDAO {
             preparedStatement = ( PreparedStatement ) connection
                 .prepareStatement( this.PRICE_QUERY );
             
-            this.preparedStatement.setString( this.NAME_COLUMN, input_ProductName );
+            this.preparedStatement.setString( this.PRODUCT_NAME_COLUMN, input_ProductName );
             
             resultSet = this.preparedStatement.executeQuery();
             
+            resultSet.first();
             double productPrice = resultSet.getDouble(this.PRICE_COLUMN_NAME);
             return productPrice;
         } catch (SQLException ex) {

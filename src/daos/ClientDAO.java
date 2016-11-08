@@ -28,10 +28,10 @@ public class ClientDAO {
     private final int ADDRESS_COLUMN = 2;
     private final int REFERENCES_COLUMN = 3;
     
-    private final String NAME_COLUMN_NAME = "phonenumber";
-    private final String PHONENUMBER_COLUMN_NAME = "name";
+    private final String NAME_COLUMN_NAME = "name";
+    private final String PHONENUMBER_COLUMN_NAME = "phone_number";
     private final String ADDRESS_COLUMN_NAME = "address";
-    private final String REFERENCES_COLUMN_NAME = "references";
+    private final String REFERENCES_COLUMN_NAME = "location_references";
 
     private Connection connection = null;
     private Statement statement = null;

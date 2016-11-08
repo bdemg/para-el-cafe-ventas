@@ -6,6 +6,7 @@
 package controller;
 
 
+import daos.ClientDAO;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -38,10 +39,9 @@ public final class BakeryPhoneOperator extends Controller {
 
     private final String REMOVE_PRODUCT_QUESTION = "¿Que parte de la orden desea eliminar?";
     
-    private final int STEP_BY = 1;
     private final int INITIAL_PRODUCT_QUANTITY = 1;
-    private final int NAME = 1;
-    private final int ADDRESS = 2;    
+    private final int CLIENT_NAME = 0;
+    private final int CLIENT_ADDRESS = 2;    
     
     
     public BakeryPhoneOperator() {
@@ -127,11 +127,12 @@ public final class BakeryPhoneOperator extends Controller {
         String clientPhonenumber = this.salesSheet.getClientPhoneNumber().getText();
         
         try {
-            //boolean isFound = false;
-            //String[] clientInfo = ClientsDAO.callErrorMessager().searchClientPhonenumber(clientPhonenumber, isFound);
-            if(true){
+            
+            String[] clientInfo = ClientDAO.getClientTableDAO().getClientInfo(clientPhonenumber);
+            boolean isFound = clientInfo != null;
+            if(isFound){
                 
-                //this.writeClientInfo(clientInfo);
+                this.writeClientInfo(clientInfo);
                 this.rejectChangesInClientPhonenumber(true);
                 this.readyForTakingOrders(true);
                 this.setDefaultDueDate();
@@ -149,10 +150,10 @@ public final class BakeryPhoneOperator extends Controller {
     //Escribe la información del cliente (nombre y dirección) en la ventana
     private void writeClientInfo(String[] input_clientInfo) {
         
-        String clientName = input_clientInfo[ this.NAME ];
+        String clientName = input_clientInfo[ this.CLIENT_NAME ];
         this.salesSheet.getClientName().setText(clientName);
         
-        String clientAddress = input_clientInfo[ this.ADDRESS ];
+        String clientAddress = input_clientInfo[ this.CLIENT_ADDRESS ];
         this.salesSheet.getClientAddress().setText(clientAddress);
     }
     
@@ -234,29 +235,19 @@ public final class BakeryPhoneOperator extends Controller {
     private void tellStoreManegerToStoreSale() {
         
         this.confirmChangesInOrdersList();
-        /*
-        this.calculateSale();
         
-        String phoneNumber = this.salesSheet.getClientPhoneNumber().getText();
-        
-        int DueDay = (int) this.salesSheet.getDueDay().getValue();
-        int DueMonth = (int) this.salesSheet.getDueMonth().getValue();
-        int DueYear = (int) this.salesSheet.getDueYear().getValue();
-        int DueHour = (int) this.salesSheet.getDueHour().getValue();
-        int DueMinute = (int) this.salesSheet.getDueMinute().getValue();
-        
-        OrdersList currentOrders = this.salesSheet.getOrdersList();
+        this.writeSalePricesInSaleSheet();
         
         SalesManager.callSalesManager().storeSale(
-            currentOrders,
-            phoneNumber,
-            DueDay,
-            DueMonth,
-            DueYear,
-            DueHour,
-            DueMinute
+            this.salesSheet.getOrdersList(),
+            this.salesSheet.getClientPhoneNumber().getText(),
+            (int) this.salesSheet.getDueDay().getValue(),
+            (int) this.salesSheet.getDueMonth().getValue(),
+            (int) this.salesSheet.getDueYear().getValue(),
+            (int) this.salesSheet.getDueHour().getValue(),
+            (int) this.salesSheet.getDueMinute().getValue()
         );
-        */
+        
         this.prepareForNextClient();
     }
     

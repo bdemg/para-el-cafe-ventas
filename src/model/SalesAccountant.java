@@ -41,7 +41,7 @@ public class SalesAccountant {
             
             //adjust the price based on the product quantity
             double adjustedPrice = unitaryPrice * 
-                (double) mod_ordersList.getValueAt( productCount, OrdersList.PRODUCT_QUANTITY );
+                (int) mod_ordersList.getValueAt( productCount, OrdersList.PRODUCT_QUANTITY );
             
             //write the adjusted price in the orders list
             mod_ordersList.setValueAt( adjustedPrice, productCount, OrdersList.PRODUCT_PRICE );

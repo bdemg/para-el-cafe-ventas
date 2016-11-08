@@ -29,8 +29,8 @@ public class SalesDAO {
     private final String PASSWORD = "rootluigi44_44";
     
     private final String INSERT_ORDER_QUERY = "INSERT INTO sales "
-            + "(phone_number, name, quantity, total, date) "
-            + "VALUES (?, ?, ?, ?, ?)";
+            + "(phone_number, name, quantity, total, date, isBaked) "
+            + "VALUES (?, ?, ?, ?, ?, ?)";
     
     private final String FOLIO_COLUMN_NAME = "folio";
     
