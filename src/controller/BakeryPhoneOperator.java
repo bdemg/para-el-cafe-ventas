@@ -143,7 +143,8 @@ public final class BakeryPhoneOperator extends Controller {
                 errorMessager.showErrorMessage(ErrorMessager.CLIENT_NOT_FOUND);
             }
         } catch (SQLException ex) {
-            //Call ErrorMessager here
+            ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
+            errorMessager.showErrorMessage(ErrorMessager.DATABASE_ERROR);
         }
     }
     
@@ -252,7 +253,8 @@ public final class BakeryPhoneOperator extends Controller {
             
             this.prepareForNextClient();
         } catch (SQLException ex) {
-            //Call ErrorMessager here
+            ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
+            errorMessager.showErrorMessage(ErrorMessager.DATABASE_ERROR);
         }
     }
     
@@ -275,7 +277,8 @@ public final class BakeryPhoneOperator extends Controller {
             double saleTotal = salesAccountant.totalPriceOfSale( this.salesSheet.getOrdersList() );
             this.salesSheet.getTotalSale().setText( String.valueOf( saleTotal ) );
         } catch (SQLException ex) {
-            //Call ErrorMessager here
+            ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
+            errorMessager.showErrorMessage(ErrorMessager.DATABASE_ERROR);
         }
     }
 

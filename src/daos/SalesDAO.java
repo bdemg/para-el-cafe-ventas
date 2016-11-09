@@ -32,8 +32,6 @@ public class SalesDAO {
             + "(phone_number, name, quantity, total, date, isBaked) "
             + "VALUES (?, ?, ?, ?, ?, ?)";
     
-    private final String FOLIO_COLUMN_NAME = "folio";
-    
     private final int PHONENUMBER_COLUMN = 1;
     private final int PRODUCT_COLUMN = 2;
     private final int QUANTITY_COLUMN = 3;

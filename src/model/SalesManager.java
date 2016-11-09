@@ -33,13 +33,13 @@ public class SalesManager {
 
     //store each order of the sale in the database
     public void storeSale(
-            OrdersList input_saleOrders,
-            String input_phoneNumber,
-            int input_dueDay,
-            int input_dueMonth,
-            int input_dueYear,
-            int input_dueHour,
-            int input_dueMinute
+        OrdersList input_saleOrders,
+        String input_phoneNumber,
+        int input_dueDay,
+        int input_dueMonth,
+        int input_dueYear,
+        int input_dueHour,
+        int input_dueMinute
     ) throws SQLException {
 
         //cycle through the orders list of the sale and save each one 
@@ -48,39 +48,38 @@ public class SalesManager {
             ProductsList productList = (ProductsList) input_saleOrders.getValueAt(ordersCount,
                 OrdersList.PRODUCT_NAME);
 
-            Date dueDate = this.formatDueDate(
-                input_dueDay,
-                input_dueMonth,
-                input_dueYear,
-                input_dueHour,
-                input_dueMinute
-            );
-
             SalesDAO.getSalesDAO().saveSale(
                 input_phoneNumber,
                 (String) productList.getSelectedItem(),
                 (int) input_saleOrders.getValueAt(ordersCount, OrdersList.PRODUCT_QUANTITY),
                 (double) input_saleOrders.getValueAt(ordersCount, OrdersList.PRODUCT_PRICE),
-                dueDate
+                this.formatDueDate(
+                    input_dueDay,
+                    input_dueMonth,
+                    input_dueYear,
+                    input_dueHour,
+                    input_dueMinute
+                )
             );
-        }
+        } //end of for
     }
 
     //create a properly formatted date that can be saved along the info of each order
     private Date formatDueDate(
-            int input_DueDay,
-            int input_DueMonth,
-            int input_DueYear,
-            int input_DueHour,
-            int input_DueMinute
+        int input_DueDay,
+        int input_DueMonth,
+        int input_DueYear,
+        int input_DueHour,
+        int input_DueMinute
     ) {
         Calendar date = Calendar.getInstance();
+        
         date.set(
-                input_DueYear,
-                (input_DueMonth - 1),
-                input_DueDay,
-                input_DueHour,
-                input_DueMinute
+            input_DueYear,
+            (input_DueMonth - 1),
+            input_DueDay,
+            input_DueHour,
+            input_DueMinute
         );
 
         return new Date(date.getTimeInMillis());
