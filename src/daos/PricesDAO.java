@@ -50,6 +50,8 @@ public class PricesDAO {
             Class.forName(this.DRIVER);
             this.connection = DriverManager.getConnection(this.HOST, this.USER, this.PASSWORD);
 
+            this.statement = this.connection.createStatement();
+
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
             
