@@ -320,7 +320,7 @@ public final class BakeryPhoneOperator extends Controller {
             salesAccountant.calculatePartialCosts( this.salesSheet.getOrdersList() );
             
             double saleTotal = salesAccountant.totalPriceOfSale( this.salesSheet.getOrdersList() );
-            this.salesSheet.getTotalSale().setText( String.valueOf( saleTotal ) );
+            this.salesSheet.setTotalSale(saleTotal);
         } catch (SQLException ex) {
             ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
             errorMessager.showErrorMessage(ErrorMessager.DATABASE_ERROR);
@@ -331,10 +331,10 @@ public final class BakeryPhoneOperator extends Controller {
     private void cleanSaleSheet() {
         
         this.salesSheet.setOrdersList(new OrdersList(0));
+        this.salesSheet.setTotalSale(0.0);
         this.salesSheet.getClientName().setText( Keywords.EMPTY );
         this.salesSheet.getClientAddress().setText( Keywords.EMPTY );
         this.salesSheet.getClientPhoneNumber().setText( Keywords.EMPTY );
-        this.salesSheet.getTotalSale().setText( Keywords.EMPTY );
     }
     
     

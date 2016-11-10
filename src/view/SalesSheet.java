@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.text.NumberFormat;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -18,6 +19,7 @@ import view.editors.JComboBoxTableEditor;
 import view.renders.JComboBoxTableRenderer;
 import view.editors.SpinnerEditor;
 import view.renders.JSpinnerTableRenderer;
+import view.renders.NumberRenderer;
 
 /**
  *
@@ -82,7 +84,6 @@ public class SalesSheet extends javax.swing.JFrame{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Para el Café");
-        setResizable(false);
 
         jLabel1.setText("Teléfono:");
 
@@ -107,7 +108,7 @@ public class SalesSheet extends javax.swing.JFrame{
 
         jLabel4.setText("Costo Total:");
 
-        totalSale.setText("---------");
+        totalSale.setText(NumberFormat.getCurrencyInstance(NumberRenderer.MEXICAN_LOCALE).format(0.0));
 
         calculateSale.setText("Calcular costo");
         calculateSale.setEnabled(false);
@@ -188,7 +189,7 @@ public class SalesSheet extends javax.swing.JFrame{
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 164, Short.MAX_VALUE)
+                                .addGap(0, 254, Short.MAX_VALUE)
                                 .addComponent(calculateSale)
                                 .addGap(18, 18, 18)
                                 .addComponent(addProduct)
@@ -332,7 +333,7 @@ public class SalesSheet extends javax.swing.JFrame{
     
     public void setOrdersList(OrdersList input_ordersTaker){
         
-        this.ordersTable.setModel(input_ordersTaker);
+        this.ordersTable.setModel( input_ordersTaker );
         this.setTableLook();
     }
     
@@ -348,12 +349,11 @@ public class SalesSheet extends javax.swing.JFrame{
         return clientName;
     }
 
-    
-    public JLabel getTotalSale() {
+    public void setTotalSale(double input_totalSale){
         
-        return totalSale;
+        this.totalSale.setText( NumberFormat.
+                getCurrencyInstance( NumberRenderer.MEXICAN_LOCALE ).format( input_totalSale ) );
     }
-
     
     public JButton getAddProduct() {
         
@@ -435,14 +435,17 @@ public class SalesSheet extends javax.swing.JFrame{
     private void setTableLook() {
         
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_NAME).
-                setCellEditor(new JComboBoxTableEditor());
+            setCellEditor(new JComboBoxTableEditor());
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_QUANTITY).
-                setCellEditor(new SpinnerEditor());
+            setCellEditor(new SpinnerEditor());
 
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_NAME).
-                setCellRenderer(new JComboBoxTableRenderer());
+            setCellRenderer(new JComboBoxTableRenderer());
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_QUANTITY).
-                setCellRenderer(new JSpinnerTableRenderer());
+            setCellRenderer(new JSpinnerTableRenderer());
+        
+        this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_PRICE).
+            setCellRenderer(NumberRenderer.getMXNCurrencyRenderer());
     }
      
 }
