@@ -39,6 +39,8 @@ public final class BakeryPhoneOperator extends Controller {
     
 
     private final String REMOVE_PRODUCT_QUESTION = "¿Que parte de la orden desea eliminar?";
+    private final String CONFIRM_SALE_MESSAGE = "¿Está seguro que desea guardar la orden?";
+    private final String CONFIRM_SALE_CANCEL_MESSAGE = "¿Está seguro que desea cancelar la orden?";
     
     private final int INITIAL_PRODUCT_QUANTITY = 1;
     private final int CLIENT_NAME = 0;
@@ -84,10 +86,16 @@ public final class BakeryPhoneOperator extends Controller {
             this.writeSalePricesInSaleSheet();
             
         } else if(this.isStoringOrder(eventSource)){
-            this.tellStoreManegerToStoreSale();
+            
+            if(this.askToConfirmStoringOfOrder()){
+                this.tellStoreManegerToStoreSale();
+            }
             
         } else if(this.isCancelingOrder(eventSource)){
-            this.prepareForNextClient();
+            
+            if(this.askToConfirmCancelingOfOrder()){
+                this.prepareForNextClient();
+            }
         }
     }
     
@@ -119,6 +127,43 @@ public final class BakeryPhoneOperator extends Controller {
     
     private boolean isCancelingOrder(Object input_eventSource){
         return input_eventSource == this.salesSheet.getCancelOrder();
+    }
+    
+    
+    private boolean askToConfirmStoringOfOrder(){
+        
+        int answer = JOptionPane.showConfirmDialog(
+            this.salesSheet, 
+            this.CONFIRM_SALE_MESSAGE, 
+            null, 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.QUESTION_MESSAGE
+        );
+        
+        if(answer == JOptionPane.YES_OPTION){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    private boolean askToConfirmCancelingOfOrder(){
+        
+        int answer = JOptionPane.showConfirmDialog(
+            this.salesSheet, 
+            this.CONFIRM_SALE_CANCEL_MESSAGE, 
+            null, 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.QUESTION_MESSAGE
+        );
+        
+        if(answer == JOptionPane.YES_OPTION){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     
@@ -331,6 +376,5 @@ public final class BakeryPhoneOperator extends Controller {
         this.salesSheet.getDueHour().setModel( new DueHourTemplate() );
         this.salesSheet.getDueMinute().setModel( new DueMinuteTemplate() );
     }
-    
 
 }

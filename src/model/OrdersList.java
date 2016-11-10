@@ -76,12 +76,12 @@ public class OrdersList extends DefaultTableModel {
     }
     
     
-	//obtain the list of product numbers that currently are in the order list
+    //obtain the list of product numbers that currently are in the order list
     public Object[] getProductNumberList(){
         
         Object[] productNumbers = new Object[this.getRowCount()];
 		
-		//cycle through the whole orders list and make the product numbers list
+        //cycle through the whole orders list and make the product numbers list
         for( int productCount = 0; productCount < this.getRowCount(); productCount++ ){
             
             productNumbers[ productCount ] = productCount + 1;
