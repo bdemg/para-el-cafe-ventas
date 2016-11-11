@@ -48,11 +48,18 @@ public final class BakeryPhoneOperator extends Controller {
     
     
     public BakeryPhoneOperator() {
+        
         this.salesSheet = new SalesSheet();
-        this.salesSheet.setVisible(true);
-        this.salesSheet.setLocationRelativeTo(null);
+        this.setupSalesSheet();
 
         this.addActionListeners();
+    }
+    
+    
+    private void setupSalesSheet(){
+        
+        this.salesSheet.setVisible(true);
+        this.salesSheet.setLocationRelativeTo(null);
     }
     
     
@@ -87,13 +94,13 @@ public final class BakeryPhoneOperator extends Controller {
             
         } else if(this.isStoringOrder(eventSource)){
             
-            if(this.askToConfirmStoringOfOrder()){
+            if(this.askForConfirmation(this.CONFIRM_SALE_MESSAGE)){
                 this.tellStoreManegerToStoreSale();
             }
             
         } else if(this.isCancelingOrder(eventSource)){
             
-            if(this.askToConfirmCancelingOfOrder()){
+            if(this.askForConfirmation(this.CONFIRM_SALE_CANCEL_MESSAGE)){
                 this.prepareForNextClient();
             }
         }
@@ -130,29 +137,11 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
-    private boolean askToConfirmStoringOfOrder(){
+    private boolean askForConfirmation(String input_confirmationMessage){
         
         int answer = JOptionPane.showConfirmDialog(
             this.salesSheet, 
-            this.CONFIRM_SALE_MESSAGE, 
-            null, 
-            JOptionPane.YES_NO_OPTION, 
-            JOptionPane.QUESTION_MESSAGE
-        );
-        
-        if(answer == JOptionPane.YES_OPTION){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    
-    private boolean askToConfirmCancelingOfOrder(){
-        
-        int answer = JOptionPane.showConfirmDialog(
-            this.salesSheet, 
-            this.CONFIRM_SALE_CANCEL_MESSAGE, 
+            input_confirmationMessage, 
             null, 
             JOptionPane.YES_NO_OPTION, 
             JOptionPane.QUESTION_MESSAGE
