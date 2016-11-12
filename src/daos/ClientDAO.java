@@ -33,10 +33,10 @@ public class ClientDAO {
     private final int ADDRESS_COLUMN = 2;
     private final int REFERENCES_COLUMN = 3;
     
-    private final String NAME_COLUMN_NAME = "phonenumber";
-    private final String PHONENUMBER_COLUMN_NAME = "name";
+    private final String NAME_COLUMN_NAME = "name";
+    private final String PHONENUMBER_COLUMN_NAME = "phone_number";
     private final String ADDRESS_COLUMN_NAME = "address";
-    private final String REFERENCES_COLUMN_NAME = "references";
+    private final String REFERENCES_COLUMN_NAME = "location_references";
 
     private Connection connectionToDatabase = null;
     private Statement statement = null;
@@ -108,7 +108,7 @@ public class ClientDAO {
         }
     }
     
-    public String[] getClientInfo( String input_PhoneNumber ){
+    public String[] getClientInfo( String input_PhoneNumber ) throws SQLException{
         
         try {
             this.queryStatement = (PreparedStatement) this.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
@@ -136,12 +136,11 @@ public class ClientDAO {
             return clientInformation;
             
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw ex;
             
         } finally {
             this.closeQueryInformation();
         }
-        return null;
     }
     
     private void closeQueryInformation(){

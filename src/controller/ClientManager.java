@@ -17,10 +17,11 @@ import view.ClientForm;
 
 public class ClientManager extends Controller{
     
-    private ClientForm clientForm;
+    private final ClientForm clientForm;
     
     public ClientManager(){
         
+        this.clientForm = new ClientForm();
         this.createClientForm();
         
         this.addActionListeners();
@@ -28,7 +29,6 @@ public class ClientManager extends Controller{
     
     private void createClientForm(){
         
-        this.clientForm = new ClientForm();
         this.clientForm.setVisible(true);
         this.clientForm.setResizable(false);
         this.clientForm.setLocationRelativeTo(null);

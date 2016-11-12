@@ -160,7 +160,7 @@ public final class BakeryPhoneOperator extends Controller {
     private void searchRegisteredClient() {
         
         String clientPhonenumber = this.salesSheet.getClientPhoneNumber().getText();
-        
+            
         try {
             
             String[] clientInfo = ClientDAO.getClientTableDAO().getClientInfo(clientPhonenumber);
