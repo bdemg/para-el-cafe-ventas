@@ -6,8 +6,6 @@
 package view.editors;
 
 import java.awt.Component;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JSpinner;
 import javax.swing.JTable;

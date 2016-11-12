@@ -5,14 +5,10 @@
  */
 package model;
 
-import controller.BakeryPhoneOperator;
 import daos.SalesDAO;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import view.SalesSheet;
 
 /**
  * This class properly stores sales that have been made by the phone operator

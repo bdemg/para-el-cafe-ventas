@@ -6,8 +6,6 @@
 package model;
 
 import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
 import javax.swing.table.DefaultTableModel;
 
 /**

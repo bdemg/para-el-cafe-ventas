@@ -5,15 +5,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
  * @author Antonio Soto
  */
-public class ClientDAO {
+public class ClientsDAO {
 
-    private static final ClientDAO clientTableDAO = new ClientDAO();
+    private static final ClientsDAO clientsDAO = new ClientsDAO();
 
     private final String DRIVER = "com.mysql.jdbc.Driver";
     private final String HOST = "jdbc:mysql://localhost/DBCafe?autoReconnect=true&useSSL=false";
@@ -39,17 +38,14 @@ public class ClientDAO {
     private final String REFERENCES_COLUMN_NAME = "location_references";
 
     private Connection connectionToDatabase = null;
-    private Statement statement = null;
     private PreparedStatement queryStatement = null;
     private ResultSet resultSet = null;
 
-    private ClientDAO() {
+    private ClientsDAO() {
         
         try {
             Class.forName(this.DRIVER);
             this.connectionToDatabase = DriverManager.getConnection(this.HOST, this.USER, this.PASSWORD);
-
-            this.statement = this.connectionToDatabase.createStatement();
 
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -59,9 +55,9 @@ public class ClientDAO {
         }
     }
 
-    public static ClientDAO getClientTableDAO() {
+    public static ClientsDAO getClientsDAO() {
         
-        return clientTableDAO;
+        return clientsDAO;
     }
 
     public void insertClientInformation(
@@ -160,36 +156,12 @@ public class ClientDAO {
             ex.printStackTrace();
         }
     }
-
-    private void closeStatement() {
-
-        try {
-            if ( this.statement != null ) {
-                this.statement.close();
-            }
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
     
     private void closeQueryStatement(){
         
         try {
             if ( this.queryStatement != null ) {
                 this.queryStatement.close();
-            }
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    private void closeConnection() {
-
-        try {
-            if ( this.connectionToDatabase != null ) {
-                this.connectionToDatabase.close();
             }
             
         } catch (SQLException ex) {

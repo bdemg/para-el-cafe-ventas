@@ -2,8 +2,6 @@ package model;
 
 import daos.PricesDAO;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class is used to calculate partial and total costs for the products

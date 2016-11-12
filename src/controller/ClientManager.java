@@ -10,7 +10,7 @@ package controller;
 // (c) Copyright 2016 José A. Soto. All Rights Reserved.
 import java.awt.event.ActionEvent;
 
-import daos.ClientDAO;
+import daos.ClientsDAO;
 import model.ErrorMessager;
 import model.Keywords;
 import view.ClientForm;
@@ -88,7 +88,7 @@ public class ClientManager extends Controller{
     private boolean isClientRegistered(){
         
         String phone_number = this.clientForm.getClientPhoneNumber().getText();
-        ClientDAO clientTableDAO = ClientDAO.getClientTableDAO();
+        ClientsDAO clientTableDAO = ClientsDAO.getClientsDAO();
         boolean isClientRegistered = clientTableDAO.searchClientPhoneNumber(phone_number);
         return isClientRegistered;
     }
@@ -100,7 +100,7 @@ public class ClientManager extends Controller{
         String address = this.clientForm.getClientAddress().getText();
         String references = this.clientForm.getClientAddressReferences().getText();
         
-        ClientDAO clientTableDAO = ClientDAO.getClientTableDAO();
+        ClientsDAO clientTableDAO = ClientsDAO.getClientsDAO();
         clientTableDAO.insertClientInformation(name, phone_number, address, references);
     }
     

@@ -6,15 +6,9 @@
 package controller;
 
 
-import daos.ClientDAO;
+import daos.ClientsDAO;
 import java.awt.event.ActionEvent;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.SpinnerNumberModel;
-
-import daos.SalesDAO;
 import java.sql.SQLException;
 import model.SalesAccountant;
 import model.ErrorMessager;
@@ -166,7 +160,7 @@ public final class BakeryPhoneOperator extends Controller {
             
         try {
             
-            String[] clientInfo = ClientDAO.getClientTableDAO().getClientInfo(clientPhonenumber);
+            String[] clientInfo = ClientsDAO.getClientsDAO().getClientInfo(clientPhonenumber);
             boolean isFound = clientInfo != null;
             if(isFound){
                 
