@@ -17,7 +17,7 @@ import view.documentfilters.NumberFilter;
 import model.OrdersList;
 import view.editors.JComboBoxTableEditor;
 import view.renders.JComboBoxTableRenderer;
-import view.editors.SpinnerEditor;
+import view.editors.JSpinnerTableEditor;
 import view.renders.JSpinnerTableRenderer;
 import view.renders.NumberRenderer;
 
@@ -437,7 +437,7 @@ public class SalesSheet extends javax.swing.JFrame{
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_NAME).
             setCellEditor(new JComboBoxTableEditor());
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_QUANTITY).
-            setCellEditor(new SpinnerEditor());
+            setCellEditor(new JSpinnerTableEditor());
 
         this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_NAME).
             setCellRenderer(new JComboBoxTableRenderer());

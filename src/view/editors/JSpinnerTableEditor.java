@@ -18,11 +18,11 @@ import javax.swing.SpinnerNumberModel;
  *
  * @author Jorge A. Cano
  */
-public class SpinnerEditor extends DefaultCellEditor
+public class JSpinnerTableEditor extends DefaultCellEditor
 {
     private final JSpinner spinner;
 
-    public SpinnerEditor()
+    public JSpinnerTableEditor()
     {
     	super( new JTextField() );
     	spinner = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
