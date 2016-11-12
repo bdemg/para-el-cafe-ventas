@@ -1,8 +1,6 @@
 package daos;
 
 import com.mysql.jdbc.PreparedStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -10,14 +8,9 @@ import java.sql.SQLException;
  *
  * @author Antonio Soto
  */
-public class ClientsDAO {
+public class ClientsDAO extends DatabaseDAO{
 
     private static final ClientsDAO clientsDAO = new ClientsDAO();
-
-    private final String DRIVER = "com.mysql.jdbc.Driver";
-    private final String HOST = "jdbc:mysql://localhost/DBCafe?autoReconnect=true&useSSL=false";
-    private final String USER = "root";
-    private final String PASSWORD = "rootluigi44_44";
 
     private final String INSERT_CLIENT = "INSERT INTO client VALUES (?, ?, ?, ?)";
     private final String QUERY_SEARCH = "SELECT * FROM client WHERE phone_number=?";
@@ -37,22 +30,9 @@ public class ClientsDAO {
     private final String ADDRESS_COLUMN_NAME = "address";
     private final String REFERENCES_COLUMN_NAME = "location_references";
 
-    private Connection connectionToDatabase = null;
-    private PreparedStatement queryStatement = null;
-    private ResultSet resultSet = null;
-
     private ClientsDAO() {
         
-        try {
-            Class.forName(this.DRIVER);
-            this.connectionToDatabase = DriverManager.getConnection(this.HOST, this.USER, this.PASSWORD);
-
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        super();
     }
 
     public static ClientsDAO getClientsDAO() {
@@ -68,50 +48,47 @@ public class ClientsDAO {
     ) {
         
         try {
-            this.queryStatement = 
-                (PreparedStatement) 
-                this.connectionToDatabase.prepareStatement( this.INSERT_CLIENT );
+            PreparedStatement queryStatement = (PreparedStatement) 
+                    super.connectionToDatabase.prepareStatement( this.INSERT_CLIENT );
             
-            this.queryStatement.setString(this.CLIENT_NAME, input_Name);
-            this.queryStatement.setString(this.CLIENT_PHONENUMBER, input_PhoneNumber);
-            this.queryStatement.setString(this.CLIENT_ADDRESS, input_Address);
-            this.queryStatement.setString(this.CLIENT_REFERENCES, input_References);
-            this.queryStatement.execute();
-
+            queryStatement.setString( this.CLIENT_NAME, input_Name );
+            queryStatement.setString( this.CLIENT_PHONENUMBER, input_PhoneNumber );
+            queryStatement.setString( this.CLIENT_ADDRESS, input_Address );
+            queryStatement.setString( this.CLIENT_REFERENCES, input_References );
+            queryStatement.execute();
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
-            
-        } finally {
-            this.closeQueryInformation();
         }
     }
 
     public boolean searchClientPhoneNumber( String input_PhoneNumber ) {
         
         try {
-            this.queryStatement = (PreparedStatement) this.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
-            this.queryStatement.setString(1, input_PhoneNumber);
-            this.resultSet = this.queryStatement.executeQuery();
+            PreparedStatement queryStatement = 
+                    (PreparedStatement) super.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
+            queryStatement.setString(1, input_PhoneNumber);
             
-            return this.resultSet.last();
+            ResultSet resultSet = queryStatement.executeQuery();
+            
+            boolean isClientPhoneNumberFound = resultSet.last();
+            return isClientPhoneNumberFound;
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
-
-        } finally {
-            this.closeQueryInformation();
         }
     }
     
     public String[] getClientInfo( String input_PhoneNumber ) throws SQLException{
         
         try {
-            this.queryStatement = (PreparedStatement) this.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
-            this.queryStatement.setString(1, input_PhoneNumber);
-            this.resultSet = this.queryStatement.executeQuery();
+            PreparedStatement queryStatement = (PreparedStatement) 
+                    super.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
+            queryStatement.setString(1, input_PhoneNumber);
+            ResultSet resultSet = queryStatement.executeQuery();
             
-            boolean isClientFound = this.resultSet.last();
+            boolean isClientFound = resultSet.last();
             String[] clientInformation;
             if ( isClientFound ) {
 
@@ -133,39 +110,6 @@ public class ClientsDAO {
             
         } catch (SQLException ex) {
             throw ex;
-            
-        } finally {
-            this.closeQueryInformation();
-        }
-    }
-    
-    private void closeQueryInformation(){
-        
-        this.closeResultSet();
-        this.closeQueryStatement();
-    }
-
-    private void closeResultSet() {
-
-        try {
-            if ( this.resultSet != null ) {
-                this.resultSet.close();
-            }
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    private void closeQueryStatement(){
-        
-        try {
-            if ( this.queryStatement != null ) {
-                this.queryStatement.close();
-            }
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
 }
