@@ -20,31 +20,36 @@ public class ClientDAO {
     private final String USER = "root";
     private final String PASSWORD = "rootluigi44_44";
 
-    private final String QUERY_INSERT = "INSERT INTO client VALUES (?, ?, ?, ?)";
+    private final String INSERT_CLIENT = "INSERT INTO client VALUES (?, ?, ?, ?)";
     private final String QUERY_SEARCH = "SELECT * FROM client WHERE phone_number=?";
+    
+    private final int CLIENT_NAME = 1;
+    private final int CLIENT_PHONENUMBER = 2;
+    private final int CLIENT_ADDRESS = 3;
+    private final int CLIENT_REFERENCES = 4;
     
     private final int NAME_COLUMN = 0;
     private final int PHONENUMBER_COLUMN = 1;
     private final int ADDRESS_COLUMN = 2;
     private final int REFERENCES_COLUMN = 3;
     
-    private final String NAME_COLUMN_NAME = "name";
-    private final String PHONENUMBER_COLUMN_NAME = "phone_number";
+    private final String NAME_COLUMN_NAME = "phonenumber";
+    private final String PHONENUMBER_COLUMN_NAME = "name";
     private final String ADDRESS_COLUMN_NAME = "address";
-    private final String REFERENCES_COLUMN_NAME = "location_references";
+    private final String REFERENCES_COLUMN_NAME = "references";
 
-    private Connection connection = null;
+    private Connection connectionToDatabase = null;
     private Statement statement = null;
-    private PreparedStatement preparedStatement = null;
+    private PreparedStatement queryStatement = null;
     private ResultSet resultSet = null;
 
     private ClientDAO() {
         
         try {
             Class.forName(this.DRIVER);
-            this.connection = DriverManager.getConnection(this.HOST, this.USER, this.PASSWORD);
+            this.connectionToDatabase = DriverManager.getConnection(this.HOST, this.USER, this.PASSWORD);
 
-            this.statement = this.connection.createStatement();
+            this.statement = this.connectionToDatabase.createStatement();
 
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
@@ -60,35 +65,37 @@ public class ClientDAO {
     }
 
     public void insertClientInformation(
-        String name,
-        String phone_number,
-        String address,
-        String location_references
+        String input_Name,
+        String input_PhoneNumber,
+        String input_Address,
+        String input_References
     ) {
         
         try {
-            this.preparedStatement = (PreparedStatement) this.connection.prepareStatement( this.QUERY_INSERT );
-            this.preparedStatement.setString(1, name);
-            this.preparedStatement.setString(2, phone_number);
-            this.preparedStatement.setString(3, address);
-            this.preparedStatement.setString(4, location_references);
-            this.preparedStatement.execute();
+            this.queryStatement = 
+                (PreparedStatement) 
+                this.connectionToDatabase.prepareStatement( this.INSERT_CLIENT );
+            
+            this.queryStatement.setString(this.CLIENT_NAME, input_Name);
+            this.queryStatement.setString(this.CLIENT_PHONENUMBER, input_PhoneNumber);
+            this.queryStatement.setString(this.CLIENT_ADDRESS, input_Address);
+            this.queryStatement.setString(this.CLIENT_REFERENCES, input_References);
+            this.queryStatement.execute();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             
         } finally {
-            this.closeResultSet();
-            this.closeStatement();
+            this.closeQueryInformation();
         }
     }
 
     public boolean searchClientPhoneNumber( String input_PhoneNumber ) {
         
         try {
-            this.preparedStatement = (PreparedStatement) this.connection.prepareStatement( this.QUERY_SEARCH );
-            this.preparedStatement.setString(1, input_PhoneNumber);
-            this.resultSet = this.preparedStatement.executeQuery();
+            this.queryStatement = (PreparedStatement) this.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
+            this.queryStatement.setString(1, input_PhoneNumber);
+            this.resultSet = this.queryStatement.executeQuery();
             
             return this.resultSet.last();
 
@@ -97,17 +104,16 @@ public class ClientDAO {
             return false;
 
         } finally {
-            this.closeResultSet();
-            this.closeStatement();
+            this.closeQueryInformation();
         }
     }
     
-    public String[] getClientInfo( String input_PhoneNumber ) throws SQLException{
+    public String[] getClientInfo( String input_PhoneNumber ){
         
         try {
-            this.preparedStatement = (PreparedStatement) this.connection.prepareStatement( this.QUERY_SEARCH );
-            this.preparedStatement.setString(1, input_PhoneNumber);
-            this.resultSet = this.preparedStatement.executeQuery();
+            this.queryStatement = (PreparedStatement) this.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
+            this.queryStatement.setString(1, input_PhoneNumber);
+            this.resultSet = this.queryStatement.executeQuery();
             
             boolean isClientFound = this.resultSet.last();
             String[] clientInformation;
@@ -130,12 +136,18 @@ public class ClientDAO {
             return clientInformation;
             
         } catch (SQLException ex) {
-            throw ex;
+            ex.printStackTrace();
             
         } finally {
-            this.closeResultSet();
-            this.closeStatement();
+            this.closeQueryInformation();
         }
+        return null;
+    }
+    
+    private void closeQueryInformation(){
+        
+        this.closeResultSet();
+        this.closeQueryStatement();
     }
 
     private void closeResultSet() {
@@ -162,11 +174,23 @@ public class ClientDAO {
         }
     }
     
+    private void closeQueryStatement(){
+        
+        try {
+            if ( this.queryStatement != null ) {
+                this.queryStatement.close();
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     private void closeConnection() {
 
         try {
-            if ( this.connection != null ) {
-                this.connection.close();
+            if ( this.connectionToDatabase != null ) {
+                this.connectionToDatabase.close();
             }
             
         } catch (SQLException ex) {
