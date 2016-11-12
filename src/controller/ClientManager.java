@@ -22,12 +22,12 @@ public class ClientManager extends Controller{
     public ClientManager(){
         
         this.clientForm = new ClientForm();
-        this.createClientForm();
+        this.setupClientForm();
         
         this.addActionListeners();
     }
     
-    private void createClientForm(){
+    private void setupClientForm(){
         
         this.clientForm.setVisible(true);
         this.clientForm.setResizable(false);
