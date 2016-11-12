@@ -11,7 +11,7 @@ import javax.swing.JSpinner;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ *This class is where the client's orders are written 
  * @author Jorge A. Cano
  */
 public class OrdersList extends DefaultTableModel {
@@ -22,18 +22,19 @@ public class OrdersList extends DefaultTableModel {
     public static final int PRODUCT_PRICE = 3;
     
     
-    private static final String[] COLUMN_TITLES = { "#", "Producto",
+    //the fields of the orders list
+    private static final String[] FIELD_NAMES = { "#", "Producto",
         "Cantidad", "Costo" };
     
     public OrdersList(int input_rowCount) {
         
-        super(OrdersList.COLUMN_TITLES, input_rowCount); 
+        super(OrdersList.FIELD_NAMES, input_rowCount); 
     }
 
     
-    public OrdersList(Object[][] data) {
+    public OrdersList(Object[][] input_data) {
         
-        super(data, OrdersList.COLUMN_TITLES);
+        super(input_data, OrdersList.FIELD_NAMES);
     }
 
     @Override

@@ -9,7 +9,8 @@ import java.util.Calendar;
 import javax.swing.SpinnerNumberModel;
 
 /**
- *
+ *This class is used as a template for the due minute field. It dictates 
+ *the maximun and minimum due minute that can be set for a delivery
  * @author Jorge A. Cano
  */
 public class DueMinuteTemplate extends SpinnerNumberModel{

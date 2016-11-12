@@ -30,7 +30,7 @@ import model.duedatemodels.DueYearTemplate;
 import view.SalesSheet;
 
 /**
- *
+ *This class represents the phone operator that takes orders from the bakery's clients
  * @author Jorge A. Cano
  */
 public final class BakeryPhoneOperator extends Controller {
@@ -95,7 +95,7 @@ public final class BakeryPhoneOperator extends Controller {
         } else if(this.isStoringOrder(eventSource)){
             
             if(this.askForConfirmation(this.CONFIRM_SALE_MESSAGE)){
-                this.tellStoreManegerToStoreSale();
+                this.tellSalesManegerToStoreSale();
             }
             
         } else if(this.isCancelingOrder(eventSource)){
@@ -137,6 +137,8 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
+    //ask for confirmation before doing a critical action like saving or canceling an
+    //order
     private boolean askForConfirmation(String input_confirmationMessage){
         
         int answer = JOptionPane.showConfirmDialog(
@@ -156,7 +158,8 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
-    //Considerar moverlo a algo como ClientManager
+    //obtain the information of the client if he is registered. If not, notify that the client
+    //is not registered
     private void searchRegisteredClient() {
         
         String clientPhonenumber = this.salesSheet.getClientPhoneNumber().getText();
@@ -183,7 +186,7 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
-    //Escribe la información del cliente (nombre y dirección) en la ventana
+    //escribe la información del cliente (nombre y dirección) en la ventana
     private void writeClientInfo(String[] input_clientInfo) {
         
         String clientName = input_clientInfo[ this.CLIENT_NAME ];
@@ -194,6 +197,7 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
+    //make sure that no more changer are being made to the orders list
     private void confirmChangesInOrdersList(){
         if( this.salesSheet.getOrdersTable().isEditing() ){
             this.salesSheet.getOrdersTable().getCellEditor().stopCellEditing();
@@ -201,6 +205,7 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
+    //add a new product to the order list
     private void addProductToOrder() {
        
         this.confirmChangesInOrdersList();
@@ -268,7 +273,9 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
-    private void tellStoreManegerToStoreSale() {
+    //give the store manager all the information about the sale so that he can
+    //save it in the archives
+    private void tellSalesManegerToStoreSale() {
         
         try {
             this.confirmChangesInOrdersList();
@@ -293,13 +300,17 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
+    //get ready for the next client by cleaning the sheet used to take the orders
     private void prepareForNextClient(){
+        
         this.cleanSaleSheet();
         this.rejectChangesInClientPhonenumber(false);
         this.readyForTakingOrders(false);
         this.setDefaultDueDate();
     }
     
+    
+    //write down the total and parcial prices calculated by the accountant
     private void writeSalePricesInSaleSheet() {
         
         try {
@@ -317,6 +328,7 @@ public final class BakeryPhoneOperator extends Controller {
     }
 
     
+    
     private void cleanSaleSheet() {
         
         this.salesSheet.setOrdersList(new OrdersList(0));
@@ -327,29 +339,31 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
-    //Enables or disables all UI components necessary for taking an order
+    //enables or disables all UI components necessary for taking an order
     private void readyForTakingOrders( boolean input_isReady ){
         
-        //Enable or disable the table where individual orders are taken
+        //enable or disable the table where individual orders are taken
         this.salesSheet.getOrdersTable().setEnabled( input_isReady );
         
-        //Enable or disable all the buttons related with taking an order
+        //enable or disable all the buttons related with taking an order
         this.salesSheet.getAddProduct().setEnabled( input_isReady );
         this.salesSheet.getRemoveProduct().setEnabled( input_isReady );
         this.salesSheet.getStoreOrder().setEnabled( input_isReady );
         this.salesSheet.getCalculateSale().setEnabled( input_isReady );
         this.salesSheet.getCancelOrder().setEnabled(input_isReady);
         
-        //Enable or disable the spinner fields used to enter a due date for an order
+        //enable or disable the spinner fields used to enter a due date for an order
         this.salesSheet.getDueDay().setEnabled( input_isReady );
         this.salesSheet.getDueHour().setEnabled( input_isReady );
         this.salesSheet.getDueMinute().setEnabled( input_isReady );
         this.salesSheet.getDueMonth().setEnabled( input_isReady );
         this.salesSheet.getDueYear().setEnabled( input_isReady );
         
-    }//End of readyForTakingOrders(boolean isReady)
+    }
 
     
+    //once the client has been found in the archives, the phonenumber cannot be changed
+    //until the sales is canceled or stored
     private void rejectChangesInClientPhonenumber(boolean input_isLocked) {
         
         this.salesSheet.getClientPhoneNumber().setEnabled( !input_isLocked );
@@ -357,6 +371,7 @@ public final class BakeryPhoneOperator extends Controller {
     }
     
     
+    //put new default templates for taking the due date in the sales sheet
     private void setDefaultDueDate() {
         
         this.salesSheet.getDueDay().setModel( new DueDayTemplate() );

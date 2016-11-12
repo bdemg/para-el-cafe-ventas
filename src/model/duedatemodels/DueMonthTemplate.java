@@ -9,7 +9,8 @@ import java.util.Calendar;
 import javax.swing.SpinnerNumberModel;
 
 /**
- *
+ *This class is used as a template for the due month field. It dictates 
+ *the maximun and minimum due month that can be set for a delivery
  * @author Jorge A. Cano
  */
 public class DueMonthTemplate extends SpinnerNumberModel{
