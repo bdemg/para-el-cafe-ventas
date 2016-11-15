@@ -39,10 +39,10 @@ public class SalesManager {
     ) throws SQLException {
 
         //cycle through the orders list of the sale and save each one 
-        for (int ordersCount = 0; ordersCount < input_saleOrders.getRowCount(); ordersCount++) {
+        for ( int ordersCount = 0; ordersCount < input_saleOrders.getRowCount(); ordersCount++ ) {
 
-            ProductsList productList = (ProductsList) input_saleOrders.getValueAt(ordersCount,
-                OrdersList.PRODUCT_NAME);
+            ProductsList productList = ( ProductsList ) input_saleOrders.getValueAt( ordersCount,
+                OrdersList.PRODUCT_NAME );
 
             SalesDAO.getSalesDAO().saveSale(
                 input_phoneNumber,
@@ -68,17 +68,17 @@ public class SalesManager {
         int input_DueHour,
         int input_DueMinute
     ) {
-        Calendar date = Calendar.getInstance();
+        Calendar dueDate = Calendar.getInstance();
         
-        date.set(
+        dueDate.set(
             input_DueYear,
-            (input_DueMonth - 1),
+            ( input_DueMonth - 1 ),
             input_DueDay,
             input_DueHour,
             input_DueMinute
         );
 
-        return new Date(date.getTimeInMillis());
+        return new Date(dueDate.getTimeInMillis());
     }
 
 }

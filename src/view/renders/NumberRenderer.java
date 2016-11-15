@@ -11,30 +11,34 @@ public class NumberRenderer extends FormatRenderer {
     /*
      *  Use the specified number formatter and right align the text
      */
-    public NumberRenderer(NumberFormat formatter) {
-        super(formatter);
-        setHorizontalAlignment(SwingConstants.RIGHT);
+    public NumberRenderer( NumberFormat formatter ) {
+        
+        super( formatter );
+        setHorizontalAlignment( SwingConstants.RIGHT );
     }
 
     /*
      *  Use the default currency formatter for the mexican locale
      */
     public static NumberRenderer getMXNCurrencyRenderer() {
-        return new NumberRenderer(NumberFormat.
-                getCurrencyInstance(NumberRenderer.MEXICAN_LOCALE));
+        
+        return new NumberRenderer( NumberFormat.
+                getCurrencyInstance( NumberRenderer.MEXICAN_LOCALE ) );
     }
 
     /*
      *  Use the default integer formatter for the default locale
      */
     public static NumberRenderer getIntegerRenderer() {
-        return new NumberRenderer(NumberFormat.getIntegerInstance());
+        
+        return new NumberRenderer( NumberFormat.getIntegerInstance() );
     }
 
     /*
      *  Use the default percent formatter for the default locale
      */
     public static NumberRenderer getPercentRenderer() {
-        return new NumberRenderer(NumberFormat.getPercentInstance());
+        
+        return new NumberRenderer( NumberFormat.getPercentInstance() );
     }
 }

@@ -36,7 +36,7 @@ public class PricesDAO extends DatabaseDAO{
     }
     
     
-    public double getProductPrice(String input_ProductName) throws SQLException{
+    public double getProductPrice( String input_ProductName ) throws SQLException{
         
         try {
             PreparedStatement preparedStatement = ( PreparedStatement ) super.connectionToDatabase
@@ -50,7 +50,7 @@ public class PricesDAO extends DatabaseDAO{
             double productPrice = resultSet.getDouble( this.PRICE_COLUMN_NAME );
             
             return productPrice;
-        } catch (SQLException ex) {
+        } catch ( SQLException ex ) {
             throw ex;
         }
     }

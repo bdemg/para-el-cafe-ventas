@@ -20,10 +20,15 @@ public class JComboBoxTableEditor extends AbstractCellEditor implements TableCel
     JComboBox component = new JComboBox();
 
     @Override
-    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected,
-            int rowIndex, int vColIndex) {
-        component = ((JComboBox) value);
-        return ((JComboBox) value);
+    public Component getTableCellEditorComponent(
+        JTable table,
+        Object value,
+        boolean isSelected,
+        int rowIndex,
+        int vColIndex 
+    ) {
+        component = ( ( JComboBox ) value );
+        return ( ( JComboBox ) value );
     }
 
     @Override

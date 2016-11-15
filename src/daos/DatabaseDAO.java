@@ -20,14 +20,13 @@ public class DatabaseDAO {
     public DatabaseDAO(){
         
         try {
-            Class.forName(this.DRIVER);
-            this.connectionToDatabase = DriverManager.getConnection(this.HOST, this.USER, this.PASSWORD);
+            Class.forName( this.DRIVER );
+            this.connectionToDatabase = DriverManager.
+                getConnection( this.HOST, this.USER, this.PASSWORD );
 
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
             
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         }
     }
     

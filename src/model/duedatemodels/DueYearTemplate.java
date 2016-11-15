@@ -22,7 +22,7 @@ public class DueYearTemplate extends SpinnerNumberModel{
         super(
             Calendar.getInstance().get( Calendar.YEAR ),
             Calendar.getInstance().get( Calendar.YEAR ),
-            ( Calendar.getInstance().get(Calendar.YEAR) + 1 ),
+            ( Calendar.getInstance().get( Calendar.YEAR ) + 1 ),
             DueYearTemplate.STEP_BY
         );
     }

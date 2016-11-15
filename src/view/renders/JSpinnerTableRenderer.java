@@ -23,9 +23,16 @@ public class JSpinnerTableRenderer extends DefaultTableCellRenderer {
     }
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-            boolean hasFocus, int row, int column) {
-        pane.setValue(value);
+    public Component getTableCellRendererComponent(
+        JTable table,
+        Object value,
+        boolean isSelected,
+        boolean hasFocus,
+        int row,
+        int column 
+    ) {
+        
+        pane.setValue( value );
         return pane;
     }
 }

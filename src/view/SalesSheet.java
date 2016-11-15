@@ -37,8 +37,8 @@ public class SalesSheet extends javax.swing.JFrame{
         this.setTableLook();
         
         PlainDocument format = new PlainDocument();
-        format.setDocumentFilter(new NumberFilter());
-        this.clientPhoneNumber.setDocument(format);
+        format.setDocumentFilter( new NumberFilter() );
+        this.clientPhoneNumber.setDocument( format );
         
     }
 
@@ -259,7 +259,7 @@ public class SalesSheet extends javax.swing.JFrame{
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main( String args[] ) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -285,11 +285,11 @@ public class SalesSheet extends javax.swing.JFrame{
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater( new Runnable() {
 
             public void run() {
                 SalesSheet sales = new SalesSheet();
-                sales.setVisible(true);
+                sales.setVisible( true );
             }
         }
         );
@@ -327,11 +327,11 @@ public class SalesSheet extends javax.swing.JFrame{
     // End of variables declaration//GEN-END:variables
 
     public OrdersList getOrdersList() {
-        return (OrdersList) this.ordersTable.getModel();
+        return ( OrdersList ) this.ordersTable.getModel();
     }
   
     
-    public void setOrdersList(OrdersList input_ordersTaker){
+    public void setOrdersList( OrdersList input_ordersTaker ){
         
         this.ordersTable.setModel( input_ordersTaker );
         this.setTableLook();
@@ -349,10 +349,11 @@ public class SalesSheet extends javax.swing.JFrame{
         return clientName;
     }
 
-    public void setTotalSale(double input_totalSale){
+    public void setTotalSale( double input_totalSale ){
         
         this.totalSale.setText( NumberFormat.
-                getCurrencyInstance( NumberRenderer.MEXICAN_LOCALE ).format( input_totalSale ) );
+                getCurrencyInstance( NumberRenderer.MEXICAN_LOCALE ).
+                format( input_totalSale ) );
     }
     
     public JButton getAddProduct() {
@@ -434,18 +435,18 @@ public class SalesSheet extends javax.swing.JFrame{
     
     private void setTableLook() {
         
-        this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_NAME).
-            setCellEditor(new JComboBoxTableEditor());
-        this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_QUANTITY).
-            setCellEditor(new JSpinnerTableEditor());
+        this.ordersTable.getColumnModel().getColumn( OrdersList.PRODUCT_NAME ).
+            setCellEditor( new JComboBoxTableEditor() );
+        this.ordersTable.getColumnModel().getColumn( OrdersList.PRODUCT_QUANTITY ).
+            setCellEditor( new JSpinnerTableEditor() );
 
-        this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_NAME).
-            setCellRenderer(new JComboBoxTableRenderer());
-        this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_QUANTITY).
-            setCellRenderer(new JSpinnerTableRenderer());
+        this.ordersTable.getColumnModel().getColumn( OrdersList.PRODUCT_NAME ).
+            setCellRenderer( new JComboBoxTableRenderer() );
+        this.ordersTable.getColumnModel().getColumn( OrdersList.PRODUCT_QUANTITY ).
+            setCellRenderer( new JSpinnerTableRenderer() );
         
-        this.ordersTable.getColumnModel().getColumn(OrdersList.PRODUCT_PRICE).
-            setCellRenderer(NumberRenderer.getMXNCurrencyRenderer());
+        this.ordersTable.getColumnModel().getColumn( OrdersList.PRODUCT_PRICE ).
+            setCellRenderer( NumberRenderer.getMXNCurrencyRenderer() );
     }
      
 }

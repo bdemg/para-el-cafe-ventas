@@ -52,88 +52,88 @@ public final class BakeryPhoneOperator extends Controller {
     
     private void setupSalesSheet(){
         
-        this.salesSheet.setVisible(true);
-        this.salesSheet.setLocationRelativeTo(null);
+        this.salesSheet.setVisible( true );
+        this.salesSheet.setLocationRelativeTo( null );
     }
     
     
     @Override
     protected void addActionListeners() {
 
-        this.salesSheet.getCalculateSale().addActionListener(this);
-        this.salesSheet.getRemoveProduct().addActionListener(this);
-        this.salesSheet.getAddProduct().addActionListener(this);
-        this.salesSheet.getStoreOrder().addActionListener(this);
-        this.salesSheet.getClientSearch().addActionListener(this);
-        this.salesSheet.getCancelOrder().addActionListener(this);
+        this.salesSheet.getCalculateSale().addActionListener( this );
+        this.salesSheet.getRemoveProduct().addActionListener( this );
+        this.salesSheet.getAddProduct().addActionListener( this );
+        this.salesSheet.getStoreOrder().addActionListener( this );
+        this.salesSheet.getClientSearch().addActionListener( this );
+        this.salesSheet.getCancelOrder().addActionListener( this );
     }
 
     
     @Override
-    public void actionPerformed(ActionEvent input_event) {
+    public void actionPerformed( ActionEvent input_event ) {
         
         Object eventSource = input_event.getSource();
 
-        if (this.isSearchingForClient(eventSource)) {
+        if ( this.isSearchingForClient( eventSource ) ) {
             this.searchRegisteredClient();
 
-        } else if (this.isAddingProductToOrder(eventSource)) {
+        } else if ( this.isAddingProductToOrder( eventSource ) ) {
             this.addProductToOrder();
             
-        } else if (this.isRemovingProductFromOrder(eventSource)) {
+        } else if ( this.isRemovingProductFromOrder( eventSource ) ) {
             this.removeProduct();
             
-        } else if(this.isCalculatingSales(eventSource)){
+        } else if( this.isCalculatingSales( eventSource ) ){
             this.writeSalePricesInSaleSheet();
             
-        } else if(this.isStoringOrder(eventSource)){
+        } else if( this.isStoringOrder( eventSource ) ){
             
-            if(this.askForConfirmation(this.CONFIRM_SALE_MESSAGE)){
+            if( this.askForConfirmation( this.CONFIRM_SALE_MESSAGE ) ){
                 this.tellSalesManegerToStoreSale();
             }
             
-        } else if(this.isCancelingOrder(eventSource)){
+        } else if( this.isCancelingOrder( eventSource ) ){
             
-            if(this.askForConfirmation(this.CONFIRM_SALE_CANCEL_MESSAGE)){
+            if( this.askForConfirmation( this.CONFIRM_SALE_CANCEL_MESSAGE ) ){
                 this.prepareForNextClient();
             }
         }
     }
     
     
-    private boolean isSearchingForClient(Object input_eventSource){
+    private boolean isSearchingForClient( Object input_eventSource ){
         return input_eventSource == this.salesSheet.getClientSearch();
     }
     
     
-    private boolean isAddingProductToOrder(Object input_eventSource){
+    private boolean isAddingProductToOrder( Object input_eventSource ){
         return input_eventSource == this.salesSheet.getAddProduct();
     }
     
     
-    private boolean isRemovingProductFromOrder(Object input_eventSource){
+    private boolean isRemovingProductFromOrder( Object input_eventSource ){
         return input_eventSource == this.salesSheet.getRemoveProduct();
     }
     
     
-    private boolean isCalculatingSales(Object input_eventSource){
+    private boolean isCalculatingSales( Object input_eventSource ){
         return input_eventSource == this.salesSheet.getCalculateSale();
     }
     
     
-    private boolean isStoringOrder(Object input_eventSource){
+    private boolean isStoringOrder( Object input_eventSource ){
         return input_eventSource ==  this.salesSheet.getStoreOrder();
     }
     
     
-    private boolean isCancelingOrder(Object input_eventSource){
+    private boolean isCancelingOrder( Object input_eventSource ){
         return input_eventSource == this.salesSheet.getCancelOrder();
     }
     
     
     //ask for confirmation before doing a critical action like saving or canceling an
     //order
-    private boolean askForConfirmation(String input_confirmationMessage){
+    private boolean askForConfirmation( String input_confirmationMessage ){
         
         int answer = JOptionPane.showConfirmDialog(
             this.salesSheet, 
@@ -143,7 +143,7 @@ public final class BakeryPhoneOperator extends Controller {
             JOptionPane.QUESTION_MESSAGE
         );
         
-        if(answer == JOptionPane.YES_OPTION){
+        if( answer == JOptionPane.YES_OPTION ){
             return true;
         }
         else{
@@ -160,39 +160,43 @@ public final class BakeryPhoneOperator extends Controller {
             
         try {
             
-            String[] clientInfo = ClientsDAO.getClientsDAO().getClientInfo(clientPhonenumber);
+            String[] clientInfo = ClientsDAO.getClientsDAO().
+                getClientInfo( clientPhonenumber );
             boolean isFound = clientInfo != null;
-            if(isFound){
+            
+            if( isFound ){
                 
-                this.writeClientInfo(clientInfo);
-                this.rejectChangesInClientPhonenumber(true);
-                this.readyForTakingOrders(true);
+                this.writeClientInfo( clientInfo );
+                this.rejectChangesInClientPhonenumber( true );
+                this.readyForTakingOrders( true );
                 this.setDefaultDueDate();
             } else{
                 
                 ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-                errorMessager.showErrorMessage(ErrorMessager.CLIENT_NOT_FOUND);
+                errorMessager.showErrorMessage( ErrorMessager.CLIENT_NOT_FOUND );
             }
-        } catch (SQLException ex) {
+        } catch ( SQLException ex ) {
+            
             ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-            errorMessager.showErrorMessage(ErrorMessager.DATABASE_ERROR);
+            errorMessager.showErrorMessage( ErrorMessager.DATABASE_ERROR );
         }
     }
     
     
     //escribe la información del cliente (nombre y dirección) en la ventana
-    private void writeClientInfo(String[] input_clientInfo) {
+    private void writeClientInfo( String[] input_clientInfo ) {
         
         String clientName = input_clientInfo[ this.CLIENT_NAME ];
-        this.salesSheet.getClientName().setText(clientName);
+        this.salesSheet.getClientName().setText( clientName );
         
         String clientAddress = input_clientInfo[ this.CLIENT_ADDRESS ];
-        this.salesSheet.getClientAddress().setText(clientAddress);
+        this.salesSheet.getClientAddress().setText( clientAddress );
     }
     
     
     //make sure that no more changer are being made to the orders list
     private void confirmChangesInOrdersList(){
+        
         if( this.salesSheet.getOrdersTable().isEditing() ){
             this.salesSheet.getOrdersTable().getCellEditor().stopCellEditing();
         }
@@ -204,10 +208,10 @@ public final class BakeryPhoneOperator extends Controller {
        
         this.confirmChangesInOrdersList();
         
-        Object[] newOrder = {null, new ProductsList(),
-            this.INITIAL_PRODUCT_QUANTITY, 0.0};
-        OrdersList orders = this.salesSheet.getOrdersList();
-        orders.addRow(newOrder);
+        Object[] newOrder = { null, new ProductsList(),
+            this.INITIAL_PRODUCT_QUANTITY, 0.0 };
+        this.salesSheet.getOrdersList().addRow( newOrder );
+        
     }
     
     
@@ -259,10 +263,10 @@ public final class BakeryPhoneOperator extends Controller {
     
     
     //remove the indicated product from the order
-    private void removeProductFromOrder(int input_productToRemove) {
+    private void removeProductFromOrder( int input_productToRemove ) {
         
         OrdersList orders = this.salesSheet.getOrdersList();
-        orders.removeRow((input_productToRemove - 1));
+        orders.removeRow( (input_productToRemove - 1) );
 
     }
     
@@ -287,9 +291,10 @@ public final class BakeryPhoneOperator extends Controller {
             );
             
             this.prepareForNextClient();
-        } catch (SQLException ex) {
+        } catch ( SQLException ex ) {
+            
             ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-            errorMessager.showErrorMessage(ErrorMessager.DATABASE_ERROR);
+            errorMessager.showErrorMessage( ErrorMessager.DATABASE_ERROR );
         }
     }
     
@@ -298,8 +303,8 @@ public final class BakeryPhoneOperator extends Controller {
     private void prepareForNextClient(){
         
         this.cleanSaleSheet();
-        this.rejectChangesInClientPhonenumber(false);
-        this.readyForTakingOrders(false);
+        this.rejectChangesInClientPhonenumber( false );
+        this.readyForTakingOrders( false );
         this.setDefaultDueDate();
     }
     
@@ -313,11 +318,14 @@ public final class BakeryPhoneOperator extends Controller {
             SalesAccountant salesAccountant = SalesAccountant.getSalesAccountant();
             salesAccountant.calculatePartialCosts( this.salesSheet.getOrdersList() );
             
-            double saleTotal = salesAccountant.totalPriceOfSale( this.salesSheet.getOrdersList() );
-            this.salesSheet.setTotalSale(saleTotal);
+            double saleTotal = salesAccountant.
+                totalPriceOfSale( this.salesSheet.getOrdersList() );
+            this.salesSheet.setTotalSale( saleTotal );
+            
         } catch (SQLException ex) {
+            
             ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-            errorMessager.showErrorMessage(ErrorMessager.DATABASE_ERROR);
+            errorMessager.showErrorMessage( ErrorMessager.DATABASE_ERROR );
         }
     }
 
@@ -325,8 +333,8 @@ public final class BakeryPhoneOperator extends Controller {
     
     private void cleanSaleSheet() {
         
-        this.salesSheet.setOrdersList(new OrdersList(0));
-        this.salesSheet.setTotalSale(0.0);
+        this.salesSheet.setOrdersList( new OrdersList( 0 ) );
+        this.salesSheet.setTotalSale( 0.0 );
         this.salesSheet.getClientName().setText( Keywords.EMPTY );
         this.salesSheet.getClientAddress().setText( Keywords.EMPTY );
         this.salesSheet.getClientPhoneNumber().setText( Keywords.EMPTY );
@@ -344,7 +352,7 @@ public final class BakeryPhoneOperator extends Controller {
         this.salesSheet.getRemoveProduct().setEnabled( input_isReady );
         this.salesSheet.getStoreOrder().setEnabled( input_isReady );
         this.salesSheet.getCalculateSale().setEnabled( input_isReady );
-        this.salesSheet.getCancelOrder().setEnabled(input_isReady);
+        this.salesSheet.getCancelOrder().setEnabled( input_isReady );
         
         //enable or disable the spinner fields used to enter a due date for an order
         this.salesSheet.getDueDay().setEnabled( input_isReady );
@@ -358,7 +366,7 @@ public final class BakeryPhoneOperator extends Controller {
     
     //once the client has been found in the archives, the phonenumber cannot be changed
     //until the sales is canceled or stored
-    private void rejectChangesInClientPhonenumber(boolean input_isLocked) {
+    private void rejectChangesInClientPhonenumber( boolean input_isLocked ) {
         
         this.salesSheet.getClientPhoneNumber().setEnabled( !input_isLocked );
         this.salesSheet.getClientSearch().setEnabled( !input_isLocked );

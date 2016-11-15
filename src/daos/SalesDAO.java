@@ -51,19 +51,20 @@ public class SalesDAO extends DatabaseDAO{
             
     ) throws SQLException{
         try {
+            
             PreparedStatement preparedStatement = ( PreparedStatement ) 
                     super.connectionToDatabase.prepareStatement( this.INSERT_ORDER_QUERY );
             
             preparedStatement.setString( this.PHONENUMBER_COLUMN, input_phonenumber );
             preparedStatement.setString( this.PRODUCT_COLUMN, input_product );
             preparedStatement.setInt( this.QUANTITY_COLUMN, input_quantity );
-            preparedStatement.setDouble(this.COST_COLUMN, input_cost );
+            preparedStatement.setDouble( this.COST_COLUMN, input_cost );
             preparedStatement.setDate( this.DUE_DATE_COLUMN, input_dueDate );
             preparedStatement.setBoolean( this.IS_BAKED_COLUMN, false );
             
             preparedStatement.execute();
             
-        }catch (SQLException ex) {
+        }catch ( SQLException ex ) {
             throw ex;
         }
     }

@@ -24,19 +24,20 @@ public class OrdersList extends DefaultTableModel {
     private static final String[] FIELD_NAMES = { "#", "Producto",
         "Cantidad", "Costo" };
     
-    public OrdersList(int input_rowCount) {
+    public OrdersList( int input_rowCount ) {
         
-        super(OrdersList.FIELD_NAMES, input_rowCount); 
+        super( OrdersList.FIELD_NAMES, input_rowCount ); 
     }
 
     
-    public OrdersList(Object[][] input_data) {
+    public OrdersList( Object[][] input_data ) {
         
-        super(input_data, OrdersList.FIELD_NAMES);
+        super( input_data, OrdersList.FIELD_NAMES );
     }
 
     @Override
-    public Class<?> getColumnClass(int input_columnIndex) {
+    public Class<?> getColumnClass( int input_columnIndex ) {
+        
         Class columnClass = String.class;
         switch ( input_columnIndex ) {
             
@@ -65,7 +66,7 @@ public class OrdersList extends DefaultTableModel {
     
     @Override
     public Object getValueAt( int input_row, int input_column ) {
-        if(input_column == 0) {
+        if( input_column == 0 ) {
             
             return input_row + 1; 
         } else{
@@ -78,7 +79,7 @@ public class OrdersList extends DefaultTableModel {
     //obtain the list of product numbers that currently are in the order list
     public Object[] getProductNumberList(){
         
-        Object[] productNumbers = new Object[this.getRowCount()];
+        Object[] productNumbers = new Object[ this.getRowCount() ];
 		
         //cycle through the whole orders list and make the product numbers list
         for( int productCount = 0; productCount < this.getRowCount(); productCount++ ){

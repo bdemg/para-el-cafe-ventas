@@ -7,45 +7,47 @@ import javax.swing.table.DefaultTableCellRenderer;
 /*
  *	Use a formatter to format the cell Object
  */
-public class FormatRenderer extends DefaultTableCellRenderer
-{
-	private Format formatter;
+public class FormatRenderer extends DefaultTableCellRenderer {
 
-	/*
-	 *   Use the specified formatter to format the Object
-	 */
-	public FormatRenderer(Format formatter)
-	{
-		this.formatter = formatter;
-	}
+    private Format formatter;
 
-	public void setValue(Object value)
-	{
-		//  Format the Object before setting its value in the renderer
+    /*
+     *   Use the specified formatter to format the Object
+     */
+    public FormatRenderer( Format formatter ) {
+        
+        this.formatter = formatter;
+    }
 
-		try
-		{
-			if (value != null)
-				value = formatter.format(value);
-		}
-		catch(IllegalArgumentException e) {}
+    //  Format the Object before setting its value in the renderer
+    @Override
+    public void setValue( Object value ) {
 
-		super.setValue(value);
-	}
+        try {
+            
+            if ( value != null ) {
+                
+                value = formatter.format( value );
+            }
+        } catch ( IllegalArgumentException e ) {
+        }
 
-	/*
-	 *  Use the default date/time formatter for the default locale
-	 */
-	public static FormatRenderer getDateTimeRenderer()
-	{
-		return new FormatRenderer( DateFormat.getDateTimeInstance() );
-	}
+        super.setValue( value );
+    }
 
-	/*
-	 *  Use the default time formatter for the default locale
-	 */
-	public static FormatRenderer getTimeRenderer()
-	{
-		return new FormatRenderer( DateFormat.getTimeInstance() );
-	}
+    /*
+     *  Use the default date/time formatter for the default locale
+     */
+    public static FormatRenderer getDateTimeRenderer() {
+        
+        return new FormatRenderer( DateFormat.getDateTimeInstance() );
+    }
+
+    /*
+     *  Use the default time formatter for the default locale
+     */
+    public static FormatRenderer getTimeRenderer() {
+        
+        return new FormatRenderer( DateFormat.getTimeInstance() );
+    }
 }

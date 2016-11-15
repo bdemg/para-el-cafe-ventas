@@ -1,4 +1,4 @@
-package model;
+package entrypoints;
 
 import controller.ClientManager;
 

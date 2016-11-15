@@ -24,6 +24,6 @@ public class ProductsList extends JComboBox {
     };
 
     public ProductsList() {
-        super(ProductsList.PRODUCTS);
+        super( ProductsList.PRODUCTS );
     }
 }

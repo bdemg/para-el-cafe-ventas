@@ -10,6 +10,7 @@ package model;
  * @author Jorge A. Cano
  */
 public class Keywords {
+    
     public static final String EMPTY = "";
     public static final int CANCEL_REMOVAL = -1;
 }

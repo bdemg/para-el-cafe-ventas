@@ -28,20 +28,21 @@ public class SalesAccountant {
     ) throws SQLException {
         
         //cycle through the whole list and calculate each price
-        for (int productCount = 0; productCount < mod_ordersList.getRowCount(); productCount++) {
+        for ( int productCount = 0; productCount < mod_ordersList.getRowCount(); productCount++ ) {
 
             //obtain the unitary price of the current product
-            ProductsList productList = (ProductsList) mod_ordersList.
-                getValueAt(productCount, OrdersList.PRODUCT_NAME);
-            String productName = (String) productList.getSelectedItem();
-            double unitaryPrice = PricesDAO.getPricesDAO().getProductPrice(productName);
+            ProductsList productList = ( ProductsList ) mod_ordersList.
+                getValueAt( productCount, OrdersList.PRODUCT_NAME );
+            String productName = ( String ) productList.getSelectedItem();
+            
+            double unitaryPrice = PricesDAO.getPricesDAO().getProductPrice( productName );
 
             //adjust the price based on the product quantity
             double adjustedPrice = unitaryPrice *
-                (int) mod_ordersList.getValueAt(productCount, OrdersList.PRODUCT_QUANTITY);
+                (int) mod_ordersList.getValueAt( productCount, OrdersList.PRODUCT_QUANTITY );
 
             //write the adjusted price in the orders list
-            mod_ordersList.setValueAt(adjustedPrice, productCount, OrdersList.PRODUCT_PRICE);
+            mod_ordersList.setValueAt( adjustedPrice, productCount, OrdersList.PRODUCT_PRICE );
         } //end of for
     }
 
@@ -54,7 +55,7 @@ public double totalPriceOfSale(
         double totalCost = 0; //the acumulated prices of all products in the order
         
         //cycle through the whole list and add the price of a product to the total
-        for(int productCount = 0; productCount < input_ordersList.getRowCount(); productCount++){
+        for( int productCount = 0; productCount < input_ordersList.getRowCount(); productCount++ ){
             
             totalCost = totalCost + 
                     (double) input_ordersList.getValueAt( productCount, OrdersList.PRODUCT_PRICE );
