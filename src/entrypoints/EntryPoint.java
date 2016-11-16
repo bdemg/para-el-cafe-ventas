@@ -5,7 +5,7 @@
  */
 package entrypoints;
 
-import controller.BakeryPhoneOperator;
+import controller.BakeryPhoneSalesman;
 import javax.swing.UIManager;
 
 /**
@@ -20,7 +20,7 @@ public class EntryPoint {
     public static void main(String[] args) {
         
         setSystemLookAndFeel();
-        new BakeryPhoneOperator();
+        new BakeryPhoneSalesman();
     }
     
     

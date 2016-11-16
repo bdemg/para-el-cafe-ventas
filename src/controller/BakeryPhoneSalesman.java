@@ -27,7 +27,7 @@ import view.SalesSheet;
  *This class represents the phone operator that takes orders from the bakery's clients
  * @author Jorge A. Cano
  */
-public final class BakeryPhoneOperator extends Controller {
+public final class BakeryPhoneSalesman extends Controller {
 
     private final SalesSheet salesSheet;
     
@@ -41,7 +41,7 @@ public final class BakeryPhoneOperator extends Controller {
     private final int CLIENT_ADDRESS = 2;    
     
     
-    public BakeryPhoneOperator() {
+    public BakeryPhoneSalesman() {
         
         this.salesSheet = new SalesSheet();
         this.setupSalesSheet();
@@ -143,12 +143,7 @@ public final class BakeryPhoneOperator extends Controller {
             JOptionPane.QUESTION_MESSAGE
         );
         
-        if( answer == JOptionPane.YES_OPTION ){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return answer == JOptionPane.YES_OPTION;
     }
     
     
@@ -160,16 +155,13 @@ public final class BakeryPhoneOperator extends Controller {
             
         try {
             
-            String[] clientInfo = ClientsDAO.getClientsDAO().
-                getClientInfo( clientPhonenumber );
+            String[] clientInfo = this.requestClientInfo( clientPhonenumber );
             boolean isFound = clientInfo != null;
             
             if( isFound ){
                 
                 this.writeClientInfo( clientInfo );
-                this.rejectChangesInClientPhonenumber( true );
                 this.readyForTakingOrders( true );
-                this.setDefaultDueDate();
             } else{
                 
                 ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
@@ -182,6 +174,10 @@ public final class BakeryPhoneOperator extends Controller {
         }
     }
     
+    
+    private String[] requestClientInfo( String input_clientPhonenumber ) throws SQLException{
+        return ClientManager.searchForClientInfo( input_clientPhonenumber );
+    }
     
     //escribe la información del cliente (nombre y dirección) en la ventana
     private void writeClientInfo( String[] input_clientInfo ) {
@@ -303,9 +299,7 @@ public final class BakeryPhoneOperator extends Controller {
     private void prepareForNextClient(){
         
         this.cleanSaleSheet();
-        this.rejectChangesInClientPhonenumber( false );
         this.readyForTakingOrders( false );
-        this.setDefaultDueDate();
     }
     
     
@@ -361,6 +355,9 @@ public final class BakeryPhoneOperator extends Controller {
         this.salesSheet.getDueMonth().setEnabled( input_isReady );
         this.salesSheet.getDueYear().setEnabled( input_isReady );
         
+        this.rejectChangesInClientPhonenumber( input_isReady );
+        
+        this.setDefaultDueDate();
     }
 
     

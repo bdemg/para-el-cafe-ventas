@@ -11,6 +11,7 @@ package controller;
 import java.awt.event.ActionEvent;
 
 import daos.ClientsDAO;
+import java.sql.SQLException;
 import model.ErrorMessager;
 import model.Keywords;
 import view.ClientForm;
@@ -110,5 +111,10 @@ public class ClientManager extends Controller{
         this.clientForm.getClientPhoneNumber().setText( Keywords.EMPTY );
         this.clientForm.getClientAddress().setText( Keywords.EMPTY );
         this.clientForm.getClientAddressReferences().setText( Keywords.EMPTY );
+    }
+    
+    
+    protected static String[] searchForClientInfo( String input_clientPhonenumber ) throws SQLException{
+        return ClientsDAO.getClientsDAO().getClientInfo( input_clientPhonenumber );
     }
 }
