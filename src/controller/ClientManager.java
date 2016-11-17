@@ -1,21 +1,17 @@
-/**
- * File: ClientManager.java
- * This file represents the ClientManager class who extends from Controller
- * This class is used to manage and register the client information that the
- * view ClientForm receives, into the Database using ClientDAO
- * Methods: validateClientRegistration(), registerClientInformation().
- */
 package controller;
 
-// (c) Copyright 2016 José A. Soto. All Rights Reserved.
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 import daos.ClientsDAO;
-import java.sql.SQLException;
 import model.ErrorMessager;
 import model.Keywords;
 import view.ClientForm;
 
+/**
+ * This class represents the manager that registers new clients.
+ * @author (c) Copyright 2016 José A. Soto. All Rights Reserved.
+ */
 public class ClientManager extends Controller{
     
     private final ClientForm clientForm;
@@ -57,6 +53,7 @@ public class ClientManager extends Controller{
         return input_eventSource == this.clientForm.getRegisterButton();
     }
     
+    // Validates the storing of the new client.
     private void validateClientRegistration(){
         
         boolean isClientRegistered = this.isClientRegistered();
@@ -66,12 +63,10 @@ public class ClientManager extends Controller{
             this.storeClientInformation();
             
         } else if( areFormFieldsEmpty ){
-            ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-            errorMessager.showErrorMessage( ErrorMessager.EMPTY_FIELDS );
+            this.showErrorMessage( ErrorMessager.EMPTY_FIELDS );
             
         } else if( isClientRegistered ){
-            ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-            errorMessager.showErrorMessage( ErrorMessager.CLIENT_REPETITION );
+            this.showErrorMessage( ErrorMessager.CLIENT_REPETITION );
         }
     }
     
@@ -113,6 +108,12 @@ public class ClientManager extends Controller{
         this.clientForm.getClientAddressReferences().setText( Keywords.EMPTY );
     }
     
+    // Calls the ErrorMessager to show an error message.
+    // ***CHECAR***
+    private void showErrorMessage(String input_ErrorMessage){
+        ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
+        errorMessager.showErrorMessage( input_ErrorMessage );
+    }
     
     protected static String[] searchForClientInfo( String input_clientPhonenumber ) throws SQLException{
         return ClientsDAO.getClientsDAO().getClientInfo( input_clientPhonenumber );

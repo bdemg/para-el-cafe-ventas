@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- *
- * @author Antonio Soto
+ * This class sets up the connection to the database.
+ * @author (c) Copyright 2016 José A. Soto. All Rights Reserved.
  */
-public class DatabaseDAO {
+public class DAO {
     
     private final String DRIVER = "com.mysql.jdbc.Driver";
     private final String HOST = "jdbc:mysql://localhost/DBCafe?autoReconnect=true&useSSL=false";
@@ -17,7 +17,7 @@ public class DatabaseDAO {
     
     protected Connection connectionToDatabase = null;
     
-    public DatabaseDAO(){
+    public DAO(){
         
         try {
             Class.forName( this.DRIVER );
@@ -26,8 +26,6 @@ public class DatabaseDAO {
 
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
-            
         }
     }
-    
 }

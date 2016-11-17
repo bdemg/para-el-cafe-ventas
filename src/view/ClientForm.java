@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import javax.swing.JButton;
@@ -12,8 +7,8 @@ import javax.swing.text.PlainDocument;
 import view.documentfilters.NumberFilter;
 
 /**
- *
- * @author Antonio Soto
+ * This class represents a form for the user to fill new client information.
+ * @author (c) Copyright 2016 José A. Soto. All Rights Reserved.
  */
 public class ClientForm extends javax.swing.JFrame {
 
@@ -49,6 +44,7 @@ public class ClientForm extends javax.swing.JFrame {
         registerButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Nuevo Cliente");
 
         label_Name.setText("Nombre:");
 

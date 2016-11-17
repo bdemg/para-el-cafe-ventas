@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 /**
- *
- * @author Jorge A. Cano
+ * This class contains the program's keywords. 
+ * @author (c) Copyright 2016 José A. Soto. All Rights Reserved.
  */
 public class Keywords {
     

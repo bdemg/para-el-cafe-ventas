@@ -16,7 +16,7 @@ import java.sql.Date;
  *
  * @author Jorge A. Cano
  */
-public class SalesDAO extends DatabaseDAO{
+public class SalesDAO extends DAO{
     
     private static final SalesDAO salesDAO = new SalesDAO();
     

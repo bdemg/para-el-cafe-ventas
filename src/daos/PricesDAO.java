@@ -15,7 +15,7 @@ import java.sql.SQLException;
  *
  * @author Jorge A. Cano
  */
-public class PricesDAO extends DatabaseDAO{
+public class PricesDAO extends DAO{
     private static final PricesDAO pricesDAO = new PricesDAO();
     
     private final String PRICE_QUERY = "select * from product where name=?";

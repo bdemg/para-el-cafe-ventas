@@ -5,16 +5,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
- * @author Antonio Soto
+ * This class manages the clients data with the database.
+ * @author (c) Copyright 2016 José A. Soto. All Rights Reserved.
  */
-public class ClientsDAO extends DatabaseDAO{
+public class ClientsDAO extends DAO{
 
     private static final ClientsDAO clientsDAO = new ClientsDAO();
 
     private final String INSERT_CLIENT = "INSERT INTO client VALUES (?, ?, ?, ?)";
     private final String QUERY_SEARCH = "SELECT * FROM client WHERE phone_number=?";
     
+    // Client values for the insert query.
     private final int CLIENT_NAME = 1;
     private final int CLIENT_PHONENUMBER = 2;
     private final int CLIENT_ADDRESS = 3;
@@ -39,7 +40,8 @@ public class ClientsDAO extends DatabaseDAO{
         
         return clientsDAO;
     }
-
+    
+    // Inserts new client information to the database.
     public void insertClientInformation(
         String input_Name,
         String input_PhoneNumber,
@@ -61,7 +63,8 @@ public class ClientsDAO extends DatabaseDAO{
             ex.printStackTrace();
         }
     }
-
+    
+    // Searches the existence of a single client based on his phone number.
     public boolean searchClientPhoneNumber( String input_PhoneNumber ) {
         
         try {
@@ -80,6 +83,8 @@ public class ClientsDAO extends DatabaseDAO{
         }
     }
     
+    // Gets all the client information from the database table.
+    // ***CHECAR***
     public String[] getClientInfo( String input_PhoneNumber ) throws SQLException{
         
         try {
