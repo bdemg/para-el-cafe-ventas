@@ -63,10 +63,10 @@ public class ClientManager extends Controller{
             this.storeClientInformation();
             
         } else if( areFormFieldsEmpty ){
-            this.showErrorMessage( ErrorMessager.EMPTY_FIELDS );
+            this.tellErrorMessagerToShowMessage( ErrorMessager.EMPTY_FIELDS );
             
         } else if( isClientRegistered ){
-            this.showErrorMessage( ErrorMessager.CLIENT_REPETITION );
+            this.tellErrorMessagerToShowMessage( ErrorMessager.CLIENT_REPETITION );
         }
     }
     
@@ -84,8 +84,8 @@ public class ClientManager extends Controller{
     private boolean isClientRegistered(){
         
         String phone_number = this.clientForm.getClientPhoneNumber().getText();
-        ClientsDAO clientTableDAO = ClientsDAO.getClientsDAO();
-        boolean isClientRegistered = clientTableDAO.searchClientPhoneNumber(phone_number);
+        ClientsDAO clientDAO = ClientsDAO.getClientsDAO();
+        boolean isClientRegistered = clientDAO.searchClientPhoneNumber(phone_number);
         return isClientRegistered;
     }
     
@@ -96,8 +96,8 @@ public class ClientManager extends Controller{
         String address = this.clientForm.getClientAddress().getText();
         String references = this.clientForm.getClientAddressReferences().getText();
         
-        ClientsDAO clientTableDAO = ClientsDAO.getClientsDAO();
-        clientTableDAO.insertClientInformation(name, phone_number, address, references);
+        ClientsDAO clientDAO = ClientsDAO.getClientsDAO();
+        clientDAO.insertClientInformation(name, phone_number, address, references);
     }
     
     private void cleanClientForm(){
@@ -108,9 +108,8 @@ public class ClientManager extends Controller{
         this.clientForm.getClientAddressReferences().setText( Keywords.EMPTY );
     }
     
-    // Calls the ErrorMessager to show an error message.
-    // ***CHECAR***
-    private void showErrorMessage(String input_ErrorMessage){
+    private void tellErrorMessagerToShowMessage( String input_ErrorMessage ){
+        
         ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
         errorMessager.showErrorMessage( input_ErrorMessage );
     }
