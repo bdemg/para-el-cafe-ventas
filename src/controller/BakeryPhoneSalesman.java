@@ -75,7 +75,7 @@ public final class BakeryPhoneSalesman extends Controller {
         Object eventSource = input_event.getSource();
 
         if ( this.isSearchingForClient( eventSource ) ) {
-            this.searchRegisteredClient();
+            this.tendToClientPhonecall();
 
         } else if ( this.isAddingProductToOrder( eventSource ) ) {
             this.addProductToOrder();
@@ -149,7 +149,7 @@ public final class BakeryPhoneSalesman extends Controller {
     
     //obtain the information of the client if he is registered. If not, notify that the client
     //is not registered
-    private void searchRegisteredClient() {
+    private void tendToClientPhonecall() {
         
         String clientPhonenumber = this.salesSheet.getClientPhoneNumber().getText();
             
