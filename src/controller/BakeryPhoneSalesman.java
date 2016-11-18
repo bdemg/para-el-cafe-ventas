@@ -45,7 +45,9 @@ public final class BakeryPhoneSalesman extends Controller {
         
         this.salesSheet = new SalesSheet();
         this.setupSalesSheet();
-
+        
+        StoreManager storeManager = new StoreManager(this.salesSheet.getOptionsMenuBar());
+        
         this.addActionListeners();
     }
     
@@ -97,7 +99,7 @@ public final class BakeryPhoneSalesman extends Controller {
             if( this.askForConfirmation( this.CONFIRM_SALE_CANCEL_MESSAGE ) ){
                 this.prepareForNextClient();
             }
-        }
+        }        
     }
     
     
@@ -164,13 +166,11 @@ public final class BakeryPhoneSalesman extends Controller {
                 this.readyForTakingOrders( true );
             } else{
                 
-                ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-                errorMessager.showErrorMessage( ErrorMessager.CLIENT_NOT_FOUND );
+                this.tellErrorMessagerToShowMessage(ErrorMessager.CLIENT_NOT_FOUND);
             }
         } catch ( SQLException ex ) {
             
-            ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-            errorMessager.showErrorMessage( ErrorMessager.DATABASE_ERROR );
+            this.tellErrorMessagerToShowMessage(ErrorMessager.DATABASE_ERROR);
         }
     }
     
@@ -289,8 +289,7 @@ public final class BakeryPhoneSalesman extends Controller {
             this.prepareForNextClient();
         } catch ( SQLException ex ) {
             
-            ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-            errorMessager.showErrorMessage( ErrorMessager.DATABASE_ERROR );
+            this.tellErrorMessagerToShowMessage(ErrorMessager.DATABASE_ERROR);
         }
     }
     
@@ -318,8 +317,7 @@ public final class BakeryPhoneSalesman extends Controller {
             
         } catch (SQLException ex) {
             
-            ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-            errorMessager.showErrorMessage( ErrorMessager.DATABASE_ERROR );
+            this.tellErrorMessagerToShowMessage(ErrorMessager.DATABASE_ERROR);
         }
     }
 
@@ -380,4 +378,9 @@ public final class BakeryPhoneSalesman extends Controller {
         this.salesSheet.getDueMinute().setModel( new DueMinuteTemplate() );
     }
 
+    private void tellErrorMessagerToShowMessage( String input_ErrorMessage ){
+        
+        ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
+        errorMessager.showErrorMessage( input_ErrorMessage );
+    }
 }

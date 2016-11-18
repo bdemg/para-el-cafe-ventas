@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -59,7 +60,7 @@ public class SalesDAO extends DAO{
             preparedStatement.setString( this.PRODUCT_COLUMN, input_product );
             preparedStatement.setInt( this.QUANTITY_COLUMN, input_quantity );
             preparedStatement.setDouble( this.COST_COLUMN, input_cost );
-            preparedStatement.setDate( this.DUE_DATE_COLUMN, input_dueDate );
+            preparedStatement.setDate(this.DUE_DATE_COLUMN, input_dueDate );
             preparedStatement.setBoolean( this.IS_BAKED_COLUMN, false );
             
             preparedStatement.execute();

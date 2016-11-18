@@ -8,6 +8,7 @@ package model;
 import daos.SalesDAO;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**

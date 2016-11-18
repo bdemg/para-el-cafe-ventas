@@ -8,6 +8,8 @@ package view;
 import java.text.NumberFormat;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -89,6 +91,7 @@ public class SalesSheet extends javax.swing.JFrame{
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cancelOrder = new javax.swing.JButton();
+        OptionsBar = new OptionsMenuBar();
 
         jLabel5.setText("jLabel5");
 
@@ -147,6 +150,7 @@ public class SalesSheet extends javax.swing.JFrame{
 
         cancelOrder.setText("Cancelar Orden");
         cancelOrder.setEnabled(false);
+        setJMenuBar(OptionsBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,8 +184,7 @@ public class SalesSheet extends javax.swing.JFrame{
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel11)
                                 .addGap(18, 18, 18)
-                                .addComponent(dueMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(dueMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(79, 79, 79)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(calculateSale, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,7 +225,7 @@ public class SalesSheet extends javax.swing.JFrame{
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(clientAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +261,7 @@ public class SalesSheet extends javax.swing.JFrame{
                     .addComponent(removeProduct)
                     .addComponent(storeOrder)
                     .addComponent(cancelOrder))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
@@ -304,6 +307,7 @@ public class SalesSheet extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar OptionsBar;
     private javax.swing.JButton addProduct;
     private javax.swing.JButton calculateSale;
     private javax.swing.JButton cancelOrder;
@@ -456,5 +460,8 @@ public class SalesSheet extends javax.swing.JFrame{
         this.ordersTable.getColumnModel().getColumn( OrdersList.PRODUCT_PRICE ).
             setCellRenderer( NumberRenderer.getMXNCurrencyRenderer() );
     }
-     
+    
+    public OptionsMenuBar getOptionsMenuBar() {
+        return (OptionsMenuBar) OptionsBar;
+    }
 }
