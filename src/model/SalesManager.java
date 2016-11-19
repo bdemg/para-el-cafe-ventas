@@ -62,7 +62,7 @@ public class SalesManager {
     }
 
     //create a properly formatted date that can be saved along the info of each order
-    private Date formatDueDate(
+    private Timestamp formatDueDate(
         int input_DueDay,
         int input_DueMonth,
         int input_DueYear,
@@ -79,7 +79,7 @@ public class SalesManager {
             input_DueMinute
         );
 
-        return new Date(dueDate.getTimeInMillis());
+        return new Timestamp(dueDate.getTimeInMillis());
     }
 
 }

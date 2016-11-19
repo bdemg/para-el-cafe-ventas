@@ -48,7 +48,7 @@ public class SalesDAO extends DAO{
         String input_product,
         int input_quantity,
         double input_cost,
-        Date input_dueDate
+        Timestamp input_dueDate
             
     ) throws SQLException{
         try {
@@ -60,7 +60,7 @@ public class SalesDAO extends DAO{
             preparedStatement.setString( this.PRODUCT_COLUMN, input_product );
             preparedStatement.setInt( this.QUANTITY_COLUMN, input_quantity );
             preparedStatement.setDouble( this.COST_COLUMN, input_cost );
-            preparedStatement.setDate(this.DUE_DATE_COLUMN, input_dueDate );
+            preparedStatement.setTimestamp(this.DUE_DATE_COLUMN, input_dueDate );
             preparedStatement.setBoolean( this.IS_BAKED_COLUMN, false );
             
             preparedStatement.execute();
