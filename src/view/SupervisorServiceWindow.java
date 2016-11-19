@@ -14,7 +14,7 @@ import javax.swing.JMenuItem;
  *
  * @author Jorge A. Cano
  */
-public class OptionsMenuBar extends JMenuBar{
+public class SupervisorServiceWindow extends JMenuBar{
 
     private final JMenuItem registerClient;
     private final JMenuItem monthlyReport;
@@ -27,7 +27,7 @@ public class OptionsMenuBar extends JMenuBar{
     private final String MONTHLY_REPORT = "Reporte Mensual";
     private final String TODAYS_DELIVERIES = "Entregas de Hoy";
 
-    public OptionsMenuBar() {
+    public SupervisorServiceWindow() {
         this.registerClient = new JMenuItem(this.REGISTER_CLIENT);
         this.monthlyReport = new JMenuItem(this.MONTHLY_REPORT);
         this.todaysDeliveries = new JMenuItem(this.TODAYS_DELIVERIES);

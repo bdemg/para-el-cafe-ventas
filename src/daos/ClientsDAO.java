@@ -59,7 +59,7 @@ public class ClientsDAO extends DAO{
     }
     
     // Searches the existence of a single client based on his phone number.
-    public boolean searchClientPhoneNumber( String input_PhoneNumber ) {
+    public boolean findClient( String input_PhoneNumber ) {
         
         try {
             PreparedStatement queryStatement = 
@@ -78,7 +78,6 @@ public class ClientsDAO extends DAO{
     }
     
     // Gets all the client information from the database table.
-    // ***CHECAR***
     public String[] getClientInfo( String input_PhoneNumber ) throws SQLException{
         
         try {
@@ -88,19 +87,10 @@ public class ClientsDAO extends DAO{
             
             ResultSet resultSet = queryStatement.executeQuery();
             boolean isClientFound = resultSet.last();
+            
             String[] clientInformation;
             if ( isClientFound ) {
-
-                clientInformation = new String[resultSet.getMetaData().getColumnCount()];
-
-                clientInformation[ this.NAME_COLUMN ] = 
-                        resultSet.getString( this.NAME_COLUMN_NAME );
-                clientInformation[ this.PHONENUMBER_COLUMN ] = 
-                        resultSet.getString( this.PHONENUMBER_COLUMN_NAME );
-                clientInformation[ this.ADDRESS_COLUMN ] = 
-                        resultSet.getString( this.ADDRESS_COLUMN_NAME );
-                clientInformation[ this.REFERENCES_COLUMN ] = 
-                        resultSet.getString( this.REFERENCES_COLUMN_NAME );
+                clientInformation = this.putClientInformationIntoArray(resultSet);
                 
             } else{
                 clientInformation = null;
@@ -110,5 +100,22 @@ public class ClientsDAO extends DAO{
         } catch (SQLException ex) {
             throw ex;
         }
+    }
+    
+    private String[] putClientInformationIntoArray(ResultSet input_resultSet) throws SQLException{
+        
+        String[] clientInformation = 
+                new String[input_resultSet.getMetaData().getColumnCount()];
+
+        clientInformation[ this.NAME_COLUMN ] = 
+            input_resultSet.getString( this.NAME_COLUMN_NAME );
+        clientInformation[ this.PHONENUMBER_COLUMN ] = 
+            input_resultSet.getString( this.PHONENUMBER_COLUMN_NAME );
+        clientInformation[ this.ADDRESS_COLUMN ] = 
+            input_resultSet.getString( this.ADDRESS_COLUMN_NAME );
+        clientInformation[ this.REFERENCES_COLUMN ] = 
+            input_resultSet.getString( this.REFERENCES_COLUMN_NAME );
+        
+        return clientInformation;
     }
 }
