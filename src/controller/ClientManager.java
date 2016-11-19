@@ -85,7 +85,7 @@ public class ClientManager extends Controller{
         
         String phone_number = this.clientForm.getClientPhoneNumber().getText();
         ClientsDAO clientDAO = ClientsDAO.getClientsDAO();
-        boolean isClientRegistered = clientDAO.searchClientPhoneNumber(phone_number);
+        boolean isClientRegistered = clientDAO.findClient(phone_number);
         return isClientRegistered;
     }
     
