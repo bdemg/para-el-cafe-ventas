@@ -43,8 +43,8 @@ public class ClientForm extends javax.swing.JFrame {
         clientAddressReferences = new javax.swing.JTextArea();
         registerButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Nuevo Cliente");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registrar Cliente");
 
         label_Name.setText("Nombre:");
 
