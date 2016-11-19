@@ -13,13 +13,7 @@ public class ClientsDAO extends DAO{
     private static final ClientsDAO clientsDAO = new ClientsDAO();
 
     private final String INSERT_CLIENT = "INSERT INTO client VALUES (?, ?, ?, ?)";
-    private final String QUERY_SEARCH = "SELECT * FROM client WHERE phone_number=?";
-    
-    // Client values for the insert query.
-    private final int CLIENT_NAME = 1;
-    private final int CLIENT_PHONENUMBER = 2;
-    private final int CLIENT_ADDRESS = 3;
-    private final int CLIENT_REFERENCES = 4;
+    private final String QUERY_SEARCH = "SELECT * FROM client WHERE phoneNumber=?";
     
     private final int NAME_COLUMN = 0;
     private final int PHONENUMBER_COLUMN = 1;
@@ -27,9 +21,9 @@ public class ClientsDAO extends DAO{
     private final int REFERENCES_COLUMN = 3;
     
     private final String NAME_COLUMN_NAME = "name";
-    private final String PHONENUMBER_COLUMN_NAME = "phone_number";
+    private final String PHONENUMBER_COLUMN_NAME = "phoneNumber";
     private final String ADDRESS_COLUMN_NAME = "address";
-    private final String REFERENCES_COLUMN_NAME = "location_references";
+    private final String REFERENCES_COLUMN_NAME = "locationReferences";
 
     private ClientsDAO() {
         
@@ -53,10 +47,10 @@ public class ClientsDAO extends DAO{
             PreparedStatement queryStatement = (PreparedStatement) 
                     super.connectionToDatabase.prepareStatement( this.INSERT_CLIENT );
             
-            queryStatement.setString( this.CLIENT_NAME, input_Name );
-            queryStatement.setString( this.CLIENT_PHONENUMBER, input_PhoneNumber );
-            queryStatement.setString( this.CLIENT_ADDRESS, input_Address );
-            queryStatement.setString( this.CLIENT_REFERENCES, input_References );
+            queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_Name );
+            queryStatement.setString( QueryEnumeration.SECOND_QUERY_VALUE, input_PhoneNumber );
+            queryStatement.setString( QueryEnumeration.THIRD_QUERY_VALUE, input_Address );
+            queryStatement.setString( QueryEnumeration.FOURTH_QUERY_VALUE, input_References );
             queryStatement.execute();
             
         } catch (SQLException ex) {
@@ -70,7 +64,7 @@ public class ClientsDAO extends DAO{
         try {
             PreparedStatement queryStatement = 
                     (PreparedStatement) super.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
-            queryStatement.setString(1, input_PhoneNumber);
+            queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_PhoneNumber );
             
             ResultSet resultSet = queryStatement.executeQuery();
             
@@ -90,9 +84,9 @@ public class ClientsDAO extends DAO{
         try {
             PreparedStatement queryStatement = (PreparedStatement) 
                     super.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
-            queryStatement.setString(1, input_PhoneNumber);
-            ResultSet resultSet = queryStatement.executeQuery();
+            queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_PhoneNumber );
             
+            ResultSet resultSet = queryStatement.executeQuery();
             boolean isClientFound = resultSet.last();
             String[] clientInformation;
             if ( isClientFound ) {

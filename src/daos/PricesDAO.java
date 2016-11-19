@@ -20,9 +20,7 @@ public class PricesDAO extends DAO{
     
     private final String PRICE_QUERY = "select * from product where name=?";
     
-    private final int PRODUCT_NAME_COLUMN = 1;
-    
-    private final String PRICE_COLUMN_NAME = "price";
+    private final String PRICE_COLUMN_NAME = "unitPrice";
     
     
     public static PricesDAO getPricesDAO(){
@@ -42,7 +40,7 @@ public class PricesDAO extends DAO{
             PreparedStatement preparedStatement = ( PreparedStatement ) super.connectionToDatabase
                 .prepareStatement( this.PRICE_QUERY );
             
-            preparedStatement.setString( this.PRODUCT_NAME_COLUMN, input_ProductName );
+            preparedStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_ProductName );
             
             ResultSet resultSet = preparedStatement.executeQuery();
             
