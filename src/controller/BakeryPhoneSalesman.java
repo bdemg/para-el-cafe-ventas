@@ -46,7 +46,7 @@ public final class BakeryPhoneSalesman extends Controller {
         this.salesSheet = new SalesSheet();
         this.setupSalesSheet();
         
-        StoreManager storeManager = new StoreManager(this.salesSheet.getOptionsMenuBar());
+        StoreSupervisor storeManager = new StoreSupervisor(this.salesSheet.getServiceWindow());
         
         this.addActionListeners();
     }

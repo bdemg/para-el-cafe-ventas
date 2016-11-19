@@ -6,17 +6,17 @@
 package controller;
 
 import java.awt.event.ActionEvent;
-import view.OptionsMenuBar;
+import view.SupervisorServiceWindow;
 
 /**
  *
  * @author Jorge A. Cano
  */
-public class StoreManager extends Controller{
+public final class StoreSupervisor extends Controller{
 
-    private final OptionsMenuBar optionsMenuBar;
+    private final SupervisorServiceWindow optionsMenuBar;
     
-    StoreManager(OptionsMenuBar input_optionsMenuBar) {
+    StoreSupervisor(SupervisorServiceWindow input_optionsMenuBar) {
         
         this.optionsMenuBar = input_optionsMenuBar;
         
