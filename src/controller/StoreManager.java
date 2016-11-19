@@ -31,10 +31,10 @@ public class StoreManager extends Controller{
         if( eventSource == this.optionsMenuBar.getRegisterClient() ){
             this.callClientManager();
             
-        }else if( eventSource == this.optionsMenuBar.getMonthlyReport()){
+        }else if( eventSource == this.optionsMenuBar.getMonthlyReport() ){
             this.callReportManager();
             
-        }else if( eventSource == this.optionsMenuBar.getTodaysDeliveries()){
+        }else if( eventSource == this.optionsMenuBar.getTodaysDeliveries() ){
             this.callDeliverySecretary();
             
         }
@@ -54,7 +54,8 @@ public class StoreManager extends Controller{
     }
 
     private void callReportManager() {
-        ;//EMPTY FOR NOW
+        
+        new ReportManager();//EMPTY FOR NOW
     }
 
     private void callDeliverySecretary() {
