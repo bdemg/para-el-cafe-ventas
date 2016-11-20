@@ -16,6 +16,7 @@ public final class StoreSupervisor extends Controller{
 
     private final SupervisorServiceWindow optionsMenuBar;
     
+    
     StoreSupervisor(SupervisorServiceWindow input_optionsMenuBar) {
         
         this.optionsMenuBar = input_optionsMenuBar;
@@ -23,23 +24,41 @@ public final class StoreSupervisor extends Controller{
         this.addActionListeners();
     }
 
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         
         Object eventSource = e.getSource();
         
-        if( eventSource == this.optionsMenuBar.getRegisterClient() ){
+        if( this.isClientManagerNeeded( eventSource ) ){
             this.callClientManager();
             
-        }else if( eventSource == this.optionsMenuBar.getMonthlyReport()){
+        }else if( this.isReportManagerRequired( eventSource ) ){
             this.callReportManager();
             
-        }else if( eventSource == this.optionsMenuBar.getTodaysDeliveries()){
+        }else if( this.isDeliverySecretaryNeeded( eventSource ) ){
             this.callDeliverySecretary();
             
         }
     }
-
+    
+    
+    private boolean isClientManagerNeeded( Object input_eventSource ){
+        return input_eventSource == this.optionsMenuBar.getRegisterClient();
+    }
+    
+    
+    private boolean isReportManagerRequired( Object input_eventSource ){
+        return input_eventSource == this.optionsMenuBar.getMonthlyReport();
+    }
+    
+    
+    private boolean isDeliverySecretaryNeeded( Object input_eventSource ){
+        return input_eventSource == this.optionsMenuBar.getTodaysDeliveries();
+    }
+    
+   
+    
     @Override
     protected void addActionListeners() {
         
@@ -48,15 +67,18 @@ public final class StoreSupervisor extends Controller{
         this.optionsMenuBar.getTodaysDeliveries().addActionListener( this );
     }
 
+    
     private void callClientManager() {
         
         new ClientManager();
     }
 
+    
     private void callReportManager() {
         ;//EMPTY FOR NOW
     }
 
+    
     private void callDeliverySecretary() {
         ;//EMPTY FOR NOW
     }

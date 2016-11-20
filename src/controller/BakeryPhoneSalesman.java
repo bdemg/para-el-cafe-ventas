@@ -38,7 +38,8 @@ public final class BakeryPhoneSalesman extends Controller {
     
     private final int INITIAL_PRODUCT_QUANTITY = 1;
     private final int CLIENT_NAME = 0;
-    private final int CLIENT_ADDRESS = 2;    
+    private final int CLIENT_ADDRESS = 2;
+    private final int CLIENT_LOCATION_REFERENCES = 3;
     
     
     public BakeryPhoneSalesman() {
@@ -187,6 +188,9 @@ public final class BakeryPhoneSalesman extends Controller {
         
         String clientAddress = input_clientInfo[ this.CLIENT_ADDRESS ];
         this.salesSheet.getClientAddress().setText( clientAddress );
+        
+        String clientLocationReferences = input_clientInfo[ this.CLIENT_LOCATION_REFERENCES ];
+        this.salesSheet.getReferences().setText(clientLocationReferences);
     }
     
     

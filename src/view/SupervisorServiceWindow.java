@@ -28,31 +28,47 @@ public class SupervisorServiceWindow extends JMenuBar{
     private final String TODAYS_DELIVERIES = "Entregas de Hoy";
 
     public SupervisorServiceWindow() {
+        
         this.registerClient = new JMenuItem(this.REGISTER_CLIENT);
         this.monthlyReport = new JMenuItem(this.MONTHLY_REPORT);
         this.todaysDeliveries = new JMenuItem(this.TODAYS_DELIVERIES);
         
+        this.setupClientRelatedOptions();
+        this.setupReportRelatedOptions();
+    }
+    
+
+    private void setupClientRelatedOptions(){
+        
         JMenu clientOptions = new JMenu(this.CLIENT_OPTIONS);
-        JMenu reportOptions = new JMenu(this.REPORT_OPTIONS);
-        
         clientOptions.add(this.registerClient);
+        this.add(clientOptions);
+    }
+    
+    
+    private void setupReportRelatedOptions(){
         
+        JMenu reportOptions = new JMenu(this.REPORT_OPTIONS);
         reportOptions.add(this.monthlyReport);
         reportOptions.add(this.todaysDeliveries);
-        
-        this.add(clientOptions);
         this.add(reportOptions);
     }
-
+    
+    
     public JMenuItem getRegisterClient() {
+        
         return registerClient;
     }
 
+    
     public JMenuItem getMonthlyReport() {
+        
         return monthlyReport;
     }
 
+    
     public JMenuItem getTodaysDeliveries() {
+        
         return todaysDeliveries;
     }
     
