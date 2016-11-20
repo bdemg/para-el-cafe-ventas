@@ -75,7 +75,8 @@ public final class StoreSupervisor extends Controller{
 
     
     private void callReportManager() {
-        ;//EMPTY FOR NOW
+        
+        new ReportManager();
     }
 
     
