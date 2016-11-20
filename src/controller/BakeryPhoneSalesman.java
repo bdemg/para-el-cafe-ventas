@@ -167,11 +167,11 @@ public final class BakeryPhoneSalesman extends Controller {
                 this.readyForTakingOrders( true );
             } else{
                 
-                this.tellErrorMessagerToShowMessage(ErrorMessager.CLIENT_NOT_FOUND);
+                this.tellErrorMessagerToShowMessage( ErrorMessager.CLIENT_NOT_FOUND );
             }
         } catch ( SQLException ex ) {
             
-            this.tellErrorMessagerToShowMessage(ErrorMessager.DATABASE_ERROR);
+            this.tellErrorMessagerToShowMessage( ErrorMessager.DATABASE_ERROR );
         }
     }
     
@@ -266,7 +266,7 @@ public final class BakeryPhoneSalesman extends Controller {
     private void removeProductFromOrder( int input_productToRemove ) {
         
         OrdersList orders = this.salesSheet.getOrdersList();
-        orders.removeRow( (input_productToRemove - 1) );
+        orders.removeRow( ( input_productToRemove - 1 ) );
 
     }
     
@@ -293,7 +293,7 @@ public final class BakeryPhoneSalesman extends Controller {
             this.prepareForNextClient();
         } catch ( SQLException ex ) {
             
-            this.tellErrorMessagerToShowMessage(ErrorMessager.DATABASE_ERROR);
+            this.tellErrorMessagerToShowMessage( ErrorMessager.DATABASE_ERROR );
         }
     }
     
@@ -321,7 +321,7 @@ public final class BakeryPhoneSalesman extends Controller {
             
         } catch (SQLException ex) {
             
-            this.tellErrorMessagerToShowMessage(ErrorMessager.DATABASE_ERROR);
+            this.tellErrorMessagerToShowMessage( ErrorMessager.DATABASE_ERROR );
         }
     }
 
@@ -334,6 +334,7 @@ public final class BakeryPhoneSalesman extends Controller {
         this.salesSheet.getClientName().setText( Keywords.EMPTY );
         this.salesSheet.getClientAddress().setText( Keywords.EMPTY );
         this.salesSheet.getClientPhoneNumber().setText( Keywords.EMPTY );
+        this.salesSheet.getReferences().setText( Keywords.EMPTY );
     }
     
     
