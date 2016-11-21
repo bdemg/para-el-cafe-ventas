@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 
 import daos.ClientsDAO;
+import model.Client;
 import model.ErrorMessager;
 import model.Keywords;
 import view.ClientForm;
@@ -114,7 +115,7 @@ public class ClientManager extends Controller{
         errorMessager.showErrorMessage( input_ErrorMessage );
     }
     
-    protected static String[] searchForClientInfo( String input_clientPhonenumber ) throws SQLException{
+    protected static Client searchForClientInfo( String input_clientPhonenumber ) throws SQLException{
         return ClientsDAO.getClientsDAO().getClientInfo( input_clientPhonenumber );
     }
 }

@@ -10,6 +10,7 @@ import daos.ClientsDAO;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
+import model.Client;
 import model.SalesAccountant;
 import model.ErrorMessager;
 import model.Keywords;
@@ -158,12 +159,12 @@ public final class BakeryPhoneSalesman extends Controller {
             
         try {
             
-            String[] clientInfo = this.requestClientInfo( clientPhonenumber );
-            boolean isFound = clientInfo != null;
+            Client client = this.requestClientInfo( clientPhonenumber );
+            boolean isFound = client != null;
             
             if( isFound ){
                 
-                this.writeClientInfo( clientInfo );
+                this.writeClientInfo( client );
                 this.readyForTakingOrders( true );
             } else{
                 
@@ -176,21 +177,16 @@ public final class BakeryPhoneSalesman extends Controller {
     }
     
     
-    private String[] requestClientInfo( String input_clientPhonenumber ) throws SQLException{
+    private Client requestClientInfo( String input_clientPhonenumber ) throws SQLException{
         return ClientManager.searchForClientInfo( input_clientPhonenumber );
     }
     
-    //escribe la información del cliente (nombre y dirección) en la ventana
-    private void writeClientInfo( String[] input_clientInfo ) {
+    //write down the client information
+    private void writeClientInfo( Client input_clientInfo ) {
         
-        String clientName = input_clientInfo[ this.CLIENT_NAME ];
-        this.salesSheet.getClientName().setText( clientName );
-        
-        String clientAddress = input_clientInfo[ this.CLIENT_ADDRESS ];
-        this.salesSheet.getClientAddress().setText( clientAddress );
-        
-        String clientLocationReferences = input_clientInfo[ this.CLIENT_LOCATION_REFERENCES ];
-        this.salesSheet.getReferences().setText(clientLocationReferences);
+        this.salesSheet.getClientName().setText( input_clientInfo.getName() );
+        this.salesSheet.getClientAddress().setText( input_clientInfo.getLocation().getAddress() );
+        this.salesSheet.getReferences().setText( input_clientInfo.getLocation().getReferences() );
     }
     
     
