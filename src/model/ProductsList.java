@@ -20,7 +20,13 @@ public class ProductsList extends JComboBox {
         "Merengue Italiano",
         "Bisquet de Queso Paula",
         "Cupcake perfecto",
-        "Pastel de Fresas"
+        "Crema de Mantequilla",
+        "Pastel de Terciopelo Rojo",
+        "Pay de Limón",
+        "Bolitas de Nuez",
+        "Glaseado de queso",
+        "Pay de Queso",
+        "Bolillo"
     };
 
     public ProductsList() {

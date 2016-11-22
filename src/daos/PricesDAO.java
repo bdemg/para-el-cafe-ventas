@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,7 +20,10 @@ import java.sql.SQLException;
 public class PricesDAO extends DAO{
     private static final PricesDAO pricesDAO = new PricesDAO();
     
-    private final String PRICE_QUERY = "select * from product where name=?";
+    private final String GET_PRICE_QUERY = "select * from product where name=?";
+    private final String UPDATE_PRICE_QUERY = "UPDATE product" +
+        "SET unitPrice=?" +
+        "WHERE name=?";
     
     private final String PRICE_COLUMN_NAME = "unitPrice";
     
@@ -34,13 +39,13 @@ public class PricesDAO extends DAO{
     }
     
     
-    public double getProductPrice( String input_ProductName ) throws SQLException{
+    public double getProductPrice( String input_productName ) throws SQLException{
         
         try {
-            PreparedStatement preparedStatement = ( PreparedStatement ) super.connectionToDatabase
-                .prepareStatement( this.PRICE_QUERY );
+            PreparedStatement preparedStatement = ( PreparedStatement ) 
+                super.connectionToDatabase.prepareStatement( this.GET_PRICE_QUERY );
             
-            preparedStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_ProductName );
+            preparedStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_productName );
             
             ResultSet resultSet = preparedStatement.executeQuery();
             
@@ -49,6 +54,21 @@ public class PricesDAO extends DAO{
             
             return productPrice;
         } catch ( SQLException ex ) {
+            throw ex;
+        }
+    }
+    
+    public void updateProductPice(String input_productName, double input_productPrice) throws SQLException{
+        
+        try {
+            PreparedStatement preparedStatement = ( PreparedStatement )
+                    super.connectionToDatabase.prepareStatement(this.UPDATE_PRICE_QUERY);
+            
+            preparedStatement.setDouble(QueryEnumeration.FIRST_QUERY_VALUE, input_productPrice);
+            preparedStatement.setString(QueryEnumeration.SECOND_QUERY_VALUE, input_productName);
+            
+            preparedStatement.execute();
+        } catch (SQLException ex) {
             throw ex;
         }
     }
