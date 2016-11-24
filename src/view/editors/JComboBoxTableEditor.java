@@ -12,7 +12,8 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
 /**
- *
+ * This class is based on external code that can be found in it's original form here
+ * http://stackoverflow.com/questions/5064181/how-to-use-jlists-in-jtable-cells
  * @author Jorge A. Cano
  */
 public class JComboBoxTableEditor extends AbstractCellEditor implements TableCellEditor {
@@ -33,6 +34,7 @@ public class JComboBoxTableEditor extends AbstractCellEditor implements TableCel
 
     @Override
     public Object getCellEditorValue() {
+        
         return component;
     }
 

@@ -11,32 +11,23 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+import model.ProductQuantityTemplate;
 
 /**
- *
+ * This class is based on external code that can be found in it's original form here 
+ * http://www.java2s.com/Tutorial/Java/0240__Swing/UsingaListJSpinnerasaCellEditorinaJTableComponent.htm 
  * @author Jorge A. Cano
+ * 
  */
 public class JSpinnerTableEditor extends DefaultCellEditor
 {
     private final JSpinner spinner;
-    
-    private final int STARTING_VALUE = 1;
-    private final int MINUMUM = 1;
-    private final int MAXIMUM = 100;
-    private final int STEP_BY = 1;
 
     public JSpinnerTableEditor()
     {
     	super( new JTextField() );
         
-    	spinner = new JSpinner( 
-            new SpinnerNumberModel(
-                this.STARTING_VALUE,
-                this.MINUMUM,
-                this.MAXIMUM,
-                this.STEP_BY
-            )
-        );
+    	spinner = new JSpinner( new ProductQuantityTemplate() );
         
     	spinner.setBorder( null );
     }
@@ -55,8 +46,8 @@ public class JSpinnerTableEditor extends DefaultCellEditor
     }
 
     @Override
-    public Object getCellEditorValue()
-    {
+    public Object getCellEditorValue(){
+        
     	return spinner.getValue();
     }
 }

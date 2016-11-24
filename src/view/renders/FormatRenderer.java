@@ -4,8 +4,10 @@ import java.text.Format;
 import java.text.DateFormat;
 import javax.swing.table.DefaultTableCellRenderer;
 
-/*
- *	Use a formatter to format the cell Object
+/**
+ * This class is based on external code that can be found in it's original form here
+ * https://tips4java.wordpress.com/2008/10/11/table-format-renderers/
+ * @author  Rob Camick
  */
 public class FormatRenderer extends DefaultTableCellRenderer {
 
@@ -30,6 +32,7 @@ public class FormatRenderer extends DefaultTableCellRenderer {
                 value = formatter.format( value );
             }
         } catch ( IllegalArgumentException e ) {
+            e.printStackTrace();
         }
 
         super.setValue( value );

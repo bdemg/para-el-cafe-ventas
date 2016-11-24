@@ -11,7 +11,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- *
+ * This class is based on external code that can be found in it's original form here
+ * http://stackoverflow.com/questions/5064181/how-to-use-jlists-in-jtable-cells
  * @author Jorge A. Cano
  */
 public class JComboBoxTableRenderer extends DefaultTableCellRenderer {

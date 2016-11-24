@@ -46,20 +46,11 @@ public final class BakeryPhoneSalesman extends Controller {
     public BakeryPhoneSalesman() {
         
         this.salesSheet = new SalesSheet();
-        this.setupSalesSheet();
         
         StoreSupervisor storeManager = new StoreSupervisor(this.salesSheet.getServiceWindow());
         
         this.addActionListeners();
     }
-    
-    
-    private void setupSalesSheet(){
-        
-        this.salesSheet.setVisible( true );
-        this.salesSheet.setLocationRelativeTo( null );
-    }
-    
     
     @Override
     protected void addActionListeners() {

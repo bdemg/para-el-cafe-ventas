@@ -4,6 +4,12 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import javax.swing.SwingConstants;
 
+/**
+ * This class is based on external code that can be found in it's original form here
+ * https://tips4java.wordpress.com/2008/10/11/table-format-renderers/
+ * @author Jorge A. Cano
+ */
+
 public class NumberRenderer extends FormatRenderer {
 
     public static final Locale MEXICAN_LOCALE = Locale.forLanguageTag("es-MX");

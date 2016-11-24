@@ -58,6 +58,7 @@ public class SalesDAO extends DAO{
     }
     
     
+    //save a sale into the sales table of the database
     public void saveSale(
         String input_phonenumber,
         String input_product,
@@ -71,6 +72,7 @@ public class SalesDAO extends DAO{
             PreparedStatement preparedStatement = ( PreparedStatement ) 
                     super.connectionToDatabase.prepareStatement( this.INSERT_ORDER_QUERY );
             
+            //add the values into the insertion query
             preparedStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_phonenumber );
             preparedStatement.setString( QueryEnumeration.SECOND_QUERY_VALUE, input_product );
             preparedStatement.setInt( QueryEnumeration.THIRD_QUERY_VALUE, input_quantity );

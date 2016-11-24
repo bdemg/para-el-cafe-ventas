@@ -78,6 +78,7 @@ public class ClientsDAO extends DAO {
     public Client getClientInfo(String input_PhoneNumber) throws SQLException {
 
         try {
+            
             PreparedStatement queryStatement = (PreparedStatement) 
                     super.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
             queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_PhoneNumber );
