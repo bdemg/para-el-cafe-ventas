@@ -19,16 +19,8 @@ public class ClientManager extends Controller{
     public ClientManager(){
         
         this.clientForm = new ClientForm();
-        this.setupClientForm();
         
         this.addActionListeners();
-    }
-    
-    private void setupClientForm(){
-        
-        this.clientForm.setVisible(true);
-        this.clientForm.setResizable(false);
-        this.clientForm.setLocationRelativeTo(null);
     }
     
     @Override
@@ -96,8 +88,8 @@ public class ClientManager extends Controller{
         String address = this.clientForm.getClientAddress().getText();
         String references = this.clientForm.getClientAddressReferences().getText();
         
-        ClientsDAO clientDAO = ClientsDAO.getClientsDAO();
-        clientDAO.insertClientInformation(name, phone_number, address, references);
+        ClientsDAO clientsDAO = ClientsDAO.getClientsDAO();
+        clientsDAO.insertClientInformation(name, phone_number, address, references);
     }
     
     private void cleanClientForm(){

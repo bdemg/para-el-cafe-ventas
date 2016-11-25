@@ -21,6 +21,15 @@ public class ClientForm extends javax.swing.JFrame {
         PlainDocument format = new PlainDocument();
         format.setDocumentFilter(new NumberFilter());
         this.clientPhoneNumber.setDocument(format);
+        
+        this.setupClientForm();
+    }
+    
+    private void setupClientForm(){
+        
+        this.setVisible(true);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
     /**
