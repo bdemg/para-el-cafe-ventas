@@ -11,7 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 /**
- *
+ * This class represents the service window of the supervisor, where you can interact
+ * with him.
  * @author Jorge A. Cano
  */
 public class SupervisorServiceWindow extends JMenuBar{

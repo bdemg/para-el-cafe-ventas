@@ -58,6 +58,7 @@ public class SalesDAO extends DAO{
     }
     
     
+    //save a sale into the database
     public void saveSale(
         String input_phonenumber,
         String input_product,
@@ -71,6 +72,7 @@ public class SalesDAO extends DAO{
             PreparedStatement preparedStatement = ( PreparedStatement ) 
                     super.connectionToDatabase.prepareStatement( this.INSERT_ORDER_QUERY );
             
+            //add the values into the insertion query
             preparedStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_phonenumber );
             preparedStatement.setString( QueryEnumeration.SECOND_QUERY_VALUE, input_product );
             preparedStatement.setInt( QueryEnumeration.THIRD_QUERY_VALUE, input_quantity );
@@ -85,11 +87,14 @@ public class SalesDAO extends DAO{
         }
     }
     
+    
+    //obtain all the sales made in a month that are stored in the database
     public Object[][] getMonthlySales( Timestamp input_month ) throws SQLException{
         try { 
             
             PreparedStatement preparedStatement = ( PreparedStatement )
                     super.connectionToDatabase.prepareStatement( this.MONTHLY_SALES_QUERY );
+            
             
             preparedStatement.setTimestamp( QueryEnumeration.FIRST_QUERY_VALUE, input_month );
             preparedStatement.setTimestamp( 
@@ -102,6 +107,7 @@ public class SalesDAO extends DAO{
             boolean areThereMontlySales = resultSet.first();
             Object[][] montlySales = null;
             
+            //only put the data of the report into an array if there is any data
             if(areThereMontlySales){
                 
                 montlySales = this.putMontlyReportIntoArray(resultSet);
@@ -114,7 +120,9 @@ public class SalesDAO extends DAO{
     }
     
     
+    //calculate the start of a the next month
     private Timestamp nextMonth(Timestamp input_monthStart){
+        
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(input_monthStart.getTime());
         calendar.set( Calendar.MONTH, ( calendar.get(Calendar.MONTH) + 1 ) );
@@ -123,7 +131,9 @@ public class SalesDAO extends DAO{
     }
 
     
+    //put the data of a monthly report result set into an array
     private Object[][] putMontlyReportIntoArray(ResultSet input_resultSet) throws SQLException {
+        
         input_resultSet.last();
         int numberOfSales = input_resultSet.getRow();
         Object[][] monthlyReport =
@@ -131,6 +141,7 @@ public class SalesDAO extends DAO{
         
         input_resultSet.first();
         
+        //put each row of the result set into a row of the array
         for(int saleCount = 0; saleCount < numberOfSales; saleCount++){
             
             monthlyReport[saleCount][ this.FOLIO_COLUMN ] = 
@@ -152,6 +163,8 @@ public class SalesDAO extends DAO{
         return monthlyReport;
     }
     
+    
+    //foreign method that returns a string representation of a timestamp
     private String timestampToString(Timestamp input_Date){
         
         Calendar calendar = Calendar.getInstance();

@@ -11,28 +11,33 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- *
+ * This class is used to indicate that certian cells in a table are going to look like
+ * a combo box.
+ * This class is based on external code that can be found in it's original form here
+ * http://stackoverflow.com/questions/5064181/how-to-use-jlists-in-jtable-cells
  * @author Jorge A. Cano
  */
 public class JComboBoxTableRenderer extends DefaultTableCellRenderer {
 
-    JComboBox pane = new JComboBox();
+    JComboBox comboBox = new JComboBox();
 
+    
     public JComboBoxTableRenderer() {
         super();
     }
 
+    
     @Override
     public Component getTableCellRendererComponent( 
-        JTable table,
-        Object value,
-        boolean isSelected,
-        boolean hasFocus,
-        int row,
-        int column 
+        JTable input_table,
+        Object input_value,
+        boolean input_isSelected,
+        boolean input_hasFocus,
+        int input_rowIndex,
+        int input_columnIndex 
     ) {
         
-        pane = ( JComboBox ) value;
-        return pane;
+        this.comboBox = ( JComboBox ) input_value;
+        return this.comboBox;
     }
 }

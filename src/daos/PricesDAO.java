@@ -10,15 +10,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- *
+ * This class provides an interface for the prices information stored in the database
  * @author Jorge A. Cano
  */
 public class PricesDAO extends DAO{
+    
     private static final PricesDAO pricesDAO = new PricesDAO();
     
-    private final String PRICE_QUERY = "select * from product where name=?";
+    private final String GET_PRICE_QUERY = "select * from product where name=?";
+    private final String UPDATE_PRICE_QUERY = "UPDATE product" +
+        "SET unitPrice=?" +
+        "WHERE name=?";
     
     private final String PRICE_COLUMN_NAME = "unitPrice";
     
@@ -34,13 +40,16 @@ public class PricesDAO extends DAO{
     }
     
     
-    public double getProductPrice( String input_ProductName ) throws SQLException{
+    //obtain the price of a given product from the database
+    public double getProductPrice( String input_productName ) throws SQLException{
         
         try {
-            PreparedStatement preparedStatement = ( PreparedStatement ) super.connectionToDatabase
-                .prepareStatement( this.PRICE_QUERY );
             
-            preparedStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_ProductName );
+            PreparedStatement preparedStatement = ( PreparedStatement ) 
+                super.connectionToDatabase.prepareStatement( this.GET_PRICE_QUERY );
+            
+            //add the values into the price obtaining query
+            preparedStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_productName );
             
             ResultSet resultSet = preparedStatement.executeQuery();
             
@@ -49,6 +58,25 @@ public class PricesDAO extends DAO{
             
             return productPrice;
         } catch ( SQLException ex ) {
+            throw ex;
+        }
+    }
+    
+    
+    //update the price of a given product in the database with a new price
+    public void updateProductPice(String input_productName, double input_productPrice) throws SQLException{
+        
+        try {
+            
+            PreparedStatement preparedStatement = ( PreparedStatement )
+                    super.connectionToDatabase.prepareStatement(this.UPDATE_PRICE_QUERY);
+            
+            //add the values into the price updating query
+            preparedStatement.setDouble(QueryEnumeration.FIRST_QUERY_VALUE, input_productPrice);
+            preparedStatement.setString(QueryEnumeration.SECOND_QUERY_VALUE, input_productName);
+            
+            preparedStatement.execute();
+        } catch (SQLException ex) {
             throw ex;
         }
     }

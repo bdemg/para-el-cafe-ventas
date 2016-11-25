@@ -9,7 +9,7 @@ import controller.BakeryPhoneSalesman;
 import javax.swing.UIManager;
 
 /**
- *
+ * The starting point of the application.
  * @author Jorge A. Cano
  */
 public class EntryPoint {

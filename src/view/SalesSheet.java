@@ -45,7 +45,15 @@ public class SalesSheet extends javax.swing.JFrame{
         PlainDocument format = new PlainDocument();
         format.setDocumentFilter( new NumberFilter() );
         this.clientPhoneNumber.setDocument( format );
+        this.setupSalesSheet();
         
+    }
+    
+    private void setupSalesSheet(){
+        
+        this.setVisible( true );
+        this.setLocationRelativeTo( null );
+        this.setResizable( false );
     }
 
     /**
