@@ -8,7 +8,7 @@ package model;
 import javax.swing.JComboBox;
 
 /**
- *This class contains the list of products offered by the bakery.
+ * This class contains the list of products offered by the bakery.
  * @author Jorge A. Cano
  */
 public class ProductsList extends JComboBox {

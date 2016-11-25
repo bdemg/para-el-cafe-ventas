@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 
 /**
+ * This class is used to control the behaviour of a combo box in a table.
  * This class is based on external code that can be found in it's original form here
  * http://stackoverflow.com/questions/5064181/how-to-use-jlists-in-jtable-cells
  * @author Jorge A. Cano
@@ -19,19 +20,21 @@ import javax.swing.table.TableCellEditor;
 public class JComboBoxTableEditor extends AbstractCellEditor implements TableCellEditor {
 
     JComboBox component = new JComboBox();
-
+    
+    
     @Override
     public Component getTableCellEditorComponent(
-        JTable table,
-        Object value,
-        boolean isSelected,
-        int rowIndex,
-        int vColIndex 
+        JTable input_table,
+        Object input_value,
+        boolean input_isSelected,
+        int input_rowIndex,
+        int input_columnIndex 
     ) {
-        component = ( ( JComboBox ) value );
-        return ( ( JComboBox ) value );
+        component = ( ( JComboBox ) input_value );
+        return ( ( JComboBox ) input_value );
     }
 
+    
     @Override
     public Object getCellEditorValue() {
         

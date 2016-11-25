@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import view.SupervisorServiceWindow;
 
 /**
- *
+ * This class represents the store supervisor, who calls other employees when they are needed
  * @author Jorge A. Cano
  */
 public final class StoreSupervisor extends Controller{

@@ -9,7 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *This class is where the client's orders are written 
+ * This class represents where the client's orders are written 
  * @author Jorge A. Cano
  */
 public class OrdersList extends DefaultTableModel {
@@ -35,6 +35,7 @@ public class OrdersList extends DefaultTableModel {
         super( input_data, OrdersList.FIELD_NAMES );
     }
 
+    //the diferent types of values that are can be written to the orders list
     @Override
     public Class<?> getColumnClass( int input_columnIndex ) {
         
@@ -61,6 +62,17 @@ public class OrdersList extends DefaultTableModel {
                 break;
         }
         return columnClass;
+    }
+    
+    
+    @Override
+    public boolean isCellEditable(int input_row, int input_column) {
+        
+        boolean isProductNumber = input_column == OrdersList.PRODUCT_NUMBER;
+        boolean isProductPrice = input_column == OrdersList.PRODUCT_PRICE;
+        
+        boolean isEditable = !( isProductPrice || isProductNumber );
+        return isEditable;
     }
     
     

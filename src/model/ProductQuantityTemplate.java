@@ -8,7 +8,7 @@ package model;
 import javax.swing.SpinnerNumberModel;
 
 /**
- *
+ * This class represents the quantity of a product that can be written in the sales sheet.
  * @author Jorge A. Cano
  */
 public class ProductQuantityTemplate extends SpinnerNumberModel{

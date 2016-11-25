@@ -6,7 +6,7 @@
 package model;
 
 /**
- *
+ * This class represents the location of a client
  * @author Jorge A. Cano
  */
 public class Location {
@@ -16,6 +16,7 @@ public class Location {
 
     
     public Location(String address, String references) {
+        
         this.address = address;
         this.references = references;
     }
@@ -25,7 +26,8 @@ public class Location {
      * @return the address
      */
     public String getAddress() {
-        return address;
+        
+        return this.address;
     }
 
     
@@ -33,7 +35,8 @@ public class Location {
      * @return the references
      */
     public String getReferences() {
-        return references;
+        
+        return this.references;
     }
     
 }

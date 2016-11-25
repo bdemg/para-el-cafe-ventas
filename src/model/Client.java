@@ -6,13 +6,14 @@
 package model;
 
 /**
- *
+ * Thes class represent's a client of the bakery
  * @author Jorge A. Cano
  */
 public class Client {
+    
     private final String phonenumber;
     private final String name;
-    private Location location;
+    private final Location location;
 
     public Client(
         String input_phonenumber,
@@ -32,7 +33,7 @@ public class Client {
      */
     public String getPhonenumber() {
         
-        return phonenumber;
+        return this.phonenumber;
     }
 
     
@@ -41,15 +42,24 @@ public class Client {
      */
     public String getName() {
         
-        return name;
+        return this.name;
     }
 
     
     /**
-     * @return the location
+     * @return the address
      */
-    public Location getLocation() {
+    public String getAddress() {
         
-        return location;
+        return this.location.getAddress();
+    }
+    
+    
+    /**
+     * @return the address
+     */
+    public String getReferences() {
+        
+        return this.location.getReferences();
     }
 }

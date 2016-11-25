@@ -14,10 +14,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This class provides an interface for the prices information stored in the database
  * @author Jorge A. Cano
  */
 public class PricesDAO extends DAO{
+    
     private static final PricesDAO pricesDAO = new PricesDAO();
     
     private final String GET_PRICE_QUERY = "select * from product where name=?";
@@ -39,12 +40,15 @@ public class PricesDAO extends DAO{
     }
     
     
+    //obtain the price of a given product from the database
     public double getProductPrice( String input_productName ) throws SQLException{
         
         try {
+            
             PreparedStatement preparedStatement = ( PreparedStatement ) 
                 super.connectionToDatabase.prepareStatement( this.GET_PRICE_QUERY );
             
+            //add the values into the price obtaining query
             preparedStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_productName );
             
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -58,12 +62,16 @@ public class PricesDAO extends DAO{
         }
     }
     
+    
+    //update the price of a given product in the database with a new price
     public void updateProductPice(String input_productName, double input_productPrice) throws SQLException{
         
         try {
+            
             PreparedStatement preparedStatement = ( PreparedStatement )
                     super.connectionToDatabase.prepareStatement(this.UPDATE_PRICE_QUERY);
             
+            //add the values into the price updating query
             preparedStatement.setDouble(QueryEnumeration.FIRST_QUERY_VALUE, input_productPrice);
             preparedStatement.setString(QueryEnumeration.SECOND_QUERY_VALUE, input_productName);
             

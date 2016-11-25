@@ -38,16 +38,13 @@ public final class BakeryPhoneSalesman extends Controller {
     private final String CONFIRM_SALE_CANCEL_MESSAGE = "¿Está seguro que desea cancelar la orden?";
     
     private final int INITIAL_PRODUCT_QUANTITY = 1;
-    private final int CLIENT_NAME = 0;
-    private final int CLIENT_ADDRESS = 2;
-    private final int CLIENT_LOCATION_REFERENCES = 3;
     
     
     public BakeryPhoneSalesman() {
         
         this.salesSheet = new SalesSheet();
         
-        StoreSupervisor storeManager = new StoreSupervisor(this.salesSheet.getServiceWindow());
+        new StoreSupervisor(this.salesSheet.getServiceWindow());
         
         this.addActionListeners();
     }
@@ -176,8 +173,8 @@ public final class BakeryPhoneSalesman extends Controller {
     private void writeClientInfo( Client input_clientInfo ) {
         
         this.salesSheet.getClientName().setText( input_clientInfo.getName() );
-        this.salesSheet.getClientAddress().setText( input_clientInfo.getLocation().getAddress() );
-        this.salesSheet.getReferences().setText( input_clientInfo.getLocation().getReferences() );
+        this.salesSheet.getClientAddress().setText( input_clientInfo.getAddress() );
+        this.salesSheet.getReferences().setText( input_clientInfo.getReferences() );
     }
     
     

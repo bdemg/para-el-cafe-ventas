@@ -14,6 +14,7 @@ import javax.swing.SpinnerNumberModel;
 import model.ProductQuantityTemplate;
 
 /**
+ * This class is used to control the behaviour of a spinner field in a table.
  * This class is based on external code that can be found in it's original form here 
  * http://www.java2s.com/Tutorial/Java/0240__Swing/UsingaListJSpinnerasaCellEditorinaJTableComponent.htm 
  * @author Jorge A. Cano
@@ -23,32 +24,32 @@ public class JSpinnerTableEditor extends DefaultCellEditor
 {
     private final JSpinner spinner;
 
-    public JSpinnerTableEditor()
-    {
+    public JSpinnerTableEditor(){
+        
     	super( new JTextField() );
-        
-    	spinner = new JSpinner( new ProductQuantityTemplate() );
-        
-    	spinner.setBorder( null );
+    	this.spinner = new JSpinner( new ProductQuantityTemplate() );
+    	this.spinner.setBorder( null );
     }
 
+    
     @Override
     public Component getTableCellEditorComponent(
-    	JTable table,
-        Object value,
-        boolean isSelected,
-        int row,
-        int column 
+    	JTable input_table,
+        Object input_value,
+        boolean input_isSelected,
+        int input_rowIndex,
+        int input_columnIndex 
     ) {
         
-    	spinner.setValue( value );
-    	return spinner;
+    	this.spinner.setValue( input_value );
+    	return this.spinner;
     }
 
+    
     @Override
     public Object getCellEditorValue(){
         
-    	return spinner.getValue();
+    	return this.spinner.getValue();
     }
 }
 
