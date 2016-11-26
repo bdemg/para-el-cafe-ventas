@@ -6,6 +6,7 @@
 package view;
 
 import javax.swing.table.DefaultTableModel;
+import model.DeliveriesList;
 import model.OrdersList;
 import view.renders.NumberRenderer;
 
@@ -113,17 +114,17 @@ public class DeliveriesBoard extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    public void setDeliveriesList(DefaultTableModel input_DelivieriesList){
+    public void setDeliveriesList(DeliveriesList input_DelivieriesList){
         
         this.jTable1.setModel(input_DelivieriesList);
-//        this.setTableLook();
+        this.setTableLook();
     }
 
-//    private void setTableLook() {
-//        
-//        this.jTable1.getColumnModel().getColumn( DeliveriesList.PRODUCT_PRICE ).
-//            setCellRenderer( NumberRenderer.getMXNCurrencyRenderer() );
-//    }
+    private void setTableLook() {
+        
+        this.jTable1.getColumnModel().getColumn( DeliveriesList.PRODUCT_PRICE ).
+            setCellRenderer( NumberRenderer.getMXNCurrencyRenderer() );
+    }
 
 }
 

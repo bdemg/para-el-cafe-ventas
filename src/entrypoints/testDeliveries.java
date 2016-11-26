@@ -8,6 +8,7 @@ package entrypoints;
 import daos.DeliveriesDAO;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
+import model.DeliveriesList;
 import view.DeliveriesBoard;
 
 /**
@@ -23,8 +24,7 @@ public class testDeliveries {
         Object[][] deliveries = DeliveriesDAO.getDeliveriesDAO().getTodaysDeliveries();
         
         DeliveriesBoard DB = new DeliveriesBoard();
-        String[] columnNames = {"name", "phoneNumber", "address", "product_name", "quantity", "subtotal", "date"};
-        DB.setDeliveriesList(new DefaultTableModel(deliveries, columnNames));
+        DB.setDeliveriesList(new DeliveriesList(deliveries));
     }
     
 }
