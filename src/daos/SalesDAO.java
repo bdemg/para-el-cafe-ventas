@@ -6,19 +6,13 @@
 package daos;
 
 import com.mysql.jdbc.PreparedStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
+ * 
  * @author Jorge A. Cano
  */
 public class SalesDAO extends DAO{

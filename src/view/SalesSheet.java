@@ -378,9 +378,9 @@ public class SalesSheet extends javax.swing.JFrame{
     }
   
     
-    public void setOrdersList( OrdersList input_ordersTaker ){
+    public void setOrdersList( OrdersList input_ordersList ){
         
-        this.ordersTable.setModel( input_ordersTaker );
+        this.ordersTable.setModel( input_ordersList );
         this.setTableLook();
     }
     

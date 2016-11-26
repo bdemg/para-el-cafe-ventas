@@ -16,7 +16,7 @@ public abstract class Controller implements ActionListener{
 
     //obtain the events caused by the relevant components in the window
     @Override
-    public abstract void actionPerformed( ActionEvent event );
+    public abstract void actionPerformed( ActionEvent input_event );
     
     //add observers to the relevant components of the window
     protected abstract void addActionListeners();
