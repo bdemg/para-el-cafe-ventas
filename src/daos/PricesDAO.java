@@ -22,9 +22,7 @@ public class PricesDAO extends DAO{
     private static final PricesDAO pricesDAO = new PricesDAO();
     
     private final String GET_PRICE_QUERY = "select * from product where name=?";
-    private final String UPDATE_PRICE_QUERY = "UPDATE product" +
-        "SET unitPrice=?" +
-        "WHERE name=?";
+    private final String UPDATE_PRICE_QUERY = "UPDATE product SET unitPrice=? WHERE name=? ";
     
     private final String PRICE_COLUMN_NAME = "unitPrice";
     

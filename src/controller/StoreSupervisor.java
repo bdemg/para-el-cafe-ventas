@@ -39,24 +39,34 @@ public final class StoreSupervisor extends Controller{
         }else if( this.isDeliverySecretaryNeeded( eventSource ) ){
             this.callDeliverySecretary();
             
+        }else if( this.isPricesManagerNeeded( eventSource ) ){
+            this.callPricesManager();
         }
     }
     
     
     private boolean isClientManagerNeeded( Object input_eventSource ){
+        
         return input_eventSource == this.optionsMenuBar.getRegisterClient();
     }
     
     
     private boolean isReportManagerRequired( Object input_eventSource ){
+        
         return input_eventSource == this.optionsMenuBar.getMonthlyReport();
     }
     
     
     private boolean isDeliverySecretaryNeeded( Object input_eventSource ){
+        
         return input_eventSource == this.optionsMenuBar.getTodaysDeliveries();
     }
     
+    
+    private boolean isPricesManagerNeeded( Object input_eventSource ){
+        
+        return input_eventSource == this.optionsMenuBar.getChangePrice();
+    }
    
     
     @Override
@@ -65,6 +75,7 @@ public final class StoreSupervisor extends Controller{
         this.optionsMenuBar.getRegisterClient().addActionListener( this );
         this.optionsMenuBar.getMonthlyReport().addActionListener( this );
         this.optionsMenuBar.getTodaysDeliveries().addActionListener( this );
+        this.optionsMenuBar.getChangePrice().addActionListener( this );
     }
 
     
@@ -82,6 +93,11 @@ public final class StoreSupervisor extends Controller{
     
     private void callDeliverySecretary() {
         ;//EMPTY FOR NOW
+    }
+    
+    
+    private void callPricesManager(){
+        new PricesManager();
     }
     
 }

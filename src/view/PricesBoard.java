@@ -47,7 +47,7 @@ public class PricesBoard extends javax.swing.JFrame {
         label_Products = new javax.swing.JLabel();
         label_NewPrice = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         productsList.setModel(productsList.getModel());
 
