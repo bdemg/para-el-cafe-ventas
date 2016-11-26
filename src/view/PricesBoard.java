@@ -5,7 +5,9 @@
  */
 package view;
 
-import javax.swing.ComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import model.ProductsList;
 
@@ -39,15 +41,21 @@ public class PricesBoard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        productsComboBox = new javax.swing.JComboBox();
-        pricesSpinner = new javax.swing.JSpinner(new SpinnerNumberModel(1.0,1.0,99999.50,0.50));
-        jButton1 = new javax.swing.JButton();
+        productsList = new ProductsList();
+        newProductPrice = new javax.swing.JSpinner(new SpinnerNumberModel(1.0,1.0,99999.50,0.50));
+        updatePrice = new javax.swing.JButton();
+        label_Products = new javax.swing.JLabel();
+        label_NewPrice = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        productsComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        productsList.setModel(productsList.getModel());
 
-        jButton1.setText("jButton1");
+        updatePrice.setText("Actualizar precio");
+
+        label_Products.setText("Producto:");
+
+        label_NewPrice.setText("Nuevo precio:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,26 +63,30 @@ public class PricesBoard extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(label_Products)
+                    .addComponent(label_NewPrice))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(productsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
-                        .addComponent(pricesSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(updatePrice)
+                    .addComponent(newProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(productsList, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(productsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pricesSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                    .addComponent(label_Products)
+                    .addComponent(productsList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_NewPrice))
+                .addGap(18, 18, 18)
+                .addComponent(updatePrice)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,8 +128,26 @@ public class PricesBoard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JSpinner pricesSpinner;
-    private javax.swing.JComboBox productsComboBox;
+    private javax.swing.JLabel label_NewPrice;
+    private javax.swing.JLabel label_Products;
+    private javax.swing.JSpinner newProductPrice;
+    private javax.swing.JComboBox productsList;
+    private javax.swing.JButton updatePrice;
     // End of variables declaration//GEN-END:variables
+
+    public JSpinner getNewProductPrice() {
+        
+        return newProductPrice;
+    }
+
+    public JComboBox getProductsList() {
+        
+        return productsList;
+    }
+
+    public JButton getUpdatePrice() {
+        
+        return updatePrice;
+    }
+
 }

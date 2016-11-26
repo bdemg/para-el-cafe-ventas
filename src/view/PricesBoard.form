@@ -23,20 +23,19 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="productsComboBox" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="249" max="32767" attributes="0"/>
-                      <Component id="pricesSpinner" min="-2" pref="75" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="label_Products" min="-2" max="-2" attributes="0"/>
+                  <Component id="label_NewPrice" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="updatePrice" min="-2" max="-2" attributes="0"/>
+                  <Component id="newProductPrice" min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="productsList" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -45,37 +44,50 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="productsComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="pricesSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="label_Products" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="productsList" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="95" max="32767" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="newProductPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="label_NewPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="updatePrice" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JComboBox" name="productsComboBox">
+    <Component class="javax.swing.JComboBox" name="productsList">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection component="productsList" name="model" type="property"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ProductsList()"/>
+      </AuxValues>
     </Component>
-    <Component class="javax.swing.JSpinner" name="pricesSpinner">
+    <Component class="javax.swing.JSpinner" name="newProductPrice">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(new SpinnerNumberModel(1.0,1.0,99999.50,0.50))"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="updatePrice">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="text" type="java.lang.String" value="Actualizar precio"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="label_Products">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Producto:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="label_NewPrice">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nuevo precio:"/>
       </Properties>
     </Component>
   </SubComponents>

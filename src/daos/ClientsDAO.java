@@ -15,7 +15,8 @@ public class ClientsDAO extends DAO {
     private static final ClientsDAO clientsDAO = new ClientsDAO();
 
     private final String INSERT_CLIENT = "INSERT INTO client VALUES (?, ?, ?, ?)";
-    private final String QUERY_SEARCH = "SELECT * FROM client WHERE phoneNumber=?";
+    private final String DELETE_CLIENT = "DELETE FROM client WHERE phoneNumber=?";
+    private final String SEARCH_CLIENT = "SELECT * FROM client WHERE phoneNumber=?";
 
     private final String NAME_COLUMN_NAME = "name";
     private final String PHONENUMBER_COLUMN_NAME = "phoneNumber";
@@ -54,13 +55,27 @@ public class ClientsDAO extends DAO {
             ex.printStackTrace();
         }
     }
+    
+    public void deleteClient( String input_PhoneNumber ){
+        
+        try {
+            PreparedStatement queryStatement = (PreparedStatement)
+                    super.connectionToDatabase.prepareStatement( this.DELETE_CLIENT );
+            queryStatement.setString( QueryEnumeration.FIFTH_QUERY_VALUE, input_PhoneNumber );
+            
+            queryStatement.executeQuery();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     // Searches the existence of a single client based on his phone number.
     public boolean findClient( String input_PhoneNumber ) {
 
         try {
-            PreparedStatement queryStatement
-                    = (PreparedStatement) super.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
+            PreparedStatement queryStatement = (PreparedStatement)
+                    super.connectionToDatabase.prepareStatement( this.SEARCH_CLIENT );
             queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_PhoneNumber );
 
             ResultSet resultSet = queryStatement.executeQuery();
@@ -80,7 +95,7 @@ public class ClientsDAO extends DAO {
         try {
             
             PreparedStatement queryStatement = (PreparedStatement) 
-                    super.connectionToDatabase.prepareStatement( this.QUERY_SEARCH );
+                    super.connectionToDatabase.prepareStatement( this.SEARCH_CLIENT );
             queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_PhoneNumber );
 
             ResultSet resultSet = queryStatement.executeQuery();
