@@ -10,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import model.ProductsList;
+import model.pricemodels.ProductPriceTemplate;
 
 /**
  *
@@ -42,7 +43,7 @@ public class PricesBoard extends javax.swing.JFrame {
     private void initComponents() {
 
         productsList = new ProductsList();
-        newProductPrice = new javax.swing.JSpinner(new SpinnerNumberModel(1.0,1.0,99999.50,0.50));
+        newProductPrice = new javax.swing.JSpinner(new ProductPriceTemplate());
         updatePrice = new javax.swing.JButton();
         label_Products = new javax.swing.JLabel();
         label_NewPrice = new javax.swing.JLabel();

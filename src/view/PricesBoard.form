@@ -72,7 +72,7 @@
     </Component>
     <Component class="javax.swing.JSpinner" name="newProductPrice">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(new SpinnerNumberModel(1.0,1.0,99999.50,0.50))"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(new ProductPriceTemplate())"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="updatePrice">
