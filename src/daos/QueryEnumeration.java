@@ -1,7 +1,7 @@
 package daos;
 
 /**
- *
+ * This class represents the values of queries to put on PreparedStatements.
  * @author (c) Copyright 2016 José A. Soto. All Rights Reserved.
  */
 public class QueryEnumeration {

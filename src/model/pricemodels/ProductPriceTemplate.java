@@ -3,7 +3,7 @@ package model.pricemodels;
 import javax.swing.SpinnerNumberModel;
 
 /**
- *
+ * This class is used to extend the functionality of the SpinnerNumberModel.
  * @author (c) Copyright 2016 José A. Soto. All Rights Reserved.
  */
 public class ProductPriceTemplate extends SpinnerNumberModel{

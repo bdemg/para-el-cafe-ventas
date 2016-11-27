@@ -7,7 +7,6 @@ import model.Client;
 
 /**
  * This class manages the clients data with the database.
- *
  * @author (c) Copyright 2016 José A. Soto. All Rights Reserved.
  */
 public class ClientsDAO extends DAO {
@@ -56,6 +55,7 @@ public class ClientsDAO extends DAO {
         }
     }
     
+    // Deletes client information of a single client.
     public void deleteClient( String input_PhoneNumber ){
         
         try {
