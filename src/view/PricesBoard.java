@@ -7,8 +7,10 @@ package view;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.text.DefaultFormatter;
 import model.ProductsList;
 import model.pricemodels.ProductPriceTemplate;
 
@@ -24,6 +26,9 @@ public class PricesBoard extends javax.swing.JFrame {
     public PricesBoard() {
         initComponents();
         this.setupPricesBoard();
+        
+        JFormattedTextField JFM = (JFormattedTextField) this.newProductPrice.getEditor().getComponent(0);
+        ((DefaultFormatter)JFM.getFormatter()).setCommitsOnValidEdit(true);
     }
     
     private void setupPricesBoard(){

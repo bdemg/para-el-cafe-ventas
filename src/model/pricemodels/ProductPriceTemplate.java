@@ -30,9 +30,14 @@ public class ProductPriceTemplate extends SpinnerNumberModel{
         if(isPriceInRange){
             
             boolean isPriceStepByCorrect = (Double)value % STEP_BY == 0;
+            
             if(isPriceStepByCorrect){
                 
                 super.setValue(value);
+            }
+            else{
+                
+                this.setValue( ProductPriceTemplate.START_PRICE );
             }
         }
     }
