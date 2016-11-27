@@ -149,28 +149,11 @@ public class SalesDAO extends DAO{
             monthlyReport[saleCount][ this.SUBTOTAL_COLUMN ] = 
                 input_resultSet.getDouble( this.SUBTOTAL_COLUMN_NAME );
             monthlyReport[saleCount][ this.DATE_COLUMN ] = 
-                timestampToString( input_resultSet.getTimestamp( this.DATE_COLUMN_NAME ) );
+                new RevisedTimestamp( input_resultSet.getTimestamp( this.DATE_COLUMN_NAME ) ).toString();
             
             input_resultSet.next();
         }
         
         return monthlyReport;
-    }
-    
-    
-    //foreign method that returns a string representation of a timestamp
-    private String timestampToString(Timestamp input_Date){
-        
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(input_Date.getTime());
-        
-        String output_Date = ""
-                + calendar.get( Calendar.YEAR )+"/"
-                + ( calendar.get( Calendar.MONTH ) + 1 )+"/"
-                + calendar.get( Calendar.DAY_OF_MONTH )+" "
-                + calendar.get( Calendar.HOUR_OF_DAY )+":"
-                + calendar.get( Calendar.MINUTE );
-        
-        return output_Date;
     }
 }
