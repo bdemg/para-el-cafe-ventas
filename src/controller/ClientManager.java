@@ -63,6 +63,7 @@ public class ClientManager extends Controller{
         }
     }
     
+    // Checks if the form has unanswered fields.
     private boolean areFormFieldsEmpty(){
         
         boolean areFormFieldsEmpty = (
@@ -74,6 +75,7 @@ public class ClientManager extends Controller{
         return areFormFieldsEmpty;
     }
     
+    // Checks if the client information is already in the database.
     private boolean isClientRegistered(){
         
         String phone_number = this.clientForm.getClientPhoneNumber().getText();
@@ -82,6 +84,7 @@ public class ClientManager extends Controller{
         return isClientRegistered;
     }
     
+    // Stores the client information in the database.
     private void storeClientInformation(){
         
         String name = this.clientForm.getClientName().getText();
@@ -93,6 +96,7 @@ public class ClientManager extends Controller{
         clientsDAO.insertClientInformation(name, phone_number, address, references);
     }
     
+    // Resets the form.
     private void cleanClientForm(){
         
         this.clientForm.getClientName().setText( Keywords.EMPTY );
@@ -101,13 +105,19 @@ public class ClientManager extends Controller{
         this.clientForm.getClientAddressReferences().setText( Keywords.EMPTY );
     }
     
+    // Shows an error message to the user.
     private void tellErrorMessagerToShowMessage( String input_ErrorMessage ){
         
         ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
         errorMessager.showErrorMessage( input_ErrorMessage );
     }
     
+<<<<<<< HEAD
     protected static Client searchForClientInfo( String input_clientPhonenumber ) throws SQLException {
+=======
+    // Gets the complete client information of a single client.
+    protected static Client searchForClientInfo( String input_clientPhonenumber ) throws SQLException{
+>>>>>>> 975dc990e0d56295539737bcb89d023ea1102ae5
         return ClientsDAO.getClientsDAO().getClientInfo( input_clientPhonenumber );
     }
 }
