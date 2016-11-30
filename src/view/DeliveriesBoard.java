@@ -46,6 +46,7 @@ public class DeliveriesBoard extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Entregas del Día");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -6,11 +6,11 @@
 package controller;
 
 
-import daos.ClientsDAO;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import model.Client;
+import model.ConfirmationMessager;
 import model.SalesAccountant;
 import model.ErrorMessager;
 import model.Keywords;
@@ -34,8 +34,6 @@ public final class BakeryPhoneSalesman extends Controller {
     
 
     private final String REMOVE_PRODUCT_QUESTION = "¿Que parte de la orden desea eliminar?";
-    private final String CONFIRM_SALE_MESSAGE = "¿Está seguro que desea guardar la orden?";
-    private final String CONFIRM_SALE_CANCEL_MESSAGE = "¿Está seguro que desea cancelar la orden?";
     
     private final int INITIAL_PRODUCT_QUANTITY = 1;
     
@@ -80,13 +78,21 @@ public final class BakeryPhoneSalesman extends Controller {
             
         } else if( this.isStoringOrder( eventSource ) ){
             
-            if( this.askForConfirmation( this.CONFIRM_SALE_MESSAGE ) ){
+            boolean isStoreOrderConfirmed = 
+                ConfirmationMessager.callConfirmationMessager().
+                askForConfirmation( ConfirmationMessager.CONFIRM_SALE_MESSAGE );
+            
+            if( isStoreOrderConfirmed ){
                 this.tellSalesManegerToStoreSale();
             }
             
         } else if( this.isCancelingOrder( eventSource ) ){
             
-            if( this.askForConfirmation( this.CONFIRM_SALE_CANCEL_MESSAGE ) ){
+            boolean isCancelOrderConfirmed = 
+                ConfirmationMessager.callConfirmationMessager().
+                askForConfirmation( ConfirmationMessager.CONFIRM_SALE_CANCEL_MESSAGE );
+            
+            if( isCancelOrderConfirmed ){
                 this.prepareForNextClient();
             }
         }        
@@ -120,22 +126,6 @@ public final class BakeryPhoneSalesman extends Controller {
     
     private boolean isCancelingOrder( Object input_eventSource ){
         return input_eventSource == this.salesSheet.getCancelOrder();
-    }
-    
-    
-    //ask for confirmation before doing a critical action like saving or canceling an
-    //order
-    private boolean askForConfirmation( String input_confirmationMessage ){
-        
-        int answer = JOptionPane.showConfirmDialog(
-            this.salesSheet, 
-            input_confirmationMessage, 
-            null, 
-            JOptionPane.YES_NO_OPTION, 
-            JOptionPane.QUESTION_MESSAGE
-        );
-        
-        return answer == JOptionPane.YES_OPTION;
     }
     
     

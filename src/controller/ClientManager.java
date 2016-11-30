@@ -107,7 +107,7 @@ public class ClientManager extends Controller{
         errorMessager.showErrorMessage( input_ErrorMessage );
     }
     
-    protected static Client searchForClientInfo( String input_clientPhonenumber ) throws SQLException{
+    protected static Client searchForClientInfo( String input_clientPhonenumber ) throws SQLException {
         return ClientsDAO.getClientsDAO().getClientInfo( input_clientPhonenumber );
     }
 }
