@@ -17,7 +17,7 @@ import java.util.Calendar;
  */
 public class SalesDAO extends DAO{
     
-    private static final SalesDAO salesDAO = new SalesDAO();
+    private static SalesDAO salesDAO;
     
     private final String INSERT_ORDER_QUERY = "INSERT INTO sales "
             + "(client_phoneNumber, product_name, quantity, subtotal, date, isBaked) "
@@ -41,12 +41,17 @@ public class SalesDAO extends DAO{
     private final String SUBTOTAL_COLUMN_NAME = "subtotal";
     private final String DATE_COLUMN_NAME = "date";
     
-    public static SalesDAO getSalesDAO(){
+    public static SalesDAO getSalesDAO() throws SQLException{
+        
+        if(salesDAO ==  null){
+            salesDAO = new SalesDAO();
+        }
+        
         return salesDAO;
     }
     
     
-    private SalesDAO(){
+    private SalesDAO() throws SQLException{
         
         super();
     }

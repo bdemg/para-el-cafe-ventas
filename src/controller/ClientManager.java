@@ -112,12 +112,8 @@ public class ClientManager extends Controller{
         errorMessager.showErrorMessage( input_ErrorMessage );
     }
     
-<<<<<<< HEAD
-    protected static Client searchForClientInfo( String input_clientPhonenumber ) throws SQLException {
-=======
     // Gets the complete client information of a single client.
     protected static Client searchForClientInfo( String input_clientPhonenumber ) throws SQLException{
->>>>>>> 975dc990e0d56295539737bcb89d023ea1102ae5
         return ClientsDAO.getClientsDAO().getClientInfo( input_clientPhonenumber );
     }
 }

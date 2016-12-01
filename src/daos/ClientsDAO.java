@@ -11,7 +11,7 @@ import model.Client;
  */
 public class ClientsDAO extends DAO {
 
-    private static final ClientsDAO clientsDAO = new ClientsDAO();
+    private static ClientsDAO clientsDAO;
 
     private final String INSERT_CLIENT = "INSERT INTO client VALUES (?, ?, ?, ?)";
     private final String DELETE_CLIENT = "DELETE FROM client WHERE phoneNumber=?";
@@ -22,12 +22,17 @@ public class ClientsDAO extends DAO {
     private final String ADDRESS_COLUMN_NAME = "address";
     private final String REFERENCES_COLUMN_NAME = "locationReferences";
 
-    private ClientsDAO() {
+    private ClientsDAO() throws SQLException {
 
         super();
     }
 
-    public static ClientsDAO getClientsDAO() {
+    public static ClientsDAO getClientsDAO() throws SQLException {
+        
+        if(clientsDAO == null){
+            
+            clientsDAO = new ClientsDAO();
+        }
 
         return clientsDAO;
     }

@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class PricesDAO extends DAO{
     
-    private static final PricesDAO pricesDAO = new PricesDAO();
+    private static PricesDAO pricesDAO;
     
     private final String GET_PRICE_QUERY = "select * from product where name=?";
     private final String UPDATE_PRICE_QUERY = "UPDATE product SET unitPrice=? WHERE name=? ";
@@ -27,12 +27,18 @@ public class PricesDAO extends DAO{
     private final String PRICE_COLUMN_NAME = "unitPrice";
     
     
-    public static PricesDAO getPricesDAO(){
+    public static PricesDAO getPricesDAO() throws SQLException{
+        
+        if(pricesDAO == null){
+            
+            pricesDAO = new PricesDAO();
+        }
+        
         return pricesDAO;
     }
     
     
-    private PricesDAO(){
+    private PricesDAO() throws SQLException{
         
         super();
     }

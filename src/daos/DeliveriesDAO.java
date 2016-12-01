@@ -17,7 +17,7 @@ import java.util.Calendar;
  */
 public class DeliveriesDAO extends DAO{
     
-    private static final DeliveriesDAO deliveriesDAO = new DeliveriesDAO();
+    private static DeliveriesDAO deliveriesDAO;
     
     private final String TODAYS_DELIVERIES_QUERY = 
         "SELECT name, phoneNumber, address, product_name, quantity, subtotal, date "
@@ -42,13 +42,18 @@ public class DeliveriesDAO extends DAO{
     
     
     
-    private DeliveriesDAO() {
+    private DeliveriesDAO() throws SQLException {
         
         super();
     }
     
     
-    public static DeliveriesDAO getDeliveriesDAO(){
+    public static DeliveriesDAO getDeliveriesDAO() throws SQLException{
+        
+        if(deliveriesDAO == null){
+            
+            deliveriesDAO = new DeliveriesDAO();
+        }
         
         return DeliveriesDAO.deliveriesDAO;
     }
