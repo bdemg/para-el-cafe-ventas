@@ -29,7 +29,7 @@ public class ClientsDAO extends DAO {
 
     public static ClientsDAO getClientsDAO() throws SQLException {
         
-        if(clientsDAO == null){
+        if( clientsDAO == null ){
             
             clientsDAO = new ClientsDAO();
         }

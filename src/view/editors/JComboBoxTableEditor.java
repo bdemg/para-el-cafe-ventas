@@ -13,13 +13,11 @@ import javax.swing.table.TableCellEditor;
 
 /**
  * This class is used to control the behaviour of a combo box in a table.
- * This class is based on external code that can be found in it's original form here
- * http://stackoverflow.com/questions/5064181/how-to-use-jlists-in-jtable-cells
  * @author Jorge A. Cano
  */
 public class JComboBoxTableEditor extends AbstractCellEditor implements TableCellEditor {
 
-    JComboBox component = new JComboBox();
+    JComboBox comboBox = new JComboBox();
     
     
     @Override
@@ -30,7 +28,7 @@ public class JComboBoxTableEditor extends AbstractCellEditor implements TableCel
         int input_rowIndex,
         int input_columnIndex 
     ) {
-        component = ( ( JComboBox ) input_value );
+        comboBox = ( ( JComboBox ) input_value );
         return ( ( JComboBox ) input_value );
     }
 
@@ -38,7 +36,7 @@ public class JComboBoxTableEditor extends AbstractCellEditor implements TableCel
     @Override
     public Object getCellEditorValue() {
         
-        return component;
+        return comboBox;
     }
 
 }

@@ -8,8 +8,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  * This class is used to obtain certian formaters that format only numbers.
- * This class is based on external code that can be found in it's original form here
- * https://tips4java.wordpress.com/2008/10/11/table-format-renderers/
  * @author Jorge A. Cano
  */
 

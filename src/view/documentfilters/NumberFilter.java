@@ -5,9 +5,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
 /**
- * This class is used to restrict the input of text fields to only numbers. This class
- * is based on external code that can be found in it's original form here
- * http://stackoverflow.com/questions/5662651/how-to-implement-in-java-jtextfield-class-to-allow-entering-only-digits
+ * This class is used to restrict the input of text fields to only numbers.
  * @author Jorge A. Cano
  */
 public class NumberFilter extends DocumentFilter {
@@ -27,7 +25,7 @@ public class NumberFilter extends DocumentFilter {
     }
 
     
-    
+    //when new strings are being replaced restrict the content to only numbers
     @Override
     public void replace(
         FilterBypass input_filterBypass,

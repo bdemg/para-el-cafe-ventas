@@ -10,13 +10,10 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
 import model.ProductQuantityTemplate;
 
 /**
  * This class is used to control the behaviour of a spinner field in a table.
- * This class is based on external code that can be found in it's original form here 
- * http://www.java2s.com/Tutorial/Java/0240__Swing/UsingaListJSpinnerasaCellEditorinaJTableComponent.htm 
  * @author Jorge A. Cano
  * 
  */

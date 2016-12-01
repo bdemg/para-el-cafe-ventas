@@ -15,10 +15,10 @@ public class Location {
     private final String references;
 
     
-    public Location(String address, String references) {
+    public Location(String input_address, String input_references) {
         
-        this.address = address;
-        this.references = references;
+        this.address = input_address;
+        this.references = input_references;
     }
 
     

@@ -50,9 +50,9 @@ public class DeliveriesDAO extends DAO{
     
     public static DeliveriesDAO getDeliveriesDAO() throws SQLException{
         
-        if(deliveriesDAO == null){
+        if( DeliveriesDAO.deliveriesDAO == null ){
             
-            deliveriesDAO = new DeliveriesDAO();
+            DeliveriesDAO.deliveriesDAO = new DeliveriesDAO();
         }
         
         return DeliveriesDAO.deliveriesDAO;

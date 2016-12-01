@@ -6,12 +6,8 @@
 package daos;
 
 import com.mysql.jdbc.PreparedStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class provides an interface for the prices information stored in the database
@@ -29,12 +25,12 @@ public class PricesDAO extends DAO{
     
     public static PricesDAO getPricesDAO() throws SQLException{
         
-        if(pricesDAO == null){
+        if( PricesDAO.pricesDAO == null ){
             
-            pricesDAO = new PricesDAO();
+            PricesDAO.pricesDAO = new PricesDAO();
         }
         
-        return pricesDAO;
+        return PricesDAO.pricesDAO;
     }
     
     

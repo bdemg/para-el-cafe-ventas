@@ -16,7 +16,7 @@ public class RevisedTimestamp {
     
     private final Timestamp timestamp;
 
-    public RevisedTimestamp(Timestamp timestamp) {
+    public RevisedTimestamp( Timestamp timestamp ) {
         this.timestamp = timestamp;
     }
 

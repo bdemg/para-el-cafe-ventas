@@ -3,8 +3,6 @@ package daos;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class sets up the connection to the database.
@@ -26,9 +24,9 @@ public class DAO {
             this.connectionToDatabase = DriverManager.
                 getConnection( this.HOST, this.USER, this.PASSWORD );
 
-        } catch (SQLException ex) {
+        } catch ( SQLException ex ) {
             throw ex;
-        } catch (ClassNotFoundException ex) {
+        } catch ( ClassNotFoundException ex ) {
             throw new SQLException();
         }
     }

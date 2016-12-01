@@ -26,9 +26,9 @@ public final class StoreSupervisor extends Controller{
 
     
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent input_event) {
         
-        Object eventSource = e.getSource();
+        Object eventSource = input_event.getSource();
         
         if( this.isClientManagerNeeded( eventSource ) ){
             this.callClientManager();

@@ -9,14 +9,12 @@ import java.sql.SQLException;
  */
 public class SalesAccountant {
 
-    //this variable contains the only instance of the sales calculator
     private static final SalesAccountant salesAccountant = new SalesAccountant();
 
     private SalesAccountant() {
         ;
     }
 
-    //gives the sales calculator
     public static SalesAccountant getSalesAccountant() {
 
         return salesAccountant;
@@ -43,7 +41,7 @@ public class SalesAccountant {
 
             //write the adjusted price in the orders list
             mod_ordersList.setValueAt( adjustedPrice, productCount, OrdersList.PRODUCT_PRICE );
-        } //end of for
+        }
     }
 
 
@@ -60,7 +58,7 @@ public double totalPriceOfSale(
             totalCost = totalCost + 
                     (double) input_ordersList.getValueAt( productCount, OrdersList.PRODUCT_PRICE );
             
-        }//end of for
+        }
         
         return totalCost;
     

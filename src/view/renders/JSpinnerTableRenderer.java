@@ -13,8 +13,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 /**
  * This class is used to indicate that certian cells in a table are going to look like
  * a spinner field.
- * This class is based on external code that can be found in it's original form here
- * http://stackoverflow.com/questions/5064181/how-to-use-jlists-in-jtable-cells
  * @author Jorge A. Cano
  */
 public class JSpinnerTableRenderer extends DefaultTableCellRenderer {

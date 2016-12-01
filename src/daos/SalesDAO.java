@@ -43,11 +43,12 @@ public class SalesDAO extends DAO{
     
     public static SalesDAO getSalesDAO() throws SQLException{
         
-        if(salesDAO ==  null){
-            salesDAO = new SalesDAO();
+        if( SalesDAO.salesDAO ==  null ){
+            
+            SalesDAO.salesDAO = new SalesDAO();
         }
         
-        return salesDAO;
+        return SalesDAO.salesDAO;
     }
     
     

@@ -58,7 +58,7 @@ public class SalesManager {
                     input_dueMinute
                 )
             );
-        } //end of for
+        }
     }
 
     //create a properly formatted date that can be saved along the info of each order
