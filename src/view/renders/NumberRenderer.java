@@ -1,8 +1,10 @@
 package view.renders;
 
+import java.text.Format;
 import java.text.NumberFormat;
 import java.util.Locale;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  * This class is used to obtain certian formaters that format only numbers.
@@ -11,17 +13,17 @@ import javax.swing.SwingConstants;
  * @author Jorge A. Cano
  */
 
-public class NumberRenderer extends FormatRenderer {
+public class NumberRenderer extends DefaultTableCellRenderer {
 
     public static final Locale MEXICAN_LOCALE = Locale.forLanguageTag("es-MX");
-
+    private final Format formatter;
     
     /*
      *  Use the specified number formatter and right align the text
      */
     public NumberRenderer( NumberFormat formatter ) {
         
-        super( formatter );
+        this.formatter = formatter;
         setHorizontalAlignment( SwingConstants.RIGHT );
     }
 
@@ -51,5 +53,23 @@ public class NumberRenderer extends FormatRenderer {
     public static NumberRenderer getPercentRenderer() {
         
         return new NumberRenderer( NumberFormat.getPercentInstance() );
+    }
+    
+    
+    //  Format the Object before setting its value in the renderer
+    @Override
+    public void setValue( Object input_value ) {
+
+        try {
+            
+            if ( input_value != null ) {
+                
+                input_value = this.formatter.format( input_value );
+            }
+        } catch ( IllegalArgumentException e ) {
+            e.printStackTrace();
+        }
+
+        super.setValue( input_value );
     }
 }
