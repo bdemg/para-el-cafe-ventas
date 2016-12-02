@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * This class provides an interface for the prices information stored in the database
  * @author Jorge A. Cano
  */
-public class PricesDAO extends DAO{
+public class PricesDAO extends DatabaseDAO{
     
     private static PricesDAO pricesDAO;
     
