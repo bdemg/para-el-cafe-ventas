@@ -110,10 +110,10 @@ public class ClientsDAO extends DAO {
             if (isClientFound) {
                 
                 client = new Client(
-                    resultSet.getString(this.PHONENUMBER_COLUMN_NAME),
-                    resultSet.getString(this.NAME_COLUMN_NAME),
-                    resultSet.getString(this.ADDRESS_COLUMN_NAME),
-                    resultSet.getString(this.REFERENCES_COLUMN_NAME)
+                    resultSet.getString( this.PHONENUMBER_COLUMN_NAME ),
+                    resultSet.getString( this.NAME_COLUMN_NAME ),
+                    resultSet.getString( this.ADDRESS_COLUMN_NAME ),
+                    resultSet.getString( this.REFERENCES_COLUMN_NAME )
                 );
                 
             } else {

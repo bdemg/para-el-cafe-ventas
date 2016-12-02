@@ -78,21 +78,19 @@ public final class BakeryPhoneSalesman extends Controller {
             
         } else if( this.isStoringOrder( eventSource ) ){
             
-            boolean isStoreOrderConfirmed = 
-                ConfirmationMessager.callConfirmationMessager().
-                askForConfirmation( ConfirmationMessager.CONFIRM_SALE_MESSAGE );
-            
-            if( isStoreOrderConfirmed ){
+            if( 
+                this.tellConfirmationMessagerToAskForConfirmation( 
+                ConfirmationMessager.CONFIRM_SALE_MESSAGE )
+            ){
                 this.tellSalesManegerToStoreSale();
             }
             
         } else if( this.isCancelingOrder( eventSource ) ){
             
-            boolean isCancelOrderConfirmed = 
-                ConfirmationMessager.callConfirmationMessager().
-                askForConfirmation( ConfirmationMessager.CONFIRM_SALE_CANCEL_MESSAGE );
-            
-            if( isCancelOrderConfirmed ){
+            if( 
+                this.tellConfirmationMessagerToAskForConfirmation( 
+                ConfirmationMessager.CONFIRM_SALE_CANCEL_MESSAGE )
+            ){
                 this.prepareForNextClient();
             }
         }        
@@ -361,5 +359,11 @@ public final class BakeryPhoneSalesman extends Controller {
         
         ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
         errorMessager.showErrorMessage( input_ErrorMessage );
+    }
+    
+    private boolean tellConfirmationMessagerToAskForConfirmation( String input_ErrorMessage ){
+        
+        ConfirmationMessager confirmationMessager = ConfirmationMessager.callConfirmationMessager();
+        return confirmationMessager.askForConfirmation( input_ErrorMessage );
     }
 }
