@@ -92,12 +92,21 @@ public class ClientsDAO extends DAO {
         Client client;
         if (isClientFound) {
                 
+<<<<<<< HEAD
             client = new Client(
                 resultSet.getString(this.PHONENUMBER_COLUMN_NAME),
                 resultSet.getString(this.NAME_COLUMN_NAME),
                 resultSet.getString(this.ADDRESS_COLUMN_NAME),
                 resultSet.getString(this.REFERENCES_COLUMN_NAME)
             );
+=======
+                client = new Client(
+                    resultSet.getString( this.PHONENUMBER_COLUMN_NAME ),
+                    resultSet.getString( this.NAME_COLUMN_NAME ),
+                    resultSet.getString( this.ADDRESS_COLUMN_NAME ),
+                    resultSet.getString( this.REFERENCES_COLUMN_NAME )
+                );
+>>>>>>> 2bfc3e9fadf2d54935071ccb237322fbd170d37d
                 
         } else {
             client = null;
