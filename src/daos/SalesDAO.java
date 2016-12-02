@@ -15,7 +15,7 @@ import java.util.Calendar;
  * 
  * @author Jorge A. Cano
  */
-public class SalesDAO extends DAO{
+public class SalesDAO extends DatabaseDAO{
     
     private static SalesDAO salesDAO;
     
@@ -67,67 +67,47 @@ public class SalesDAO extends DAO{
         Timestamp input_dueDate
             
     ) throws SQLException{
-        try {
             
-            PreparedStatement preparedStatement = ( PreparedStatement ) 
-                    super.connectionToDatabase.prepareStatement( this.INSERT_ORDER_QUERY );
+        PreparedStatement preparedStatement = ( PreparedStatement ) 
+                super.connectionToDatabase.prepareStatement( this.INSERT_ORDER_QUERY );
             
-            //add the values into the insertion query
-            preparedStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_phonenumber );
-            preparedStatement.setString( QueryEnumeration.SECOND_QUERY_VALUE, input_product );
-            preparedStatement.setInt( QueryEnumeration.THIRD_QUERY_VALUE, input_quantity );
-            preparedStatement.setDouble( QueryEnumeration.FOURTH_QUERY_VALUE, input_cost );
-            preparedStatement.setTimestamp( QueryEnumeration.FIFTH_QUERY_VALUE, input_dueDate );
-            preparedStatement.setBoolean( QueryEnumeration.SIXTH_QUERY_VALUE, false );
-            
-            preparedStatement.execute();
-            
-        }catch ( SQLException ex ) {
-            throw ex;
-        }
+        //add the values into the insertion query
+        preparedStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_phonenumber );
+        preparedStatement.setString( QueryEnumeration.SECOND_QUERY_VALUE, input_product );
+        preparedStatement.setInt( QueryEnumeration.THIRD_QUERY_VALUE, input_quantity );
+        preparedStatement.setDouble( QueryEnumeration.FOURTH_QUERY_VALUE, input_cost );
+        preparedStatement.setTimestamp( QueryEnumeration.FIFTH_QUERY_VALUE, input_dueDate );
+        preparedStatement.setBoolean( QueryEnumeration.SIXTH_QUERY_VALUE, false );
+
+        preparedStatement.execute();
     }
     
     
     //obtain all the sales made in a month that are stored in the database
     public Object[][] getMonthlySales( Timestamp input_month ) throws SQLException{
-        try { 
-            
-            PreparedStatement preparedStatement = ( PreparedStatement )
-                    super.connectionToDatabase.prepareStatement( this.MONTHLY_SALES_QUERY );
-            
-            
-            preparedStatement.setTimestamp( QueryEnumeration.FIRST_QUERY_VALUE, input_month );
-            preparedStatement.setTimestamp( 
-                QueryEnumeration.SECOND_QUERY_VALUE, 
-                this.nextMonth( input_month )
-            );
-            
-            ResultSet resultSet = preparedStatement.executeQuery();
-            
-            boolean areThereMontlySales = resultSet.first();
-            Object[][] montlySales = null;
-            
-            //only put the data of the report into an array if there is any data
-            if(areThereMontlySales){
-                
-                montlySales = this.putMontlyReportIntoArray(resultSet);
-            }
-            
-            return montlySales;
-        } catch (SQLException ex) {
-            throw ex;
+
+        PreparedStatement preparedStatement = ( PreparedStatement )
+                super.connectionToDatabase.prepareStatement( this.MONTHLY_SALES_QUERY );
+
+
+        preparedStatement.setTimestamp( QueryEnumeration.FIRST_QUERY_VALUE, input_month );
+        preparedStatement.setTimestamp( 
+            QueryEnumeration.SECOND_QUERY_VALUE, 
+            new RevisedTimestamp( input_month ).nextMonth()
+        );
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        boolean areThereMontlySales = resultSet.first();
+        Object[][] montlySales = null;
+
+        //only put the data of the report into an array if there is any data
+        if(areThereMontlySales){
+
+            montlySales = this.putMontlyReportIntoArray(resultSet);
         }
-    }
-    
-    
-    //calculate the start of a the next month
-    private Timestamp nextMonth(Timestamp input_monthStart){
-        
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(input_monthStart.getTime());
-        calendar.set( Calendar.MONTH, ( calendar.get(Calendar.MONTH) + 1 ) );
-        
-        return new Timestamp( calendar.getTimeInMillis() );
+
+        return montlySales;
     }
 
     
@@ -146,14 +126,19 @@ public class SalesDAO extends DAO{
             
             monthlyReport[saleCount][ this.FOLIO_COLUMN ] = 
                 input_resultSet.getInt( this.FOLIO_COLUMN_NAME );
+            
             monthlyReport[saleCount][ this.CLIENT_PHONENUMBER_COLUMN ] = 
                 input_resultSet.getString( this.CLIENT_PHONENUMBER_COLUMN_NAME );
+            
             monthlyReport[saleCount][ this.PRODUCT_NAME_COLUMN ] = 
                 input_resultSet.getString( this.PRODUCT_NAME_COLUMN_NAME );
+            
             monthlyReport[saleCount][ this.QUANTITY_COLUMN ] = 
                 input_resultSet.getInt( this.QUANTITY_COLUMN_NAME );
+            
             monthlyReport[saleCount][ this.SUBTOTAL_COLUMN ] = 
                 input_resultSet.getDouble( this.SUBTOTAL_COLUMN_NAME );
+            
             monthlyReport[saleCount][ this.DATE_COLUMN ] = 
                 new RevisedTimestamp( input_resultSet.getTimestamp( this.DATE_COLUMN_NAME ) ).toString();
             

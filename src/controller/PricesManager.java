@@ -3,6 +3,7 @@ package controller;
 import daos.PricesDAO;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import model.ConfirmationMessager;
 import model.ErrorMessager;
 
 import view.PricesBoard;
@@ -33,7 +34,7 @@ public class PricesManager extends Controller{
         
         Object eventSource = event.getSource();
         if( this.isUpdatingPrice( eventSource ) ){
-            this.updateProductPrice();
+            this.validateProductPrice();
         }
         
     }
@@ -43,16 +44,29 @@ public class PricesManager extends Controller{
         return input_eventSource == this.pricesBoard.getUpdatePrice();
     }
     
+    // Asks if is Ok to update the price of a product.
+    private void validateProductPrice(){
+        
+        boolean isOkToUpdate = 
+                ConfirmationMessager.callConfirmationMessager().
+                        askForConfirmation(
+                                ConfirmationMessager.CONFIRM_PRICE_UPDATE
+                        );
+        if( isOkToUpdate ){
+            this.updateProductPrice();
+        }
+    }
+    
     // Replaces the old product price with the new product price.
     private void updateProductPrice(){
         
         try {
             String input_productName = this.getSelectedProduct();
             double input_productPrice = this.getSelectedPrice();
-            PricesDAO.getPricesDAO().updateProductPice( input_productName, input_productPrice );
+            PricesDAO.getPricesDAO().updateProductPrice( input_productName, input_productPrice );
             
         } catch (SQLException ex) {
-            this.tellErrorMessagerToShowMessage( ErrorMessager.UPDATE_PRICES_ERROR );
+            this.tellErrorMessagerToShowMessage( ErrorMessager.DATABASE_ERROR );
         }
     }
     

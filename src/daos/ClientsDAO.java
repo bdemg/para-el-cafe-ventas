@@ -10,12 +10,11 @@ import model.Client;
  * This class manages the clients data with the database.
  * @author (c) Copyright 2016 José A. Soto. All Rights Reserved.
  */
-public class ClientsDAO extends DAO {
+public class ClientsDAO extends DatabaseDAO {
 
     private static ClientsDAO clientsDAO;
 
     private final String INSERT_CLIENT = "INSERT INTO client VALUES (?, ?, ?, ?)";
-    private final String DELETE_CLIENT = "DELETE FROM client WHERE phoneNumber=?";
     private final String SEARCH_CLIENT = "SELECT * FROM client WHERE phoneNumber=?";
 
     private final String NAME_COLUMN_NAME = "name";
@@ -45,84 +44,52 @@ public class ClientsDAO extends DAO {
             String input_Address,
             String input_References
     ) throws SQLException {
-
-        try {
-            PreparedStatement queryStatement = (PreparedStatement) 
-                super.connectionToDatabase.prepareStatement( this.INSERT_CLIENT );
-
-            queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_Name );
-            queryStatement.setString( QueryEnumeration.SECOND_QUERY_VALUE, input_PhoneNumber );
-            queryStatement.setString( QueryEnumeration.THIRD_QUERY_VALUE, input_Address );
-            queryStatement.setString( QueryEnumeration.FOURTH_QUERY_VALUE, input_References );
-            queryStatement.execute();
-
-        } catch ( SQLException ex ) {
-            throw ex;
-        }
-    }
-    
-    // Deletes client information of a single client.
-    public void deleteClient( String input_PhoneNumber ) throws SQLException{
         
-        try {
-            PreparedStatement queryStatement = (PreparedStatement)
-                    super.connectionToDatabase.prepareStatement( this.DELETE_CLIENT );
-            queryStatement.setString( QueryEnumeration.FIFTH_QUERY_VALUE, input_PhoneNumber );
-            
-            queryStatement.executeQuery();
-            
-        } catch (SQLException ex) {
-            throw ex;
-        }
+        PreparedStatement queryStatement = (PreparedStatement) 
+            super.connectionToDatabase.prepareStatement( this.INSERT_CLIENT );
+
+        queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_Name );
+        queryStatement.setString( QueryEnumeration.SECOND_QUERY_VALUE, input_PhoneNumber );
+        queryStatement.setString( QueryEnumeration.THIRD_QUERY_VALUE, input_Address );
+        queryStatement.setString( QueryEnumeration.FOURTH_QUERY_VALUE, input_References );
+        queryStatement.execute();
     }
 
     // Searches the existence of a single client based on his phone number.
     public boolean findClient( String input_PhoneNumber ) throws SQLException {
 
-        try {
-            PreparedStatement queryStatement = (PreparedStatement)
-                    super.connectionToDatabase.prepareStatement( this.SEARCH_CLIENT );
-            queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_PhoneNumber );
+        PreparedStatement queryStatement = (PreparedStatement)
+                super.connectionToDatabase.prepareStatement( this.SEARCH_CLIENT );
+        queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_PhoneNumber );
 
-            ResultSet resultSet = queryStatement.executeQuery();
+        ResultSet resultSet = queryStatement.executeQuery();
 
-            boolean isClientPhoneNumberFound = resultSet.last();
-            return isClientPhoneNumberFound;
-
-        } catch (SQLException ex) {
-            throw ex;
-        }
+        boolean isClientPhoneNumberFound = resultSet.last();
+        return isClientPhoneNumberFound;
     }
 
     // Gets all the client information from the database table.
     public Client getClientInfo(String input_PhoneNumber) throws SQLException {
 
-        try {
-            
-            PreparedStatement queryStatement = (PreparedStatement) 
-                    super.connectionToDatabase.prepareStatement( this.SEARCH_CLIENT );
-            queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_PhoneNumber );
+        PreparedStatement queryStatement = (PreparedStatement) 
+                super.connectionToDatabase.prepareStatement( this.SEARCH_CLIENT );
+        queryStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_PhoneNumber );
 
-            ResultSet resultSet = queryStatement.executeQuery();
-            boolean isClientFound = resultSet.last();
+        ResultSet resultSet = queryStatement.executeQuery();
+        boolean isClientFound = resultSet.last();
 
-            Client client;
-            if (isClientFound) {
+        Client client;
+        if (isClientFound) {
+            client = new Client(
+                resultSet.getString( this.PHONENUMBER_COLUMN_NAME ),
+                resultSet.getString( this.NAME_COLUMN_NAME ),
+                resultSet.getString( this.ADDRESS_COLUMN_NAME ),
+                resultSet.getString( this.REFERENCES_COLUMN_NAME )
+            );
                 
-                client = new Client(
-                    resultSet.getString( this.PHONENUMBER_COLUMN_NAME ),
-                    resultSet.getString( this.NAME_COLUMN_NAME ),
-                    resultSet.getString( this.ADDRESS_COLUMN_NAME ),
-                    resultSet.getString( this.REFERENCES_COLUMN_NAME )
-                );
-                
-            } else {
-                client = null;
-            }
-            return client;
-
-        } catch (SQLException ex) {
-            throw ex;
+        } else {
+            client = null;
         }
+        return client;
     }
 }
