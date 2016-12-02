@@ -15,7 +15,6 @@ public class ClientsDAO extends DAO {
     private static ClientsDAO clientsDAO;
 
     private final String INSERT_CLIENT = "INSERT INTO client VALUES (?, ?, ?, ?)";
-    private final String DELETE_CLIENT = "DELETE FROM client WHERE phoneNumber=?";
     private final String SEARCH_CLIENT = "SELECT * FROM client WHERE phoneNumber=?";
 
     private final String NAME_COLUMN_NAME = "name";
@@ -54,16 +53,6 @@ public class ClientsDAO extends DAO {
         queryStatement.setString( QueryEnumeration.THIRD_QUERY_VALUE, input_Address );
         queryStatement.setString( QueryEnumeration.FOURTH_QUERY_VALUE, input_References );
         queryStatement.execute();
-    }
-    
-    // Deletes client information of a single client.
-    public void deleteClient( String input_PhoneNumber ) throws SQLException{
-        
-        PreparedStatement queryStatement = (PreparedStatement)
-                super.connectionToDatabase.prepareStatement( this.DELETE_CLIENT );
-        queryStatement.setString( QueryEnumeration.FIFTH_QUERY_VALUE, input_PhoneNumber );
-            
-        queryStatement.executeQuery();
     }
 
     // Searches the existence of a single client based on his phone number.
