@@ -93,7 +93,7 @@ public class SalesDAO extends DAO{
         preparedStatement.setTimestamp( QueryEnumeration.FIRST_QUERY_VALUE, input_month );
         preparedStatement.setTimestamp( 
             QueryEnumeration.SECOND_QUERY_VALUE, 
-            this.nextMonth( input_month )
+            new RevisedTimestamp( input_month ).nextMonth()
         );
 
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -108,17 +108,6 @@ public class SalesDAO extends DAO{
         }
 
         return montlySales;
-    }
-    
-    
-    //calculate the start of a the next month
-    private Timestamp nextMonth(Timestamp input_monthStart){
-        
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(input_monthStart.getTime());
-        calendar.set( Calendar.MONTH, ( calendar.get(Calendar.MONTH) + 1 ) );
-        
-        return new Timestamp( calendar.getTimeInMillis() );
     }
 
     

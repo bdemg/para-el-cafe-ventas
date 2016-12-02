@@ -38,4 +38,13 @@ public class RevisedTimestamp {
     }
     
     
+    //get a date that is a month from now
+    public Timestamp nextMonth(){
+        
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(this.timestamp.getTime());
+        calendar.set( Calendar.MONTH, ( calendar.get(Calendar.MONTH) + 1 ) );
+        
+        return new Timestamp( calendar.getTimeInMillis() );
+    }
 }
