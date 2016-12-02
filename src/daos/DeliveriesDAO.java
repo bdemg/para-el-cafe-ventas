@@ -15,7 +15,7 @@ import java.util.Calendar;
  * 
  * @author Jorge A. Cano
  */
-public class DeliveriesDAO extends DAO{
+public class DeliveriesDAO extends DatabaseDAO{
     
     private static DeliveriesDAO deliveriesDAO;
     

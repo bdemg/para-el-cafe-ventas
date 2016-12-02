@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * This class provides an interface for the prices information stored in the database
  * @author Jorge A. Cano
  */
-public class PricesDAO extends DAO{
+public class PricesDAO extends DatabaseDAO{
     
     private static PricesDAO pricesDAO;
     
@@ -59,7 +59,7 @@ public class PricesDAO extends DAO{
     
     
     //update the price of a given product in the database with a new price
-    public void updateProductPice(String input_productName, double input_productPrice) throws SQLException{
+    public void updateProductPrice(String input_productName, double input_productPrice) throws SQLException{
             
         PreparedStatement preparedStatement = ( PreparedStatement )
                 super.connectionToDatabase.prepareStatement( this.UPDATE_PRICE_QUERY );

@@ -15,7 +15,7 @@ import java.util.Calendar;
  * 
  * @author Jorge A. Cano
  */
-public class SalesDAO extends DAO{
+public class SalesDAO extends DatabaseDAO{
     
     private static SalesDAO salesDAO;
     

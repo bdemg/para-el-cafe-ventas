@@ -63,7 +63,7 @@ public class PricesManager extends Controller{
         try {
             String input_productName = this.getSelectedProduct();
             double input_productPrice = this.getSelectedPrice();
-            PricesDAO.getPricesDAO().updateProductPice( input_productName, input_productPrice );
+            PricesDAO.getPricesDAO().updateProductPrice( input_productName, input_productPrice );
             
         } catch (SQLException ex) {
             this.tellErrorMessagerToShowMessage( ErrorMessager.DATABASE_ERROR );
