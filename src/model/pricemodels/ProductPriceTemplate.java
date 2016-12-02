@@ -26,7 +26,7 @@ public class ProductPriceTemplate extends SpinnerNumberModel{
     @Override
     public void setValue(Object value){
         
-        boolean isPriceInRange = MIN_PRICE <= (Double)value || (Double)value >= MAX_PRICE;
+        boolean isPriceInRange = MIN_PRICE <= (Double)value || (Double)value <= MAX_PRICE;
         if(isPriceInRange){
             
             boolean isPriceStepByCorrect = (Double)value % STEP_BY == 0;

@@ -78,22 +78,31 @@ public class ClientManager extends Controller{
     // Checks if the client information is already in the database.
     private boolean isClientRegistered(){
         
-        String phone_number = this.clientForm.getClientPhoneNumber().getText();
-        ClientsDAO clientDAO = ClientsDAO.getClientsDAO();
-        boolean isClientRegistered = clientDAO.findClient(phone_number);
-        return isClientRegistered;
+        try {
+            String phone_number = this.clientForm.getClientPhoneNumber().getText();
+            boolean isClientRegistered = ClientsDAO.getClientsDAO().findClient(phone_number);
+            return isClientRegistered;
+            
+        } catch (SQLException ex) {
+            this.tellErrorMessagerToShowMessage( ErrorMessager.DATABASE_ERROR );
+        }
+        return false;
     }
     
     // Stores the client information in the database.
     private void storeClientInformation(){
         
-        String name = this.clientForm.getClientName().getText();
-        String phone_number = this.clientForm.getClientPhoneNumber().getText();
-        String address = this.clientForm.getClientAddress().getText();
-        String references = this.clientForm.getClientAddressReferences().getText();
-        
-        ClientsDAO clientsDAO = ClientsDAO.getClientsDAO();
-        clientsDAO.insertClientInformation(name, phone_number, address, references);
+        try {
+            String name = this.clientForm.getClientName().getText();
+            String phone_number = this.clientForm.getClientPhoneNumber().getText();
+            String address = this.clientForm.getClientAddress().getText();
+            String references = this.clientForm.getClientAddressReferences().getText();
+            
+            ClientsDAO.getClientsDAO().insertClientInformation(name, phone_number, address, references);
+            
+        } catch (SQLException ex) {
+            this.tellErrorMessagerToShowMessage( ErrorMessager.DATABASE_ERROR );
+        }
     }
     
     // Resets the form.

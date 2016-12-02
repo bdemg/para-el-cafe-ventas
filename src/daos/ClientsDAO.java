@@ -3,6 +3,7 @@ package daos;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import model.Client;
 
 /**
@@ -43,7 +44,7 @@ public class ClientsDAO extends DAO {
             String input_PhoneNumber,
             String input_Address,
             String input_References
-    ) {
+    ) throws SQLException {
 
         try {
             PreparedStatement queryStatement = (PreparedStatement) 
@@ -56,12 +57,12 @@ public class ClientsDAO extends DAO {
             queryStatement.execute();
 
         } catch ( SQLException ex ) {
-            ex.printStackTrace();
+            throw ex;
         }
     }
     
     // Deletes client information of a single client.
-    public void deleteClient( String input_PhoneNumber ){
+    public void deleteClient( String input_PhoneNumber ) throws SQLException{
         
         try {
             PreparedStatement queryStatement = (PreparedStatement)
@@ -71,12 +72,12 @@ public class ClientsDAO extends DAO {
             queryStatement.executeQuery();
             
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw ex;
         }
     }
 
     // Searches the existence of a single client based on his phone number.
-    public boolean findClient( String input_PhoneNumber ) {
+    public boolean findClient( String input_PhoneNumber ) throws SQLException {
 
         try {
             PreparedStatement queryStatement = (PreparedStatement)
@@ -89,8 +90,7 @@ public class ClientsDAO extends DAO {
             return isClientPhoneNumberFound;
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
+            throw ex;
         }
     }
 
