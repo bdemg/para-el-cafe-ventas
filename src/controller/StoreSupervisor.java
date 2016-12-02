@@ -6,6 +6,10 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.ErrorMessager;
 import view.SupervisorServiceWindow;
 
 /**
@@ -92,7 +96,14 @@ public final class StoreSupervisor extends Controller{
 
     
     private void callDeliverySecretary() {
-        ;//EMPTY FOR NOW
+        
+        try {
+            
+            new DeliverySecretary();
+        } catch ( SQLException ex ) {
+            
+            this.tellErrorMessagerToShowMessage( ErrorMessager.DATABASE_ERROR );
+        }
     }
     
     
@@ -100,4 +111,9 @@ public final class StoreSupervisor extends Controller{
         new PricesManager();
     }
     
+    private void tellErrorMessagerToShowMessage( String input_ErrorMessage ){
+        
+        ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
+        errorMessager.showErrorMessage( input_ErrorMessage );
+    }
 }
