@@ -27,8 +27,6 @@ public class ErrorMessager {
             "No se puede conectar con la base de datos. Consulte con el Ingeniero.";
     public static final String REPORT_IS_EMPTY =
             "No se encuentran ventas registradas en la fecha seleccionada.";
-    public static final String UPDATE_PRICES_ERROR =
-            "No es posible actualizar el precio del producto. Consulte con el Ingeniero.";
     
     private ErrorMessager(){
         ;
