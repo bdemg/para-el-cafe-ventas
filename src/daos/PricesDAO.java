@@ -59,7 +59,7 @@ public class PricesDAO extends DatabaseDAO{
     
     
     //update the price of a given product in the database with a new price
-    public void updateProductPice(String input_productName, double input_productPrice) throws SQLException{
+    public void updateProductPrice(String input_productName, double input_productPrice) throws SQLException{
             
         PreparedStatement preparedStatement = ( PreparedStatement )
                 super.connectionToDatabase.prepareStatement( this.UPDATE_PRICE_QUERY );
