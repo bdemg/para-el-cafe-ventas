@@ -36,7 +36,7 @@ public class ReportManager extends Controller{
         Object eventSource = event.getSource();
         
         if( this.isGeneratingMonthlyReport( eventSource )){
-            
+            this.writeDownReport();
         }
 
     }
@@ -45,6 +45,10 @@ public class ReportManager extends Controller{
     protected void addActionListeners() {
 
         this.reportForm.getGenerateReportButton().addActionListener(this);
+    }
+    
+    private void writeDownReport(){
+        
     }
     
     private boolean isGeneratingMonthlyReport( Object input_eventSource ){
