@@ -24,8 +24,6 @@ public class DAO {
             this.connectionToDatabase = DriverManager.
                 getConnection( this.HOST, this.USER, this.PASSWORD );
 
-        } catch ( SQLException ex ) {
-            throw ex;
         } catch ( ClassNotFoundException ex ) {
             throw new SQLException();
         }

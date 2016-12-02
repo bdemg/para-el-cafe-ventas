@@ -60,19 +60,15 @@ public class DeliveriesDAO extends DAO{
     
     
     public Object[][] getTodaysDeliveries() throws SQLException{
-        try {
-            
-            PreparedStatement preparedStatement = ( PreparedStatement ) 
-                super.connectionToDatabase.prepareStatement( this.TODAYS_DELIVERIES_QUERY );
-            
-            preparedStatement = this.addTodaysDateToQuery(preparedStatement);
-            
-            ResultSet resultSet = preparedStatement.executeQuery();
-            
-            return this.putTodaysDeliveriesIntoArray(resultSet);
-        } catch ( SQLException ex ) {
-            throw ex;
-        }
+        
+        PreparedStatement preparedStatement = ( PreparedStatement ) 
+            super.connectionToDatabase.prepareStatement( this.TODAYS_DELIVERIES_QUERY );
+
+        preparedStatement = this.addTodaysDateToQuery(preparedStatement);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        return this.putTodaysDeliveriesIntoArray(resultSet);
     }
 
     
