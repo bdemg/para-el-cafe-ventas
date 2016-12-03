@@ -26,30 +26,38 @@ public class ReportDAO {
     private final int DEFAULT_PAGE_NUMBER = 0;
     private final String DEFAULT_SHEET_NAME = "Reporte del Mes";
     
-    private final String BOOK_NAME = "MonthlyReport.xls";
+    private final String BOOK_NAME = "ReporteMensual.xls";
     
     private WritableWorkbook reportBook;
     private WritableSheet reportSheet;
     
+    
     public ReportDAO() throws IOException, WriteException{
+        
         openWorkbook();
-        writeInSheet( DEFAULT_SHEET_NAME, DEFAULT_PAGE_NUMBER );
+        createNewSheet( DEFAULT_SHEET_NAME, DEFAULT_PAGE_NUMBER );
+        
     }
+    
     
     private void openWorkbook() throws IOException{
         
-        reportBook = Workbook.createWorkbook( makeRoomInShelf(), writeWorkbookInLocalLenguage() );        
+        reportBook = Workbook.createWorkbook( getFile(), writeWorkbookInLocalLenguage() );        
     }
     
-    public void writeInSheet(String title, int numberOfPage) throws IOException{
+    
+    public void createNewSheet(String title, int numberOfPage) throws IOException{
         
         reportSheet = reportBook.createSheet( title, numberOfPage);
     }
     
-    private File makeRoomInShelf(){
+    
+    private File getFile(){
+        
         File file = new File( BOOK_NAME );
         return file;
     }
+    
     
     private WorkbookSettings writeWorkbookInLocalLenguage() throws IOException{
         
@@ -59,20 +67,25 @@ public class ReportDAO {
         return reportSettings;
     }
     
-    public void writeDownLabeledCells(int column, int row, String textToInsert) throws WriteException{
+    
+    public void writeDownLabel(int column, int row, String textToInsert) throws WriteException{
         
         Label labeledCell = new Label(column, row, textToInsert);
         reportSheet.addCell(labeledCell);
     }
     
-    public void writeDownNumberCells(int column, int row, double textToInsert) throws WriteException{
+    
+    public void writeDownNumber(int column, int row, double textToInsert) throws WriteException{
         
         Number numberCell = new Number(column, row, textToInsert);
         reportSheet.addCell(numberCell);
     }
     
+    
     public void finishReport() throws IOException, WriteException{
+        
         this.reportBook.write();
         this.reportBook.close();
     }
+    
 }

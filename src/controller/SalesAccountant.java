@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import jxl.write.WriteException;
 import model.ConfirmationMessager;
+import model.ErrorMessager;
 import model.reportdatemodels.*;
 import view.ReportForm;
 /**
@@ -35,15 +36,17 @@ public class SalesAccountant extends Controller{
     
     private final ReportForm reportForm;
     
+    
     public SalesAccountant(){
+        
         this.reportForm = new ReportForm();
         this.addActionListeners();
     }
 
     @Override
-    public void actionPerformed(ActionEvent event) {
+    public void actionPerformed( ActionEvent input_event ) {
 
-        Object eventSource = event.getSource();
+        Object eventSource = input_event.getSource();
         
         if( this.isGeneratingMonthlyReport( eventSource ) ){
             
@@ -55,13 +58,13 @@ public class SalesAccountant extends Controller{
                 }
             } catch (IOException ex) {
                 
-                Logger.getLogger(SalesAccountant.class.getName()).log(Level.SEVERE, null, ex);
+                this.tellErrorMessagerToShowMessage( ErrorMessager.FILE_ACCESS_ERROR );
             } catch (WriteException ex) {
                 
-                Logger.getLogger(SalesAccountant.class.getName()).log(Level.SEVERE, null, ex);
+                this.tellErrorMessagerToShowMessage( ErrorMessager.FILE_WRITE_ERROR );
             } catch (SQLException ex) {
                 
-                Logger.getLogger(SalesAccountant.class.getName()).log(Level.SEVERE, null, ex);
+                this.tellErrorMessagerToShowMessage( ErrorMessager.DATABASE_ERROR );
             }
         }
 
@@ -82,34 +85,36 @@ public class SalesAccountant extends Controller{
         
         ReportDAO salesReport = new ReportDAO();        
         
+        //Object salesRecipts = salesRecipts();
+        
         for ( int rowCount = 0; rowCount < salesReceipts().length; rowCount++ ){
             
-            salesReport.writeDownLabeledCells(
-                    FOLIO_COLUMN, 
+            salesReport.writeDownLabel(
+                    this.FOLIO_COLUMN, 
                     rowCount, 
-                    String.valueOf(salesReceipts()[rowCount][FOLIO_COLUMN]));
+                    String.valueOf(salesReceipts()[rowCount][this.FOLIO_COLUMN]));
             
-            salesReport.writeDownLabeledCells(
+            salesReport.writeDownLabel(
                     CLIENT_PHONENUMBER_COLUMN, 
                     rowCount, 
                     ( String ) salesReceipts()[rowCount][CLIENT_PHONENUMBER_COLUMN]);
             
-            salesReport.writeDownLabeledCells(
+            salesReport.writeDownLabel(
                     PRODUCT_NAME_COLUMN, 
                     rowCount, 
                     ( String ) salesReceipts()[rowCount][PRODUCT_NAME_COLUMN]);
             
-            salesReport.writeDownNumberCells(
+            salesReport.writeDownNumber(
                     QUANTITY_COLUMN, 
                     rowCount, 
                     (int) salesReceipts()[rowCount][QUANTITY_COLUMN]);
             
-            salesReport.writeDownNumberCells(
+            salesReport.writeDownNumber(
                     SUBTOTAL_COLUMN, 
                     rowCount, 
                     (double) salesReceipts()[rowCount][SUBTOTAL_COLUMN]);
             
-            salesReport.writeDownLabeledCells(
+            salesReport.writeDownLabel(
                     DATE_COLUMN, 
                     rowCount, 
                     ( String ) salesReceipts()[rowCount][DATE_COLUMN]);
@@ -121,14 +126,14 @@ public class SalesAccountant extends Controller{
     private Object[][] salesReceipts() throws SQLException{
         
         Object[][] receiptsOfTheMonth = SalesDAO.getSalesDAO().getMonthlySales( 
-                this.formatReportDate( 
+                this.monthlyReportDate( 
                         
                         ( int )this.reportForm.getMonthSpinner().getValue(), 
                         ( int )this.reportForm.getYearSpinner().getValue() ) );
         return receiptsOfTheMonth;
     }
     
-    private Timestamp formatReportDate(
+    private Timestamp monthlyReportDate(
         int input_DueMonth,
         int input_DueYear
     ) {
@@ -143,6 +148,12 @@ public class SalesAccountant extends Controller{
         );
 
         return new Timestamp(dueDate.getTimeInMillis());
+    }
+    
+    private void tellErrorMessagerToShowMessage( String input_ErrorMessage ){
+        
+        ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
+        errorMessager.showErrorMessage( input_ErrorMessage );
     }
 
     private boolean tellConfirmationMessagerToAskForConfirmation( String input_ErrorMessage ){
