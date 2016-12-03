@@ -85,11 +85,11 @@ public class ReportManager extends Controller{
         
         for ( int rowCount = 0; rowCount < fg.length; rowCount++ ){
             
-            re.writeDownLabeledCells(FOLIO_COLUMN, rowCount, ( String ) fg[rowCount][FOLIO_COLUMN]);
+            re.writeDownLabeledCells(FOLIO_COLUMN, rowCount, String.valueOf(fg[rowCount][FOLIO_COLUMN]));
             re.writeDownLabeledCells(CLIENT_PHONENUMBER_COLUMN, rowCount, ( String ) fg[rowCount][CLIENT_PHONENUMBER_COLUMN]);
             re.writeDownLabeledCells(PRODUCT_NAME_COLUMN, rowCount, ( String ) fg[rowCount][PRODUCT_NAME_COLUMN]);
-            re.writeDownLabeledCells(QUANTITY_COLUMN, rowCount, ( String ) fg[rowCount][QUANTITY_COLUMN]);
-            re.writeDownLabeledCells(SUBTOTAL_COLUMN, rowCount, ( String ) fg[rowCount][SUBTOTAL_COLUMN]);
+            re.writeDownNumberCells(QUANTITY_COLUMN, rowCount, (int) fg[rowCount][QUANTITY_COLUMN]);
+            re.writeDownNumberCells(SUBTOTAL_COLUMN, rowCount, (double) fg[rowCount][SUBTOTAL_COLUMN]);
             re.writeDownLabeledCells(DATE_COLUMN, rowCount, ( String ) fg[rowCount][DATE_COLUMN]);
         }
         

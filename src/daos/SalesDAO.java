@@ -24,7 +24,7 @@ public class SalesDAO extends DatabaseDAO{
             + "VALUES (?, ?, ?, ?, ?, ?)";
     
     private final String MONTHLY_SALES_QUERY = 
-            "SELECT (folio, client_phoneNumber, product_name, quantity, subtotal, date) "
+            "SELECT folio, client_phoneNumber, product_name, quantity, subtotal, date "
             + "FROM sales WHERE date BETWEEN ? AND ?";
     
     private final int FOLIO_COLUMN = 0;

@@ -12,6 +12,7 @@ import jxl.Cell;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.write.Label;
+import jxl.write.Number;
 import jxl.write.WritableCell;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
@@ -22,13 +23,16 @@ import jxl.write.WriteException;
  */
 public class ReportDAO {
     
+    private WritableWorkbook reportBook;
+    private WritableSheet reportSheet;
+    
     public ReportDAO() throws IOException, WriteException{
         ;
     }
     
     private WritableWorkbook openWorkbook() throws IOException{
         
-        WritableWorkbook reportBook = Workbook.createWorkbook( fileRoute(), setWorkbookSettings() );        
+        reportBook = Workbook.createWorkbook( fileRoute(), setWorkbookSettings() );        
         return reportBook;
     }
     
@@ -47,18 +51,24 @@ public class ReportDAO {
     
     public WritableSheet createSheet(String title, int numberOfPage) throws IOException{
         
-        openWorkbook().createSheet( title, numberOfPage);
-        WritableSheet reportSheet = openWorkbook().getSheet( numberOfPage );
+        reportSheet = openWorkbook().createSheet( title, numberOfPage);
         return reportSheet;
     }
     
-    public Label writeDownLabeledCells(int column, int row, String textToInsert){
+    public void writeDownLabeledCells(int column, int row, String textToInsert) throws WriteException{
         
         Label labeledCell = new Label(column, row, textToInsert);
-        return labeledCell;
+        reportSheet.addCell(labeledCell);
+    }
+    
+    public void writeDownNumberCells(int column, int row, double textToInsert) throws WriteException{
+        
+        Number numberCell = new Number(column, row, textToInsert);
+        reportSheet.addCell(numberCell);
     }
     
     public void closeReportWorkbook() throws IOException, WriteException{
-        openWorkbook().close();
+        this.reportBook.write();
+        this.reportBook.close();
     }
 }
