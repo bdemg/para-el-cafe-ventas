@@ -24,7 +24,7 @@ import view.ReportForm;
  *
  * @author Evan-Ian-Ray
  */
-public class ReportManager extends Controller{
+public class SalesAccountant extends Controller{
     
     private final int FOLIO_COLUMN = 0;
     private final int CLIENT_PHONENUMBER_COLUMN = 1;
@@ -33,12 +33,9 @@ public class ReportManager extends Controller{
     private final int SUBTOTAL_COLUMN = 4;
     private final int DATE_COLUMN = 5;
     
-    private final int DEFAULT_PAGE_NUMBER = 0;
-    private final String DEFAULT_SHEET_NAME = "Reporte del Mes";
-    
     private final ReportForm reportForm;
     
-    public ReportManager(){
+    public SalesAccountant(){
         this.reportForm = new ReportForm();
         this.addActionListeners();
     }
@@ -58,13 +55,13 @@ public class ReportManager extends Controller{
                 }
             } catch (IOException ex) {
                 
-                Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SalesAccountant.class.getName()).log(Level.SEVERE, null, ex);
             } catch (WriteException ex) {
                 
-                Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SalesAccountant.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 
-                Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SalesAccountant.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -81,50 +78,54 @@ public class ReportManager extends Controller{
         return input_eventSource == this.reportForm.getGenerateReportButton();
     }
     
-    private void writeDownReport() throws IOException, WriteException, SQLException{
+    private void writeDownReport() throws IOException, WriteException, SQLException {
+        
+        ReportDAO salesReport = new ReportDAO();        
+        
+        for ( int rowCount = 0; rowCount < salesReceipts().length; rowCount++ ){
+            
+            salesReport.writeDownLabeledCells(
+                    FOLIO_COLUMN, 
+                    rowCount, 
+                    String.valueOf(salesReceipts()[rowCount][FOLIO_COLUMN]));
+            
+            salesReport.writeDownLabeledCells(
+                    CLIENT_PHONENUMBER_COLUMN, 
+                    rowCount, 
+                    ( String ) salesReceipts()[rowCount][CLIENT_PHONENUMBER_COLUMN]);
+            
+            salesReport.writeDownLabeledCells(
+                    PRODUCT_NAME_COLUMN, 
+                    rowCount, 
+                    ( String ) salesReceipts()[rowCount][PRODUCT_NAME_COLUMN]);
+            
+            salesReport.writeDownNumberCells(
+                    QUANTITY_COLUMN, 
+                    rowCount, 
+                    (int) salesReceipts()[rowCount][QUANTITY_COLUMN]);
+            
+            salesReport.writeDownNumberCells(
+                    SUBTOTAL_COLUMN, 
+                    rowCount, 
+                    (double) salesReceipts()[rowCount][SUBTOTAL_COLUMN]);
+            
+            salesReport.writeDownLabeledCells(
+                    DATE_COLUMN, 
+                    rowCount, 
+                    ( String ) salesReceipts()[rowCount][DATE_COLUMN]);
+        }
+        
+        salesReport.finishReport();
+    }
+    
+    private Object[][] salesReceipts() throws SQLException{
         
         Object[][] receiptsOfTheMonth = SalesDAO.getSalesDAO().getMonthlySales( 
                 this.formatReportDate( 
+                        
                         ( int )this.reportForm.getMonthSpinner().getValue(), 
                         ( int )this.reportForm.getYearSpinner().getValue() ) );
-        
-        ReportDAO accountant = new ReportDAO(DEFAULT_SHEET_NAME, DEFAULT_PAGE_NUMBER);        
-        accountant.writeInSheet("Monthly Report", 0);
-        
-        for ( int rowCount = 0; rowCount < receiptsOfTheMonth.length; rowCount++ ){
-            
-            accountant.writeDownLabeledCells(
-                    FOLIO_COLUMN, 
-                    rowCount, 
-                    String.valueOf(receiptsOfTheMonth[rowCount][FOLIO_COLUMN]));
-            
-            accountant.writeDownLabeledCells(
-                    CLIENT_PHONENUMBER_COLUMN, 
-                    rowCount, 
-                    ( String ) receiptsOfTheMonth[rowCount][CLIENT_PHONENUMBER_COLUMN]);
-            
-            accountant.writeDownLabeledCells(
-                    PRODUCT_NAME_COLUMN, 
-                    rowCount, 
-                    ( String ) receiptsOfTheMonth[rowCount][PRODUCT_NAME_COLUMN]);
-            
-            accountant.writeDownNumberCells(
-                    QUANTITY_COLUMN, 
-                    rowCount, 
-                    (int) receiptsOfTheMonth[rowCount][QUANTITY_COLUMN]);
-            
-            accountant.writeDownNumberCells(
-                    SUBTOTAL_COLUMN, 
-                    rowCount, 
-                    (double) receiptsOfTheMonth[rowCount][SUBTOTAL_COLUMN]);
-            
-            accountant.writeDownLabeledCells(
-                    DATE_COLUMN, 
-                    rowCount, 
-                    ( String ) receiptsOfTheMonth[rowCount][DATE_COLUMN]);
-        }
-        
-        accountant.finishReport();
+        return receiptsOfTheMonth;
     }
     
     private Timestamp formatReportDate(

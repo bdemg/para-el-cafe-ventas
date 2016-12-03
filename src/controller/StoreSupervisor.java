@@ -91,7 +91,7 @@ public final class StoreSupervisor extends Controller{
     
     private void callReportManager() {
         
-        new ReportManager();
+        new SalesAccountant();
     }
 
     

@@ -23,37 +23,40 @@ import jxl.write.WriteException;
  */
 public class ReportDAO {
     
+    private final int DEFAULT_PAGE_NUMBER = 0;
+    private final String DEFAULT_SHEET_NAME = "Reporte del Mes";
+    
+    private final String BOOK_NAME = "MonthlyReport.xls";
+    
     private WritableWorkbook reportBook;
     private WritableSheet reportSheet;
     
-    public ReportDAO(String title, int numberOfPage) throws IOException, WriteException{
+    public ReportDAO() throws IOException, WriteException{
         openWorkbook();
-        writeInSheet(title, numberOfPage);
+        writeInSheet( DEFAULT_SHEET_NAME, DEFAULT_PAGE_NUMBER );
     }
     
-    private WritableWorkbook openWorkbook() throws IOException{
+    private void openWorkbook() throws IOException{
         
-        reportBook = Workbook.createWorkbook( makeRoomInShelf(), writeWorkbookInEnglish() );        
-        return reportBook;
+        reportBook = Workbook.createWorkbook( makeRoomInShelf(), writeWorkbookInLocalLenguage() );        
+    }
+    
+    public void writeInSheet(String title, int numberOfPage) throws IOException{
+        
+        reportSheet = reportBook.createSheet( title, numberOfPage);
     }
     
     private File makeRoomInShelf(){
-        File file = new File( "MonthlyReport.xls" );
+        File file = new File( BOOK_NAME );
         return file;
     }
     
-    private WorkbookSettings writeWorkbookInEnglish() throws IOException{
+    private WorkbookSettings writeWorkbookInLocalLenguage() throws IOException{
         
         WorkbookSettings reportSettings = new WorkbookSettings();
-        reportSettings.setLocale( Locale.ENGLISH );
+        reportSettings.setLocale( Locale.ROOT );
         
         return reportSettings;
-    }
-    
-    public WritableSheet writeInSheet(String title, int numberOfPage) throws IOException{
-        
-        reportSheet = openWorkbook().createSheet( title, numberOfPage);
-        return reportSheet;
     }
     
     public void writeDownLabeledCells(int column, int row, String textToInsert) throws WriteException{
