@@ -8,8 +8,11 @@ package daos;
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
+import jxl.Cell;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
+import jxl.write.Label;
+import jxl.write.WritableCell;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -42,10 +45,20 @@ public class ReportDAO {
         return reportSettings;
     }
     
-    private WritableSheet generateSheet(String title, int numberOfPage) throws IOException{
+    public WritableSheet createSheet(String title, int numberOfPage) throws IOException{
         
         openWorkbook().createSheet( title, numberOfPage);
         WritableSheet reportSheet = openWorkbook().getSheet( numberOfPage );
         return reportSheet;
+    }
+    
+    public Label writeDownLabeledCells(int column, int row, String textToInsert){
+        
+        Label labeledCell = new Label(column, row, textToInsert);
+        return labeledCell;
+    }
+    
+    public void closeReportWorkbook() throws IOException, WriteException{
+        openWorkbook().close();
     }
 }
