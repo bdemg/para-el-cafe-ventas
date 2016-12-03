@@ -26,22 +26,23 @@ public class ReportDAO {
     private WritableWorkbook reportBook;
     private WritableSheet reportSheet;
     
-    public ReportDAO() throws IOException, WriteException{
-        ;
+    public ReportDAO(String title, int numberOfPage) throws IOException, WriteException{
+        openWorkbook();
+        writeInSheet(title, numberOfPage);
     }
     
     private WritableWorkbook openWorkbook() throws IOException{
         
-        reportBook = Workbook.createWorkbook( fileRoute(), setWorkbookSettings() );        
+        reportBook = Workbook.createWorkbook( makeRoomInShelf(), writeWorkbookInEnglish() );        
         return reportBook;
     }
     
-    private File fileRoute(){
+    private File makeRoomInShelf(){
         File file = new File( "MonthlyReport.xls" );
         return file;
     }
     
-    private WorkbookSettings setWorkbookSettings() throws IOException{
+    private WorkbookSettings writeWorkbookInEnglish() throws IOException{
         
         WorkbookSettings reportSettings = new WorkbookSettings();
         reportSettings.setLocale( Locale.ENGLISH );
@@ -49,7 +50,7 @@ public class ReportDAO {
         return reportSettings;
     }
     
-    public WritableSheet createSheet(String title, int numberOfPage) throws IOException{
+    public WritableSheet writeInSheet(String title, int numberOfPage) throws IOException{
         
         reportSheet = openWorkbook().createSheet( title, numberOfPage);
         return reportSheet;
@@ -67,7 +68,7 @@ public class ReportDAO {
         reportSheet.addCell(numberCell);
     }
     
-    public void closeReportWorkbook() throws IOException, WriteException{
+    public void finishReport() throws IOException, WriteException{
         this.reportBook.write();
         this.reportBook.close();
     }

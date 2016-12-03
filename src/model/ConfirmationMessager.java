@@ -22,6 +22,8 @@ public class ConfirmationMessager {
         "¿Está seguro que desea cancelar la orden?";
     public static final String CONFIRM_PRICE_UPDATE =
         "¿Está seguro que desea cambiar el precio del producto seleccionado?";
+    public static final String CONFIRM_REPORT_WRITING =
+            "¿Desea generar este reporte?";
 
     
     private ConfirmationMessager() {

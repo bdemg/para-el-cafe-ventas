@@ -7,6 +7,8 @@ package view;
 
 import javax.swing.JButton;
 import javax.swing.JSpinner;
+import model.reportdatemodels.ReportMonthTemplate;
+import model.reportdatemodels.ReportYearTemplate;
 
 /**
  *
@@ -19,7 +21,22 @@ public class ReportForm extends javax.swing.JFrame {
      */
     public ReportForm() {
         initComponents();
+        setupReportForm();
     }
+    
+        private void setupReportForm(){
+        this.setVisible(true);
+        this.setResizable(true);
+        this.setLocationRelativeTo(null);
+        this.setDefaultReportDate();
+    }
+        private void setDefaultReportDate(){
+        
+        this.getMonthSpinner().setModel( new ReportMonthTemplate() );
+        this.getYearSpinner().setModel( new ReportYearTemplate() );
+        
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

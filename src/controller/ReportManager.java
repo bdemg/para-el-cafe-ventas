@@ -17,7 +17,7 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jxl.write.WriteException;
-import model.ErrorMessager;
+import model.ConfirmationMessager;
 import model.reportdatemodels.*;
 import view.ReportForm;
 /**
@@ -33,19 +33,14 @@ public class ReportManager extends Controller{
     private final int SUBTOTAL_COLUMN = 4;
     private final int DATE_COLUMN = 5;
     
+    private final int DEFAULT_PAGE_NUMBER = 0;
+    private final String DEFAULT_SHEET_NAME = "Reporte del Mes";
+    
     private final ReportForm reportForm;
     
     public ReportManager(){
         this.reportForm = new ReportForm();
-        this.setReportForm();
         this.addActionListeners();
-    }
-    
-    private void setReportForm(){
-        this.reportForm.setVisible(true);
-        this.reportForm.setResizable(true);
-        this.reportForm.setLocationRelativeTo(null);
-        this.setDefaultReportDate();
     }
 
     @Override
@@ -53,14 +48,22 @@ public class ReportManager extends Controller{
 
         Object eventSource = event.getSource();
         
-        if( this.isGeneratingMonthlyReport( eventSource )){
+        if( this.isGeneratingMonthlyReport( eventSource ) ){
+            
             try {
+                if( this.tellConfirmationMessagerToAskForConfirmation( 
+                ConfirmationMessager.CONFIRM_REPORT_WRITING ) ){
+                    
                 this.writeDownReport();
+                }
             } catch (IOException ex) {
+                
                 Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
             } catch (WriteException ex) {
+                
                 Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
+                
                 Logger.getLogger(ReportManager.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -73,48 +76,58 @@ public class ReportManager extends Controller{
         this.reportForm.getGenerateReportButton().addActionListener(this);
     }
     
-    private void writeDownReport() throws IOException, WriteException, SQLException{
-        
-        Object[][] fg = SalesDAO.getSalesDAO().getMonthlySales( 
-                this.formatMonthlyReport( 
-                        ( int )this.reportForm.getMonthSpinner().getValue(), 
-                        ( int )this.reportForm.getYearSpinner().getValue() ) );
-        
-        ReportDAO re = new ReportDAO();        
-        re.createSheet("Monthly Report", 0);
-        
-        for ( int rowCount = 0; rowCount < fg.length; rowCount++ ){
-            
-            re.writeDownLabeledCells(FOLIO_COLUMN, rowCount, String.valueOf(fg[rowCount][FOLIO_COLUMN]));
-            re.writeDownLabeledCells(CLIENT_PHONENUMBER_COLUMN, rowCount, ( String ) fg[rowCount][CLIENT_PHONENUMBER_COLUMN]);
-            re.writeDownLabeledCells(PRODUCT_NAME_COLUMN, rowCount, ( String ) fg[rowCount][PRODUCT_NAME_COLUMN]);
-            re.writeDownNumberCells(QUANTITY_COLUMN, rowCount, (int) fg[rowCount][QUANTITY_COLUMN]);
-            re.writeDownNumberCells(SUBTOTAL_COLUMN, rowCount, (double) fg[rowCount][SUBTOTAL_COLUMN]);
-            re.writeDownLabeledCells(DATE_COLUMN, rowCount, ( String ) fg[rowCount][DATE_COLUMN]);
-        }
-        
-        re.closeReportWorkbook();
-    }
-    
     private boolean isGeneratingMonthlyReport( Object input_eventSource ){
         
         return input_eventSource == this.reportForm.getGenerateReportButton();
     }
     
-    private void setDefaultReportDate(){
+    private void writeDownReport() throws IOException, WriteException, SQLException{
         
-        this.reportForm.getMonthSpinner().setModel( new ReportMonthTemplate() );
-        this.reportForm.getYearSpinner().setModel( new ReportYearTemplate() );
+        Object[][] receiptsOfTheMonth = SalesDAO.getSalesDAO().getMonthlySales( 
+                this.formatReportDate( 
+                        ( int )this.reportForm.getMonthSpinner().getValue(), 
+                        ( int )this.reportForm.getYearSpinner().getValue() ) );
         
+        ReportDAO accountant = new ReportDAO(DEFAULT_SHEET_NAME, DEFAULT_PAGE_NUMBER);        
+        accountant.writeInSheet("Monthly Report", 0);
+        
+        for ( int rowCount = 0; rowCount < receiptsOfTheMonth.length; rowCount++ ){
+            
+            accountant.writeDownLabeledCells(
+                    FOLIO_COLUMN, 
+                    rowCount, 
+                    String.valueOf(receiptsOfTheMonth[rowCount][FOLIO_COLUMN]));
+            
+            accountant.writeDownLabeledCells(
+                    CLIENT_PHONENUMBER_COLUMN, 
+                    rowCount, 
+                    ( String ) receiptsOfTheMonth[rowCount][CLIENT_PHONENUMBER_COLUMN]);
+            
+            accountant.writeDownLabeledCells(
+                    PRODUCT_NAME_COLUMN, 
+                    rowCount, 
+                    ( String ) receiptsOfTheMonth[rowCount][PRODUCT_NAME_COLUMN]);
+            
+            accountant.writeDownNumberCells(
+                    QUANTITY_COLUMN, 
+                    rowCount, 
+                    (int) receiptsOfTheMonth[rowCount][QUANTITY_COLUMN]);
+            
+            accountant.writeDownNumberCells(
+                    SUBTOTAL_COLUMN, 
+                    rowCount, 
+                    (double) receiptsOfTheMonth[rowCount][SUBTOTAL_COLUMN]);
+            
+            accountant.writeDownLabeledCells(
+                    DATE_COLUMN, 
+                    rowCount, 
+                    ( String ) receiptsOfTheMonth[rowCount][DATE_COLUMN]);
+        }
+        
+        accountant.finishReport();
     }
     
-    private void tellErrorMessagerToShowMessage ( String input_ErrorMessage ){
-        
-        ErrorMessager errorMessager = ErrorMessager.callErrorMessager();
-        errorMessager.showErrorMessage( input_ErrorMessage );
-    }
-    
-    private Timestamp formatMonthlyReport(
+    private Timestamp formatReportDate(
         int input_DueMonth,
         int input_DueYear
     ) {
@@ -129,5 +142,11 @@ public class ReportManager extends Controller{
         );
 
         return new Timestamp(dueDate.getTimeInMillis());
+    }
+
+    private boolean tellConfirmationMessagerToAskForConfirmation( String input_ErrorMessage ){
+        
+        ConfirmationMessager confirmationMessager = ConfirmationMessager.callConfirmationMessager();
+        return confirmationMessager.askForConfirmation( input_ErrorMessage );
     }
 }
