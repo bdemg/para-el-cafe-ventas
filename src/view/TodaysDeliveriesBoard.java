@@ -6,20 +6,20 @@
 package view;
 
 import javax.swing.table.DefaultTableModel;
-import model.DeliveriesList;
+import model.TodaysDeliveriesList;
 import model.OrdersList;
 import view.renders.NumberRenderer;
 
 /**
- *
+ * This class represents the board where today's deliveries are put up
  * @author Jorge A. Cano
  */
-public class DeliveriesBoard extends javax.swing.JFrame {
+public class TodaysDeliveriesBoard extends javax.swing.JFrame {
 
     /**
      * Creates new form DeliveriesBoard
      */
-    public DeliveriesBoard() {
+    public TodaysDeliveriesBoard() {
         
         initComponents();
         
@@ -28,9 +28,9 @@ public class DeliveriesBoard extends javax.swing.JFrame {
     
     private void setupDeliveriesBoard(){
         
-        this.setVisible(true);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
+        this.setVisible( true );
+        this.setLocationRelativeTo( null );
+        this.setResizable( false );
     }
 
     /**
@@ -92,20 +92,27 @@ public class DeliveriesBoard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DeliveriesBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TodaysDeliveriesBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DeliveriesBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TodaysDeliveriesBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DeliveriesBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TodaysDeliveriesBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DeliveriesBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TodaysDeliveriesBoard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DeliveriesBoard().setVisible(true);
+                new TodaysDeliveriesBoard().setVisible(true);
             }
         });
     }
@@ -115,7 +122,7 @@ public class DeliveriesBoard extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    public void setDeliveriesList(DeliveriesList input_DelivieriesList){
+    public void setDeliveriesList(TodaysDeliveriesList input_DelivieriesList){
         
         this.jTable1.setModel(input_DelivieriesList);
         this.setTableLook();
@@ -123,7 +130,7 @@ public class DeliveriesBoard extends javax.swing.JFrame {
 
     private void setTableLook() {
         
-        this.jTable1.getColumnModel().getColumn( DeliveriesList.PRODUCT_PRICE ).
+        this.jTable1.getColumnModel().getColumn(TodaysDeliveriesList.PRODUCT_PRICE ).
             setCellRenderer( NumberRenderer.getMXNCurrencyRenderer() );
     }
 

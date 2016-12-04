@@ -8,10 +8,10 @@ package model;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * This class represents the list of deliveries that are due for today
  * @author Jorge A. Cano
  */
-public class DeliveriesList extends DefaultTableModel {
+public class TodaysDeliveriesList extends DefaultTableModel {
     
     public static final int CLIENT_NAME = 0;
     public static final int TELEPHONE = 1;
@@ -26,15 +26,15 @@ public class DeliveriesList extends DefaultTableModel {
     private static final String[] FIELD_NAMES = {"Cliente", "Teléfono",
         "Dirección", "Producto", "Cantidad", "Precio", "Fecha"};
     
-    public DeliveriesList( int input_rowCount ) {
+    public TodaysDeliveriesList( int input_rowCount ) {
         
-        super( DeliveriesList.FIELD_NAMES, input_rowCount ); 
+        super(TodaysDeliveriesList.FIELD_NAMES, input_rowCount ); 
     }
 
     
-    public DeliveriesList( Object[][] input_data ) {
+    public TodaysDeliveriesList( Object[][] input_data ) {
         
-        super( input_data, DeliveriesList.FIELD_NAMES );
+        super(input_data, TodaysDeliveriesList.FIELD_NAMES );
     }
 
     //the diferent types of values that are can be written to the orders list
@@ -44,31 +44,31 @@ public class DeliveriesList extends DefaultTableModel {
         Class columnClass = String.class;
         switch ( input_columnIndex ) {
             
-            case DeliveriesList.CLIENT_NAME:
+            case TodaysDeliveriesList.CLIENT_NAME:
                 columnClass = String.class;
                 break;
                 
-            case DeliveriesList.TELEPHONE:
+            case TodaysDeliveriesList.TELEPHONE:
                 columnClass = String.class;
                 break;
                 
-            case DeliveriesList.ADDRESS:
+            case TodaysDeliveriesList.ADDRESS:
                 columnClass = String.class;
                 break;
                 
-            case DeliveriesList.PRODUCT_NAME:
+            case TodaysDeliveriesList.PRODUCT_NAME:
                 columnClass = String.class;
                 break;
                 
-            case DeliveriesList.PRODUCT_QUANTITY:
+            case TodaysDeliveriesList.PRODUCT_QUANTITY:
                 columnClass = Integer.class;
                 break;
                 
-            case DeliveriesList.PRODUCT_PRICE:
+            case TodaysDeliveriesList.PRODUCT_PRICE:
                 columnClass = Double.class;
                 break;
                 
-            case DeliveriesList.DELIVERY_DATE:
+            case TodaysDeliveriesList.DELIVERY_DATE:
                 columnClass = String.class;
                 break;
             

@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * This class is used to ask for confirmation before doing a critical action. It holds all the confirmation messages used
  * @author Jorge A. Cano
  */
 public class ConfirmationMessager {
