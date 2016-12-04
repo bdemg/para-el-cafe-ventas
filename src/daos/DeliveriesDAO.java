@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**
- * 
+ * This class is used to access the database to get the information about todays deliveries
  * @author Jorge A. Cano
  */
 public class DeliveriesDAO extends DatabaseDAO{
@@ -41,7 +41,6 @@ public class DeliveriesDAO extends DatabaseDAO{
     private final String DELIVERY_DATE_COLUMN_NAME = "date";
     
     
-    
     private DeliveriesDAO() throws SQLException {
         
         super();
@@ -59,6 +58,7 @@ public class DeliveriesDAO extends DatabaseDAO{
     }
     
     
+    //obtain the info about today's deliveries
     public Object[][] getTodaysDeliveries() throws SQLException{
         
         PreparedStatement preparedStatement = ( PreparedStatement ) 
@@ -66,12 +66,11 @@ public class DeliveriesDAO extends DatabaseDAO{
 
         preparedStatement = this.addTodaysDateToQuery(preparedStatement);
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet queryResult = preparedStatement.executeQuery();
 
-        return this.putTodaysDeliveriesIntoArray(resultSet);
+        return this.putTodaysDeliveriesIntoArray( queryResult );
     }
 
-    
     
     private PreparedStatement addTodaysDateToQuery(PreparedStatement mod_preparedStatement) throws SQLException {
         
@@ -97,40 +96,41 @@ public class DeliveriesDAO extends DatabaseDAO{
     }
     
     
-    private Object[][] putTodaysDeliveriesIntoArray(ResultSet input_resultSet) throws SQLException {
+    //put the info from the result set into an array
+    private Object[][] putTodaysDeliveriesIntoArray(ResultSet input_queryResults) throws SQLException {
         
-        input_resultSet.last();
-        int numberOfDeliveries = input_resultSet.getRow();
+        input_queryResults.last();
+        int numberOfDeliveries = input_queryResults.getRow();
         Object[][] todaysDeliveries =
-            new Object[ numberOfDeliveries ][ input_resultSet.getMetaData().getColumnCount() ];
+            new Object[ numberOfDeliveries ][ input_queryResults.getMetaData().getColumnCount() ];
         
-        input_resultSet.first();
+        input_queryResults.first();
         
         //put each row of the result set into a row of the array
         for(int deliveryCount = 0; deliveryCount < numberOfDeliveries; deliveryCount++){
             
             todaysDeliveries[deliveryCount][ this.CLIENT_NAME_COLUMN ] = 
-                input_resultSet.getString(this.CLIENT_NAME_COLUMN_NAME );
+                input_queryResults.getString(this.CLIENT_NAME_COLUMN_NAME );
             
             todaysDeliveries[deliveryCount][ this.CLIENT_PHONENUMBER_COLUMN ] = 
-                input_resultSet.getString( this.CLIENT_PHONENUMBER_COLUMN_NAME );
+                input_queryResults.getString( this.CLIENT_PHONENUMBER_COLUMN_NAME );
             
             todaysDeliveries[deliveryCount][ this.CLIENT_ADDRESS_COLUMN ] = 
-                input_resultSet.getString( this.CLIENT_ADDRESS_COLUMN_NAME );
+                input_queryResults.getString( this.CLIENT_ADDRESS_COLUMN_NAME );
             
             todaysDeliveries[deliveryCount][ this.PRODUCT_NAME_COLUMN ] = 
-                input_resultSet.getString( this.PRODUCT_NAME_COLUMN_NAME );
+                input_queryResults.getString( this.PRODUCT_NAME_COLUMN_NAME );
             
             todaysDeliveries[deliveryCount][ this.QUANTITY_COLUMN ] = 
-                input_resultSet.getInt( this.QUANTITY_COLUMN_NAME );
+                input_queryResults.getInt( this.QUANTITY_COLUMN_NAME );
             
             todaysDeliveries[deliveryCount][ this.SUBTOTAL_COLUMN ] = 
-                input_resultSet.getDouble( this.SUBTOTAL_COLUMN_NAME );
+                input_queryResults.getDouble( this.SUBTOTAL_COLUMN_NAME );
             
             todaysDeliveries[deliveryCount][ this.DELIVERY_DATE_COLUMN ] = 
-                new RevisedTimestamp( input_resultSet.getTimestamp( this.DELIVERY_DATE_COLUMN_NAME ) ).toString();
+                new RevisedTimestamp( input_queryResults.getTimestamp( this.DELIVERY_DATE_COLUMN_NAME ) ).toString();
             
-            input_resultSet.next();
+            input_queryResults.next();
         }
         
         return todaysDeliveries;

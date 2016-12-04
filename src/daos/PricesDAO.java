@@ -49,10 +49,10 @@ public class PricesDAO extends DatabaseDAO{
         //add the values into the price obtaining query
         preparedStatement.setString( QueryEnumeration.FIRST_QUERY_VALUE, input_productName );
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet queryResult = preparedStatement.executeQuery();
 
-        resultSet.first();
-        double productPrice = resultSet.getDouble( this.PRICE_COLUMN_NAME );
+        queryResult.first();
+        double productPrice = queryResult.getDouble( this.PRICE_COLUMN_NAME );
 
         return productPrice;
     }

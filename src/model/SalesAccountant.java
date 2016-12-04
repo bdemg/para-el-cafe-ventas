@@ -5,7 +5,8 @@ import java.sql.SQLException;
 
 /**
  * This class is used to calculate partial and total costs for the products
- * contained in an order list. author: Jorge A. Cano
+ * contained in an order list. 
+ * @author: Jorge A. Cano
  */
 public class SalesAccountant {
 

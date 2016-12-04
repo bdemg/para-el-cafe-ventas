@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**
- * 
+ * This class is used to interact with the sales information in the database
  * @author Jorge A. Cano
  */
 public class SalesDAO extends DatabaseDAO{
@@ -40,6 +40,7 @@ public class SalesDAO extends DatabaseDAO{
     private final String QUANTITY_COLUMN_NAME = "quantity";
     private final String SUBTOTAL_COLUMN_NAME = "subtotal";
     private final String DATE_COLUMN_NAME = "date";
+    
     
     public static SalesDAO getSalesDAO() throws SQLException{
         
@@ -90,21 +91,22 @@ public class SalesDAO extends DatabaseDAO{
                 super.connectionToDatabase.prepareStatement( this.MONTHLY_SALES_QUERY );
 
 
-        preparedStatement.setTimestamp( QueryEnumeration.FIRST_QUERY_VALUE, input_month );
+        preparedStatement.setTimestamp(
+            QueryEnumeration.FIRST_QUERY_VALUE, input_month );
         preparedStatement.setTimestamp( 
             QueryEnumeration.SECOND_QUERY_VALUE, 
             new RevisedTimestamp( input_month ).nextMonth()
         );
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet queryResult = preparedStatement.executeQuery();
 
-        boolean areThereMontlySales = resultSet.first();
+        boolean areThereMontlySales = queryResult.first();
         Object[][] montlySales = null;
 
         //only put the data of the report into an array if there is any data
         if(areThereMontlySales){
 
-            montlySales = this.putMontlyReportIntoArray(resultSet);
+            montlySales = this.putMontlyReportIntoArray(queryResult);
         }
 
         return montlySales;
