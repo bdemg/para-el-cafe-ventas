@@ -25,7 +25,7 @@ public class ErrorMessager {
             "El cliente ya existe en la base de datos.";
     public static final String DATABASE_ERROR = 
             "No se puede conectar con la base de datos, verifique que esté encendida."
-            + " Si el problema presiste consulte con el Ingeniero.";
+            + " Si el problema persiste, consulte con el Ingeniero.";
     public static final String REPORT_IS_EMPTY =
             "No se encuentran ventas registradas en la fecha seleccionada.";
     public static final String FILE_ACCESS_ERROR =
