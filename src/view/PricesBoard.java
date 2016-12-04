@@ -54,6 +54,7 @@ public class PricesBoard extends javax.swing.JFrame {
         label_NewPrice = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Actualizar precio");
 
         productsList.setModel(productsList.getModel());
 

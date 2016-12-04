@@ -54,6 +54,7 @@ public class ReportForm extends javax.swing.JFrame {
         yearSpinner = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Reporte mensual");
 
         generateReportButton.setText("Generar Reporte");
         generateReportButton.addActionListener(new java.awt.event.ActionListener() {
