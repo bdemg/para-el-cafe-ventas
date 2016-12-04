@@ -94,12 +94,12 @@ public class SalesDAO extends DatabaseDAO{
 
         ResultSet queryResult = preparedStatement.executeQuery();
         
-        return this.putMontlyReportIntoReciptsArray(queryResult);
+        return this.putMontlyReportIntoReceiptsArray(queryResult);
     }
 
     
     //put the data of a monthly report result set into an array of sales recipts
-    private SalesReceipt[] putMontlyReportIntoReciptsArray(ResultSet input_queryResult) throws SQLException {
+    private SalesReceipt[] putMontlyReportIntoReceiptsArray(ResultSet input_queryResult) throws SQLException {
         
         input_queryResult.last();
         int numberOfSales = input_queryResult.getRow();
