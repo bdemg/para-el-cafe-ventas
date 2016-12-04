@@ -89,37 +89,37 @@ public class SalesAccountant extends Controller{
         
         SalesReceipt[] salesReceipts = salesReceipts();
         
-        for ( int rowCount = 0; rowCount < salesReceipts.length; rowCount++ ){
+        for ( int receiptCount = 0; receiptCount < salesReceipts.length; receiptCount++ ){
             
             salesReport.writeDownLabel(
                     this.FOLIO_COLUMN, 
-                    rowCount, 
-                    String.valueOf(salesReceipts[rowCount].getFolio()));
+                    receiptCount, 
+                    String.valueOf(salesReceipts[receiptCount].getFolio()));
             
             salesReport.writeDownLabel(
                     this.CLIENT_PHONENUMBER_COLUMN, 
-                    rowCount, 
-                    ( String ) salesReceipts[rowCount].getPhoneNumber());
+                    receiptCount, 
+                    ( String ) salesReceipts[receiptCount].getPhoneNumber());
             
             salesReport.writeDownLabel(
                     this.PRODUCT_NAME_COLUMN, 
-                    rowCount, 
-                    ( String ) salesReceipts[rowCount].getProductName());
+                    receiptCount, 
+                    ( String ) salesReceipts[receiptCount].getProductName());
             
             salesReport.writeDownNumber(
                     this.QUANTITY_COLUMN, 
-                    rowCount, 
-                    (int) salesReceipts[rowCount].getProductQuantity());
+                    receiptCount, 
+                    (int) salesReceipts[receiptCount].getProductQuantity());
             
             salesReport.writeDownNumber(
                     this.SUBTOTAL_COLUMN, 
-                    rowCount, 
-                    (double) salesReceipts[rowCount].getSubtotal());
+                    receiptCount, 
+                    (double) salesReceipts[receiptCount].getSubtotal());
             
             salesReport.writeDownLabel(
                     this.DATE_COLUMN, 
-                    rowCount, 
-                    ( String ) salesReceipts[rowCount].getDate());
+                    receiptCount, 
+                    ( String ) salesReceipts[receiptCount].getDate());
         }
         
         salesReport.finishReport();
@@ -130,9 +130,11 @@ public class SalesAccountant extends Controller{
         
         SalesReceipt[] receiptsOfTheMonth = SalesDAO.getSalesDAO().getMonthlySales( 
                 this.monthlyReportDate( 
-                        
-                        ( int )this.reportForm.getMonthSpinner().getValue(), 
-                        ( int )this.reportForm.getYearSpinner().getValue() ) );
+                    ( int )this.reportForm.getMonthSpinner().getValue(), 
+                    ( int )this.reportForm.getYearSpinner().getValue() 
+                )
+        );
+        
         return receiptsOfTheMonth;
     }
     
@@ -145,7 +147,7 @@ public class SalesAccountant extends Controller{
         dueDate.set(
             input_DueYear,
             ( input_DueMonth - 1 ),
-            0,
+            1,
             0,
             0
         );

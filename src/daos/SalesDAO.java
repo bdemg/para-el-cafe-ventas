@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import model.SalesReceipt;
 
 /**
  * This class is used to interact with the sales information in the database
@@ -26,13 +27,6 @@ public class SalesDAO extends DatabaseDAO{
     private final String MONTHLY_SALES_QUERY = 
             "SELECT folio, client_phoneNumber, product_name, quantity, subtotal, date "
             + "FROM sales WHERE date BETWEEN ? AND ?";
-    
-    private final int FOLIO_COLUMN = 0;
-    private final int CLIENT_PHONENUMBER_COLUMN = 1;
-    private final int PRODUCT_NAME_COLUMN = 2;
-    private final int QUANTITY_COLUMN = 3;
-    private final int SUBTOTAL_COLUMN = 4;
-    private final int DATE_COLUMN = 5;
     
     private final String FOLIO_COLUMN_NAME = "folio";
     private final String CLIENT_PHONENUMBER_COLUMN_NAME = "client_phoneNumber";
@@ -85,7 +79,7 @@ public class SalesDAO extends DatabaseDAO{
     
     
     //obtain all the sales made in a month that are stored in the database
-    public Object[][] getMonthlySales( Timestamp input_month ) throws SQLException{
+    public SalesReceipt[] getMonthlySales( Timestamp input_month ) throws SQLException{
 
         PreparedStatement preparedStatement = ( PreparedStatement )
                 super.connectionToDatabase.prepareStatement( this.MONTHLY_SALES_QUERY );
@@ -100,42 +94,30 @@ public class SalesDAO extends DatabaseDAO{
 
         ResultSet queryResult = preparedStatement.executeQuery();
         
-        Object[][] montlySales = this.putMontlyReportIntoArray(queryResult);
-
-        return montlySales;
+        return this.putMontlyReportIntoReciptsArray(queryResult);
     }
 
     
-    //put the data of a monthly report result set into an array
-    private Object[][] putMontlyReportIntoArray(ResultSet input_queryResult) throws SQLException {
+    //put the data of a monthly report result set into an array of sales recipts
+    private SalesReceipt[] putMontlyReportIntoReciptsArray(ResultSet input_queryResult) throws SQLException {
         
         input_queryResult.last();
         int numberOfSales = input_queryResult.getRow();
-        Object[][] monthlyReport =
-            new Object[numberOfSales][input_queryResult.getMetaData().getColumnCount()];
+        SalesReceipt[] monthlyReport = new SalesReceipt[numberOfSales];
         
         input_queryResult.first();
         
         //put each row of the result set into a row of the array
         for(int saleCount = 0; saleCount < numberOfSales; saleCount++){
             
-            monthlyReport[saleCount][ this.FOLIO_COLUMN ] = 
-                input_queryResult.getInt( this.FOLIO_COLUMN_NAME );
-            
-            monthlyReport[saleCount][ this.CLIENT_PHONENUMBER_COLUMN ] = 
-                input_queryResult.getString( this.CLIENT_PHONENUMBER_COLUMN_NAME );
-            
-            monthlyReport[saleCount][ this.PRODUCT_NAME_COLUMN ] = 
-                input_queryResult.getString( this.PRODUCT_NAME_COLUMN_NAME );
-            
-            monthlyReport[saleCount][ this.QUANTITY_COLUMN ] = 
-                input_queryResult.getInt( this.QUANTITY_COLUMN_NAME );
-            
-            monthlyReport[saleCount][ this.SUBTOTAL_COLUMN ] = 
-                input_queryResult.getDouble( this.SUBTOTAL_COLUMN_NAME );
-            
-            monthlyReport[saleCount][ this.DATE_COLUMN ] = 
-                new RevisedTimestamp( input_queryResult.getTimestamp( this.DATE_COLUMN_NAME ) ).toString();
+            monthlyReport[saleCount] = new SalesReceipt(
+                input_queryResult.getInt( this.FOLIO_COLUMN_NAME ),
+                input_queryResult.getString( this.CLIENT_PHONENUMBER_COLUMN_NAME ),
+                input_queryResult.getString( this.PRODUCT_NAME_COLUMN_NAME ),
+                input_queryResult.getInt( this.QUANTITY_COLUMN_NAME ),
+                input_queryResult.getDouble( this.SUBTOTAL_COLUMN_NAME ),
+                new RevisedTimestamp( input_queryResult.getTimestamp( this.DATE_COLUMN_NAME ) ).toString()
+            );
             
             input_queryResult.next();
         }
