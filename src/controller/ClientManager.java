@@ -122,7 +122,7 @@ public class ClientManager extends Controller{
     }
     
     // Gets the complete client information of a single client.
-    protected static Client searchForClientInfo( String input_clientPhonenumber ) throws SQLException{
+    static Client searchForClientInfo( String input_clientPhonenumber ) throws SQLException{
         return ClientsDAO.getClientsDAO().getClientInfo( input_clientPhonenumber );
     }
 }

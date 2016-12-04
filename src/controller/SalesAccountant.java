@@ -8,21 +8,17 @@ package controller;
 import daos.PricesDAO;
 import daos.ReportDAO;
 import daos.SalesDAO;
-import static daos.SalesDAO.getSalesDAO;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.lang.Object;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jxl.write.WriteException;
 import model.ConfirmationMessager;
 import model.ErrorMessager;
 import model.OrdersList;
 import model.ProductsList;
-import model.reportdatemodels.*;
 import view.ReportForm;
 /**
  *
@@ -167,7 +163,7 @@ public class SalesAccountant extends Controller{
     
     
     //calculates the price of every product based on a stored price and the product quantity
-    public static void calculatePartialCosts(
+    static void calculatePartialCosts(
         OrdersList mod_ordersList //list of the current ordered products. Calculated prices will be stored here 
     ) throws SQLException {
         
@@ -192,7 +188,7 @@ public class SalesAccountant extends Controller{
     
     
     //calculate and return the sale total based on the partial costs
-    public static double totalPriceOfSale( 
+    static double totalPriceOfSale( 
         OrdersList input_ordersList //list of the current ordered products with partial costs already calculated
     ){
         
