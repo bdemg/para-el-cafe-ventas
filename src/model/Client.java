@@ -6,7 +6,7 @@
 package model;
 
 /**
- * Thes class represent's a client of the bakery
+ * Thes class represents a client of the bakery
  * @author Jorge A. Cano
  */
 public class Client {

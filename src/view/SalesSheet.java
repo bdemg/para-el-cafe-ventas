@@ -28,7 +28,7 @@ import view.renders.JSpinnerTableRenderer;
 import view.renders.NumberRenderer;
 
 /**
- *
+ * This class represents the sheet where the salesan takes orders and sets a delivery date for the sale
  * @author Jorge A. Cano
  */
 public class SalesSheet extends javax.swing.JFrame{
@@ -485,6 +485,7 @@ public class SalesSheet extends javax.swing.JFrame{
     }
     
     
+    //set specific renderers and editors for the table cells
     private void setTableLook() {
         
         this.ordersTable.getColumnModel().getColumn( OrdersList.PRODUCT_NAME ).

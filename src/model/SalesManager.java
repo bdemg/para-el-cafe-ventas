@@ -13,7 +13,6 @@ import java.util.Calendar;
 
 /**
  * This class properly stores sales that have been made by the phone operator
- *
  * @author Jorge A. Cano
  */
 public class SalesManager {

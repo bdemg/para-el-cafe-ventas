@@ -7,8 +7,8 @@ package controller;
 
 import daos.DeliveriesDAO;
 import java.sql.SQLException;
-import model.DeliveriesList;
-import view.DeliveriesBoard;
+import model.TodaysDeliveriesList;
+import view.TodaysDeliveriesBoard;
 
 /**
  *
@@ -24,8 +24,8 @@ public class DeliverySecretary {
     private void getDeliveriesOfTheDay() throws SQLException{
          Object[][] deliveries = DeliveriesDAO.getDeliveriesDAO().getTodaysDeliveries();
         
-        DeliveriesBoard DB = new DeliveriesBoard();
-        DB.setDeliveriesList(new DeliveriesList(deliveries));
+        TodaysDeliveriesBoard DB = new TodaysDeliveriesBoard();
+        DB.setDeliveriesList(new TodaysDeliveriesList(deliveries));
     }
     
 }
