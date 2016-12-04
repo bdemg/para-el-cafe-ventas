@@ -69,17 +69,17 @@ public class ReportDAO {
     }
     
     //this funciton is used to write down information in the cells 
-    public void writeDownLabel(int column, int row, String textToInsert) throws WriteException{
+    public void writeDownLabel( int input_column, int input_row, String input_textToInsert ) throws WriteException{
         
-        Label labeledCell = new Label(column, row, textToInsert);
-        reportSheet.addCell(labeledCell);
+        Label labeledCell = new Label( input_column, input_row, input_textToInsert );
+        this.reportSheet.addCell(labeledCell);
     }
     
     //does the same than writeDownLabel, except the information is treated as numbers
-    public void writeDownNumber(int column, int row, double textToInsert) throws WriteException{
+    public void writeDownNumber( int input_column, int input_row, double input_textToInsert ) throws WriteException{
         
-        Number numberCell = new Number(column, row, textToInsert);
-        reportSheet.addCell(numberCell);
+        Number numberCell = new Number( input_column, input_row, input_textToInsert );
+        this.reportSheet.addCell( numberCell );
     }
     
     
