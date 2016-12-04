@@ -17,8 +17,9 @@ import jxl.write.WritableCell;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+
 /**
- *
+ * This class is used to create the file in which the report will be written
  * @author Evan-Ian-Ray
  */
 public class ReportDAO {

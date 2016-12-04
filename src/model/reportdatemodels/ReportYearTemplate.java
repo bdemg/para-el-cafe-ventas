@@ -9,7 +9,7 @@ import java.util.Calendar;
 import javax.swing.SpinnerNumberModel;
 
 /**
- *
+ * This class is used as a template of the year of the report to be written
  * @author Evan-Ian-Ray
  */
 public class ReportYearTemplate extends SpinnerNumberModel {

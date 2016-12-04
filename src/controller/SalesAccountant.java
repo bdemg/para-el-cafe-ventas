@@ -21,8 +21,9 @@ import model.OrdersList;
 import model.ProductsList;
 import model.SalesReceipt;
 import view.ReportForm;
+
 /**
- *
+ * This class represents the person in charge of the accountability
  * @author Evan-Ian-Ray
  */
 public class SalesAccountant extends Controller{
