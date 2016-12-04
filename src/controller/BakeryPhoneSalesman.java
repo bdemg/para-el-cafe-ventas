@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import model.Client;
 import model.ConfirmationMessager;
-import model.SalesAccountant;
 import model.ErrorMessager;
 import model.Keywords;
 import model.OrdersList;
@@ -284,10 +283,9 @@ public final class BakeryPhoneSalesman extends Controller {
         try {
             this.confirmChangesInOrdersList();
             
-            SalesAccountant salesAccountant = SalesAccountant.getSalesAccountant();
-            salesAccountant.calculatePartialCosts( this.salesSheet.getOrdersList() );
+            SalesAccountant.calculatePartialCosts( this.salesSheet.getOrdersList() );
             
-            double saleTotal = salesAccountant.
+            double saleTotal = SalesAccountant.
                 totalPriceOfSale( this.salesSheet.getOrdersList() );
             this.salesSheet.setTotalSale( saleTotal );
             
