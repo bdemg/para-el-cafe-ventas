@@ -11,7 +11,7 @@ import model.reportdatemodels.ReportMonthTemplate;
 import model.reportdatemodels.ReportYearTemplate;
 
 /**
- *
+ * This class represents the form delivered by the supervisor to request a sales report
  * @author Evan-Ian-Ray
  */
 public class ReportForm extends javax.swing.JFrame {

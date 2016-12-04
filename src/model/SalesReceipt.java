@@ -1,7 +1,7 @@
 package model;
 
 /**
- *
+ * This class represents the receipt of a completed sale
  * @author Evan-Ian-Ray
  */
 public final class SalesReceipt {

@@ -11,7 +11,8 @@ import model.DeliveriesList;
 import view.DeliveriesBoard;
 
 /**
- *
+ * This class represents the person who checks what 
+ * orders needs to be delivered the current date
  * @author Evan-Ian-Ray
  */
 public class DeliverySecretary {
