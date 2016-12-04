@@ -99,52 +99,45 @@ public class SalesDAO extends DatabaseDAO{
         );
 
         ResultSet queryResult = preparedStatement.executeQuery();
-
-        boolean areThereMontlySales = queryResult.first();
-        Object[][] montlySales = null;
-
-        //only put the data of the report into an array if there is any data
-        if(areThereMontlySales){
-
-            montlySales = this.putMontlyReportIntoArray(queryResult);
-        }
+        
+        Object[][] montlySales = this.putMontlyReportIntoArray(queryResult);
 
         return montlySales;
     }
 
     
     //put the data of a monthly report result set into an array
-    private Object[][] putMontlyReportIntoArray(ResultSet input_resultSet) throws SQLException {
+    private Object[][] putMontlyReportIntoArray(ResultSet input_queryResult) throws SQLException {
         
-        input_resultSet.last();
-        int numberOfSales = input_resultSet.getRow();
+        input_queryResult.last();
+        int numberOfSales = input_queryResult.getRow();
         Object[][] monthlyReport =
-            new Object[numberOfSales][input_resultSet.getMetaData().getColumnCount()];
+            new Object[numberOfSales][input_queryResult.getMetaData().getColumnCount()];
         
-        input_resultSet.first();
+        input_queryResult.first();
         
         //put each row of the result set into a row of the array
         for(int saleCount = 0; saleCount < numberOfSales; saleCount++){
             
             monthlyReport[saleCount][ this.FOLIO_COLUMN ] = 
-                input_resultSet.getInt( this.FOLIO_COLUMN_NAME );
+                input_queryResult.getInt( this.FOLIO_COLUMN_NAME );
             
             monthlyReport[saleCount][ this.CLIENT_PHONENUMBER_COLUMN ] = 
-                input_resultSet.getString( this.CLIENT_PHONENUMBER_COLUMN_NAME );
+                input_queryResult.getString( this.CLIENT_PHONENUMBER_COLUMN_NAME );
             
             monthlyReport[saleCount][ this.PRODUCT_NAME_COLUMN ] = 
-                input_resultSet.getString( this.PRODUCT_NAME_COLUMN_NAME );
+                input_queryResult.getString( this.PRODUCT_NAME_COLUMN_NAME );
             
             monthlyReport[saleCount][ this.QUANTITY_COLUMN ] = 
-                input_resultSet.getInt( this.QUANTITY_COLUMN_NAME );
+                input_queryResult.getInt( this.QUANTITY_COLUMN_NAME );
             
             monthlyReport[saleCount][ this.SUBTOTAL_COLUMN ] = 
-                input_resultSet.getDouble( this.SUBTOTAL_COLUMN_NAME );
+                input_queryResult.getDouble( this.SUBTOTAL_COLUMN_NAME );
             
             monthlyReport[saleCount][ this.DATE_COLUMN ] = 
-                new RevisedTimestamp( input_resultSet.getTimestamp( this.DATE_COLUMN_NAME ) ).toString();
+                new RevisedTimestamp( input_queryResult.getTimestamp( this.DATE_COLUMN_NAME ) ).toString();
             
-            input_resultSet.next();
+            input_queryResult.next();
         }
         
         return monthlyReport;
