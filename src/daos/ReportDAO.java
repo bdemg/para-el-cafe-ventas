@@ -39,13 +39,13 @@ public class ReportDAO {
         
     }
     
-    
+    //creates the workbook, given a fileroute, and their settings
     private void openWorkbook() throws IOException{
         
         reportBook = Workbook.createWorkbook( getFile(), writeWorkbookInLocalLenguage() );        
     }
     
-    
+    //creates a sheet inside the workbook, given a sheet title and a sheet number
     public void createNewSheet(String title, int numberOfPage) throws IOException{
         
         reportSheet = reportBook.createSheet( title, numberOfPage);
@@ -67,14 +67,14 @@ public class ReportDAO {
         return reportSettings;
     }
     
-    
+    //this funciton is used to write down information in the cells 
     public void writeDownLabel(int column, int row, String textToInsert) throws WriteException{
         
         Label labeledCell = new Label(column, row, textToInsert);
         reportSheet.addCell(labeledCell);
     }
     
-    
+    //does the same than writeDownLabel, except the information is treated as numbers
     public void writeDownNumber(int column, int row, double textToInsert) throws WriteException{
         
         Number numberCell = new Number(column, row, textToInsert);

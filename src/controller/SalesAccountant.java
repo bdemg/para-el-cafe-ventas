@@ -75,53 +75,56 @@ public class SalesAccountant extends Controller{
         this.reportForm.getGenerateReportButton().addActionListener(this);
     }
     
+    
     private boolean isGeneratingMonthlyReport( Object input_eventSource ){
         
         return input_eventSource == this.reportForm.getGenerateReportButton();
     }
     
+    
     private void writeDownReport() throws IOException, WriteException, SQLException {
         
         ReportDAO salesReport = new ReportDAO();        
         
-        //Object salesRecipts = salesRecipts();
+        Object[][] salesReceipts = salesReceipts();
         
-        for ( int rowCount = 0; rowCount < salesReceipts().length; rowCount++ ){
+        for ( int rowCount = 0; rowCount < salesReceipts.length; rowCount++ ){
             
             salesReport.writeDownLabel(
                     this.FOLIO_COLUMN, 
                     rowCount, 
-                    String.valueOf(salesReceipts()[rowCount][this.FOLIO_COLUMN]));
+                    String.valueOf(salesReceipts[rowCount][this.FOLIO_COLUMN]));
             
             salesReport.writeDownLabel(
-                    CLIENT_PHONENUMBER_COLUMN, 
+                    this.CLIENT_PHONENUMBER_COLUMN, 
                     rowCount, 
-                    ( String ) salesReceipts()[rowCount][CLIENT_PHONENUMBER_COLUMN]);
+                    ( String ) salesReceipts[rowCount][this.CLIENT_PHONENUMBER_COLUMN]);
             
             salesReport.writeDownLabel(
-                    PRODUCT_NAME_COLUMN, 
+                    this.PRODUCT_NAME_COLUMN, 
                     rowCount, 
-                    ( String ) salesReceipts()[rowCount][PRODUCT_NAME_COLUMN]);
+                    ( String ) salesReceipts[rowCount][this.PRODUCT_NAME_COLUMN]);
             
             salesReport.writeDownNumber(
-                    QUANTITY_COLUMN, 
+                    this.QUANTITY_COLUMN, 
                     rowCount, 
-                    (int) salesReceipts()[rowCount][QUANTITY_COLUMN]);
+                    (int) salesReceipts[rowCount][this.QUANTITY_COLUMN]);
             
             salesReport.writeDownNumber(
-                    SUBTOTAL_COLUMN, 
+                    this.SUBTOTAL_COLUMN, 
                     rowCount, 
-                    (double) salesReceipts()[rowCount][SUBTOTAL_COLUMN]);
+                    (double) salesReceipts[rowCount][this.SUBTOTAL_COLUMN]);
             
             salesReport.writeDownLabel(
-                    DATE_COLUMN, 
+                    this.DATE_COLUMN, 
                     rowCount, 
-                    ( String ) salesReceipts()[rowCount][DATE_COLUMN]);
+                    ( String ) salesReceipts[rowCount][this.DATE_COLUMN]);
         }
         
         salesReport.finishReport();
     }
     
+    //Obtains all the sales completed in a month
     private Object[][] salesReceipts() throws SQLException{
         
         Object[][] receiptsOfTheMonth = SalesDAO.getSalesDAO().getMonthlySales( 
